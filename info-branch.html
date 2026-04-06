@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animal.ia — Branch Info</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #2d2418; background: #fdf8f0; padding: 2rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    h1 span { color: #d4a843; }
+    .subtitle { color: #8a7a66; font-size: 0.9rem; margin-bottom: 2rem; }
+    h2 { font-size: 1.1rem; margin: 2rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid #e8dcc8; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; font-size: 0.875rem; }
+    th { color: #8a7a66; font-weight: 500; }
+    tr + tr { border-top: 1px solid #f0e8d8; }
+    .done { color: #4a8c3f; font-weight: 500; }
+    code { background: #f0e8d8; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.8rem; }
+    .section { background: #fff; border: 1px solid #e8dcc8; border-radius: 8px; padding: 1.25rem; margin-bottom: 1.25rem; }
+    ul { padding-left: 1.25rem; font-size: 0.875rem; }
+    li { margin-bottom: 0.3rem; }
+    .meta { display: flex; gap: 2rem; flex-wrap: wrap; font-size: 0.8rem; color: #8a7a66; margin-bottom: 2rem; }
+    .meta div { background: #fff; border: 1px solid #e8dcc8; border-radius: 6px; padding: 0.5rem 0.75rem; }
+    .meta strong { color: #2d2418; }
+  </style>
+</head>
+<body>
+
+  <h1>🦒 animal<span>.ia</span></h1>
+  <p class="subtitle">Phase 1 — Project Setup & Foundation</p>
+
+  <div class="meta">
+    <div><strong>Branch:</strong> main</div>
+    <div><strong>Framework:</strong> Next.js 16.2.2</div>
+    <div><strong>Language:</strong> TypeScript</div>
+    <div><strong>Styling:</strong> Tailwind CSS 4 + shadcn/ui</div>
+    <div><strong>i18n:</strong> next-intl (IT / EN)</div>
+  </div>
+
+  <h2>Features Completed</h2>
+  <div class="section">
+    <table>
+      <tr><th>Feature</th><th>Status</th></tr>
+      <tr><td>Next.js 16 + TypeScript + Tailwind CSS 4</td><td class="done">Done</td></tr>
+      <tr><td>shadcn/ui components (Button, Card, Input, Select, Dialog, etc.)</td><td class="done">Done</td></tr>
+      <tr><td>Giraffe-inspired branding (yellow, orange, cream, dark brown)</td><td class="done">Done</td></tr>
+      <tr><td>i18n — Italian (default) + English</td><td class="done">Done</td></tr>
+      <tr><td>Landing page — Header, Hero, Features, Pricing, Footer</td><td class="done">Done</td></tr>
+      <tr><td>Onboarding wizard — 4 steps (Account, Pet, Health, Plan)</td><td class="done">Done</td></tr>
+      <tr><td>Privacy Policy (IT + EN)</td><td class="done">Done</td></tr>
+      <tr><td>Terms of Service (IT + EN)</td><td class="done">Done</td></tr>
+      <tr><td>Cookie Policy (IT + EN)</td><td class="done">Done</td></tr>
+      <tr><td>GDPR Notice (IT + EN)</td><td class="done">Done</td></tr>
+    </table>
+  </div>
+
+  <h2>Pages</h2>
+  <div class="section">
+    <table>
+      <tr><th>Route</th><th>Description</th></tr>
+      <tr><td><code>/it</code></td><td>Landing page (Italian, default)</td></tr>
+      <tr><td><code>/en</code></td><td>Landing page (English)</td></tr>
+      <tr><td><code>/it/onboarding</code></td><td>Onboarding wizard</td></tr>
+      <tr><td><code>/it/privacy</code></td><td>Privacy Policy</td></tr>
+      <tr><td><code>/it/terms</code></td><td>Terms of Service</td></tr>
+      <tr><td><code>/it/cookies</code></td><td>Cookie Policy</td></tr>
+      <tr><td><code>/it/gdpr</code></td><td>GDPR Notice</td></tr>
+    </table>
+    <p style="font-size:0.8rem; color:#8a7a66; margin-top:0.5rem;">All pages available under both <code>/it/</code> and <code>/en/</code> prefixes.</p>
+  </div>
+
+  <h2>Project Structure</h2>
+  <div class="section">
+    <ul>
+      <li><code>src/app/[locale]/</code> — Locale-based pages (layout, home, legal, onboarding)</li>
+      <li><code>src/components/</code> — Header, HeroSection, FeaturesSection, PricingSection, Footer, OnboardingWizard</li>
+      <li><code>src/components/ui/</code> — shadcn/ui base components</li>
+      <li><code>src/i18n/</code> — Routing and request config for next-intl</li>
+      <li><code>messages/it.json</code> — Italian translations</li>
+      <li><code>messages/en.json</code> — English translations</li>
+      <li><code>src/app/globals.css</code> — Brand colors and Tailwind theme</li>
+    </ul>
+  </div>
+
+  <h2>Commands</h2>
+  <div class="section">
+    <table>
+      <tr><td><code>npm run dev</code></td><td>Start dev server</td></tr>
+      <tr><td><code>npm run build</code></td><td>Production build</td></tr>
+      <tr><td><code>npm start</code></td><td>Start production server</td></tr>
+    </table>
+  </div>
+
+  <h2>Next Phases</h2>
+  <div class="section">
+    <table>
+      <tr><th>Phase</th><th>Scope</th></tr>
+      <tr><td>Phase 2</td><td>Simulated insurance policies, Stripe checkout, claims system</td></tr>
+      <tr><td>Phase 3</td><td>Medical records timeline, document archive (Supabase Storage)</td></tr>
+      <tr><td>Phase 4</td><td>AI chatbot (Claude API), cookie banner, final polish</td></tr>
+    </table>
+  </div>
+
+</body>
+</html>

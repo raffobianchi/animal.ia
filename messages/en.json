@@ -1,0 +1,153 @@
+{
+  "metadata": {
+    "title": "animal.ia — Pet Insurance & Health",
+    "description": "Manage your pet's insurance, medical records, and documents all in one place."
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Plans",
+    "faq": "FAQ",
+    "login": "Log In",
+    "signup": "Get Started",
+    "dashboard": "Dashboard",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Everything for your pet, in one app",
+    "subtitle": "Insurance, medical records, documents, and AI assistance — everything you need to take care of your pet.",
+    "cta": "Start Free",
+    "ctaSecondary": "See Plans"
+  },
+  "features": {
+    "title": "What you can do with animal.ia",
+    "subtitle": "A complete platform for your pet's health and protection.",
+    "insurance": {
+      "title": "Pet Insurance",
+      "description": "Choose the perfect plan to protect your pet. Instant quotes and comprehensive coverage."
+    },
+    "records": {
+      "title": "Medical Records",
+      "description": "Keep track of visits, vaccines, treatments, and medications in a clear, organized timeline."
+    },
+    "claims": {
+      "title": "Claims Filing",
+      "description": "File a claim in minutes. Upload invoices and track the status in real time."
+    },
+    "chatbot": {
+      "title": "AI Assistant",
+      "description": "Got a question? Our AI chatbot answers 24/7 about coverage, claims, and much more."
+    },
+    "documents": {
+      "title": "Document Archive",
+      "description": "Passport, vaccination booklet, microchip — all your pet's documents safe in the cloud."
+    },
+    "onboarding": {
+      "title": "Easy Sign Up",
+      "description": "Register yourself and your pet in just a few steps. No paperwork, just simplicity."
+    }
+  },
+  "pricing": {
+    "title": "Choose the Perfect Plan",
+    "subtitle": "Flexible plans for every need. Start protecting your pet today.",
+    "monthly": "month",
+    "basic": {
+      "name": "Basic",
+      "price": "9.99",
+      "description": "Essential protection for your pet",
+      "features": [
+        "Accident coverage",
+        "Document archive",
+        "Basic medical records",
+        "AI Assistant"
+      ]
+    },
+    "standard": {
+      "name": "Standard",
+      "price": "19.99",
+      "description": "The most popular choice for pet lovers",
+      "popular": "Most Popular",
+      "features": [
+        "Everything in Basic",
+        "Illness coverage",
+        "Unlimited claims",
+        "Priority support",
+        "Vaccine reminders"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "34.99",
+      "description": "Complete protection, worry-free",
+      "features": [
+        "Everything in Standard",
+        "Dental coverage",
+        "Specialist visits",
+        "Rehabilitation therapy",
+        "24/7 phone support"
+      ]
+    },
+    "cta": "Choose Plan"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "gdpr": "GDPR"
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Create your account",
+      "subtitle": "Start your journey with animal.ia",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "next": "Continue"
+    },
+    "step2": {
+      "title": "Add your pet",
+      "subtitle": "Tell us about your pet",
+      "petName": "Pet name",
+      "species": "Species",
+      "speciesOptions": {
+        "dog": "Dog",
+        "cat": "Cat",
+        "rabbit": "Rabbit",
+        "bird": "Bird",
+        "other": "Other"
+      },
+      "breed": "Breed",
+      "age": "Age (years)",
+      "weight": "Weight (kg)",
+      "next": "Continue",
+      "back": "Back"
+    },
+    "step3": {
+      "title": "Pet health",
+      "subtitle": "A few questions about your pet's health",
+      "vaccinated": "Is your pet vaccinated?",
+      "sterilized": "Is your pet sterilized?",
+      "chronicConditions": "Any chronic conditions?",
+      "allergies": "Known allergies",
+      "allergiesPlaceholder": "Describe any allergies...",
+      "yes": "Yes",
+      "no": "No",
+      "next": "Continue",
+      "back": "Back"
+    },
+    "step4": {
+      "title": "Choose your plan",
+      "subtitle": "Select the ideal coverage for your pet",
+      "finish": "Complete Registration",
+      "back": "Back"
+    },
+    "complete": {
+      "title": "Welcome to animal.ia!",
+      "subtitle": "Your account has been created successfully. You're ready to protect your pet.",
+      "cta": "Go to Dashboard"
+    },
+    "progress": "Step {step} of {total}"
+  }
+}

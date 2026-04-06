@@ -1,0 +1,153 @@
+{
+  "metadata": {
+    "title": "animal.ia — Assicurazione e Salute per il tuo Pet",
+    "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo animale domestico in un unico posto."
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Funzionalità",
+    "pricing": "Piani",
+    "faq": "FAQ",
+    "login": "Accedi",
+    "signup": "Inizia Ora",
+    "dashboard": "Dashboard",
+    "language": "Lingua"
+  },
+  "hero": {
+    "title": "Tutto per il tuo animale, in un'unica app",
+    "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI — tutto quello che serve per prenderti cura del tuo pet.",
+    "cta": "Inizia Gratis",
+    "ctaSecondary": "Scopri i Piani"
+  },
+  "features": {
+    "title": "Cosa puoi fare con animal.ia",
+    "subtitle": "Una piattaforma completa per la salute e la protezione del tuo animale domestico.",
+    "insurance": {
+      "title": "Assicurazione Pet",
+      "description": "Scegli il piano perfetto per proteggere il tuo animale. Preventivi immediati e copertura completa."
+    },
+    "records": {
+      "title": "Cartella Clinica",
+      "description": "Tieni traccia di visite, vaccini, terapie e farmaci in una timeline chiara e organizzata."
+    },
+    "claims": {
+      "title": "Apertura Sinistri",
+      "description": "Apri un sinistro in pochi minuti. Carica fatture e segui lo stato in tempo reale."
+    },
+    "chatbot": {
+      "title": "Assistente AI",
+      "description": "Hai una domanda? Il nostro chatbot AI risponde 24/7 su coperture, sinistri e molto altro."
+    },
+    "documents": {
+      "title": "Archivio Documenti",
+      "description": "Passaporto, libretto vaccini, microchip — tutti i documenti del tuo pet al sicuro nel cloud."
+    },
+    "onboarding": {
+      "title": "Registrazione Facile",
+      "description": "In pochi passi registri te e il tuo animale. Nessuna burocrazia, solo semplicità."
+    }
+  },
+  "pricing": {
+    "title": "Scegli il Piano Perfetto",
+    "subtitle": "Piani flessibili per ogni esigenza. Inizia a proteggere il tuo pet oggi.",
+    "monthly": "mese",
+    "basic": {
+      "name": "Base",
+      "price": "9.99",
+      "description": "Protezione essenziale per il tuo animale",
+      "features": [
+        "Copertura infortuni",
+        "Archivio documenti",
+        "Cartella clinica base",
+        "Assistente AI"
+      ]
+    },
+    "standard": {
+      "name": "Standard",
+      "price": "19.99",
+      "description": "La scelta più popolare per i pet lover",
+      "popular": "Più Popolare",
+      "features": [
+        "Tutto del piano Base",
+        "Copertura malattie",
+        "Sinistri illimitati",
+        "Supporto prioritario",
+        "Promemoria vaccini"
+      ]
+    },
+    "premium": {
+      "name": "Premium",
+      "price": "34.99",
+      "description": "Protezione completa senza pensieri",
+      "features": [
+        "Tutto del piano Standard",
+        "Copertura dentale",
+        "Visite specialistiche",
+        "Terapie riabilitative",
+        "Assistenza telefonica 24/7"
+      ]
+    },
+    "cta": "Scegli Piano"
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati.",
+    "privacy": "Privacy Policy",
+    "terms": "Termini di Servizio",
+    "cookies": "Cookie Policy",
+    "gdpr": "GDPR"
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Crea il tuo account",
+      "subtitle": "Inizia il tuo percorso con animal.ia",
+      "name": "Nome completo",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma password",
+      "next": "Continua"
+    },
+    "step2": {
+      "title": "Aggiungi il tuo pet",
+      "subtitle": "Raccontaci del tuo animale domestico",
+      "petName": "Nome del pet",
+      "species": "Specie",
+      "speciesOptions": {
+        "dog": "Cane",
+        "cat": "Gatto",
+        "rabbit": "Coniglio",
+        "bird": "Uccello",
+        "other": "Altro"
+      },
+      "breed": "Razza",
+      "age": "Età (anni)",
+      "weight": "Peso (kg)",
+      "next": "Continua",
+      "back": "Indietro"
+    },
+    "step3": {
+      "title": "Salute del pet",
+      "subtitle": "Qualche domanda sulla salute del tuo animale",
+      "vaccinated": "Il pet è vaccinato?",
+      "sterilized": "Il pet è sterilizzato?",
+      "chronicConditions": "Ha condizioni croniche?",
+      "allergies": "Allergie note",
+      "allergiesPlaceholder": "Descrivi eventuali allergie...",
+      "yes": "Sì",
+      "no": "No",
+      "next": "Continua",
+      "back": "Indietro"
+    },
+    "step4": {
+      "title": "Scegli il tuo piano",
+      "subtitle": "Seleziona la copertura ideale per il tuo pet",
+      "finish": "Completa Registrazione",
+      "back": "Indietro"
+    },
+    "complete": {
+      "title": "Benvenuto in animal.ia!",
+      "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo pet.",
+      "cta": "Vai alla Dashboard"
+    },
+    "progress": "Passo {step} di {total}"
+  }
+}
