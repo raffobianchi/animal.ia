@@ -60,7 +60,7 @@ export function OnboardingWizard() {
         <CardContent>
           <Button
             className="bg-giraffe text-warm hover:bg-giraffe-dark"
-            onClick={() => router.push(`/${locale}`)}
+            onClick={() => router.push(`/${locale}/dashboard`)}
           >
             {t("complete.cta")}
           </Button>

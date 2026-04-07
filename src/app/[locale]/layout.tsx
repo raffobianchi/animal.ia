@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { routing } from "~/i18n/routing";
 import itMessages from "../../../messages/it.json";
 import enMessages from "../../../messages/en.json";
+import { CookieBanner } from "~/components/CookieBanner";
+import { ChatBot } from "~/components/ChatBot";
 import "../globals.css";
 
 const allMessages: Record<string, typeof itMessages> = { it: itMessages, en: enMessages };
@@ -55,6 +57,8 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <CookieBanner />
+          <ChatBot />
         </NextIntlClientProvider>
       </body>
     </html>

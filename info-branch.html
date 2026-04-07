@@ -23,12 +23,13 @@
     .meta { display: flex; gap: 2rem; flex-wrap: wrap; font-size: 0.8rem; color: #8a7a66; margin-bottom: 2rem; }
     .meta div { background: #fff; border: 1px solid #e8dcc8; border-radius: 6px; padding: 0.5rem 0.75rem; }
     .meta strong { color: #2d2418; }
+    .phase-label { display: inline-block; background: #d4a843; color: #2d2418; font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle; }
   </style>
 </head>
 <body>
 
   <h1>🦒 animal<span>.ia</span></h1>
-  <p class="subtitle">Phase 1 — Project Setup & Foundation</p>
+  <p class="subtitle">Phase 1–3 Complete — Foundation, Insurance, AI & Polish</p>
 
   <div class="meta">
     <div><strong>Branch:</strong> main</div>
@@ -41,27 +42,47 @@
   <h2>Features Completed</h2>
   <div class="section">
     <table>
-      <tr><th>Feature</th><th>Status</th></tr>
-      <tr><td>Next.js 16 + TypeScript + Tailwind CSS 4</td><td class="done">Done</td></tr>
-      <tr><td>shadcn/ui components (Button, Card, Input, Select, Dialog, etc.)</td><td class="done">Done</td></tr>
-      <tr><td>Giraffe-inspired branding (yellow, orange, cream, dark brown)</td><td class="done">Done</td></tr>
-      <tr><td>i18n — Italian (default) + English</td><td class="done">Done</td></tr>
-      <tr><td>Landing page — Header, Hero, Features, Pricing, Footer</td><td class="done">Done</td></tr>
-      <tr><td>Onboarding wizard — 4 steps (Account, Pet, Health, Plan)</td><td class="done">Done</td></tr>
-      <tr><td>Privacy Policy (IT + EN)</td><td class="done">Done</td></tr>
-      <tr><td>Terms of Service (IT + EN)</td><td class="done">Done</td></tr>
-      <tr><td>Cookie Policy (IT + EN)</td><td class="done">Done</td></tr>
-      <tr><td>GDPR Notice (IT + EN)</td><td class="done">Done</td></tr>
+      <tr><th>Feature</th><th>Phase</th><th>Status</th></tr>
+      <tr><td>Next.js 16 + TypeScript + Tailwind CSS 4</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>shadcn/ui components</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>Giraffe-inspired branding</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>i18n — Italian (default) + English</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>Landing page — Header, Hero, Features, Pricing, Footer</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>Onboarding wizard — 4 steps</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>Privacy Policy, Terms, Cookie Policy, GDPR (IT + EN)</td><td>1</td><td class="done">Done</td></tr>
+      <tr><td>Dashboard layout with sidebar + mobile nav</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>Dashboard overview with summary cards</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>Policy management — list, details, simulated purchase</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>Claims system — list, new claim, detail with timeline</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>Medical records timeline</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>Document archive</td><td>2</td><td class="done">Done</td></tr>
+      <tr><td>AI FAQ chatbot (floating widget)</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Cookie consent banner (GDPR)</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Add medical record dialog</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Upload document dialog</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Login page</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Onboarding → Dashboard flow</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Dashboard user menu with logout</td><td>3</td><td class="done">Done</td></tr>
+      <tr><td>Language switcher in dashboard</td><td>3</td><td class="done">Done</td></tr>
     </table>
   </div>
 
-  <h2>Pages</h2>
+  <h2>Pages (21 routes)</h2>
   <div class="section">
     <table>
       <tr><th>Route</th><th>Description</th></tr>
       <tr><td><code>/it</code></td><td>Landing page (Italian, default)</td></tr>
       <tr><td><code>/en</code></td><td>Landing page (English)</td></tr>
-      <tr><td><code>/it/onboarding</code></td><td>Onboarding wizard</td></tr>
+      <tr><td><code>/it/login</code></td><td>Login page</td></tr>
+      <tr><td><code>/it/onboarding</code></td><td>Onboarding wizard (4 steps)</td></tr>
+      <tr><td><code>/it/dashboard</code></td><td>Dashboard overview</td></tr>
+      <tr><td><code>/it/dashboard/policies</code></td><td>Policy list and details</td></tr>
+      <tr><td><code>/it/dashboard/policies/new</code></td><td>Purchase new policy (simulated)</td></tr>
+      <tr><td><code>/it/dashboard/claims</code></td><td>Claims list</td></tr>
+      <tr><td><code>/it/dashboard/claims/new</code></td><td>File a new claim</td></tr>
+      <tr><td><code>/it/dashboard/claims/[id]</code></td><td>Claim detail with status timeline</td></tr>
+      <tr><td><code>/it/dashboard/records</code></td><td>Medical records timeline</td></tr>
+      <tr><td><code>/it/dashboard/documents</code></td><td>Document archive</td></tr>
       <tr><td><code>/it/privacy</code></td><td>Privacy Policy</td></tr>
       <tr><td><code>/it/terms</code></td><td>Terms of Service</td></tr>
       <tr><td><code>/it/cookies</code></td><td>Cookie Policy</td></tr>
@@ -73,13 +94,13 @@
   <h2>Project Structure</h2>
   <div class="section">
     <ul>
-      <li><code>src/app/[locale]/</code> — Locale-based pages (layout, home, legal, onboarding)</li>
-      <li><code>src/components/</code> — Header, HeroSection, FeaturesSection, PricingSection, Footer, OnboardingWizard</li>
+      <li><code>src/app/[locale]/</code> — Locale-based pages (layout, home, dashboard, legal, onboarding, login)</li>
+      <li><code>src/app/[locale]/dashboard/</code> — Dashboard pages (overview, policies, claims, records, documents)</li>
+      <li><code>src/components/</code> — Header, Hero, Features, Pricing, Footer, OnboardingWizard, DashboardSidebar, ChatBot, CookieBanner</li>
       <li><code>src/components/ui/</code> — shadcn/ui base components</li>
+      <li><code>src/data/</code> — TypeScript types and mock data (pets, policies, claims, records, documents)</li>
       <li><code>src/i18n/</code> — Routing and request config for next-intl</li>
-      <li><code>messages/it.json</code> — Italian translations</li>
-      <li><code>messages/en.json</code> — English translations</li>
-      <li><code>src/app/globals.css</code> — Brand colors and Tailwind theme</li>
+      <li><code>messages/</code> — Italian and English translation files</li>
     </ul>
   </div>
 
@@ -92,13 +113,12 @@
     </table>
   </div>
 
-  <h2>Next Phases</h2>
+  <h2>Next Steps</h2>
   <div class="section">
     <table>
       <tr><th>Phase</th><th>Scope</th></tr>
-      <tr><td>Phase 2</td><td>Simulated insurance policies, Stripe checkout, claims system</td></tr>
-      <tr><td>Phase 3</td><td>Medical records timeline, document archive (Supabase Storage)</td></tr>
-      <tr><td>Phase 4</td><td>AI chatbot (Claude API), cookie banner, final polish</td></tr>
+      <tr><td>Phase 4</td><td>Supabase integration (real auth, database, file storage)</td></tr>
+      <tr><td>Phase 5</td><td>Claude API chatbot, Stripe payments, email notifications</td></tr>
     </table>
   </div>
 
