@@ -82,12 +82,12 @@
   --secondary: #fff3dc;
   --secondary-foreground: #1a1410;
   --muted: #f5ede0;
-  --muted-foreground: #6b5d4a;
+  --muted-foreground: #574836;
   --accent: #fff3dc;
   --accent-foreground: #1a1410;
-  --destructive: #e04444;
-  --border: #ede2cc;
-  --input: #ede2cc;
+  --destructive: #c43030;
+  --border: #e6d9bf;
+  --input: #e6d9bf;
   --ring: #f5b73d;
   --chart-1: #f5b73d;
   --chart-2: #ff7a3d;
@@ -147,13 +147,52 @@
     @apply bg-background text-foreground;
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.022em;
     font-weight: 600;
+    text-wrap: balance;
   }
+  h1 { line-height: 1.05; letter-spacing: -0.03em; }
+  h2 { line-height: 1.1; letter-spacing: -0.025em; }
+  h3 { line-height: 1.2; }
+  p  { text-wrap: pretty; }
+
+  /* Visible keyboard focus on every interactive element */
+  :where(a, button, [role="button"], input, select, textarea, summary):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    background: var(--warm);
+    color: var(--cream);
+    padding: 0.75rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hover\:scale-\[1\.02\]:hover { transform: none !important; }
 }

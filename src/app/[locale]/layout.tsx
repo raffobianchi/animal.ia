@@ -52,6 +52,9 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <a href="#main" className="skip-link">
+            {locale === "it" ? "Salta al contenuto" : "Skip to content"}
+          </a>
           {children}
           <CookieBanner />
           <ChatBot />

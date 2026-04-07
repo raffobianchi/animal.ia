@@ -19,3 +19,10 @@ export const card =
 
 // Form input sizing for the bigger redesign
 export const inputBig = "h-14 rounded-2xl text-base";
+
+// Typography — consistent page hierarchy
+export const pageTitle =
+  "text-4xl font-bold tracking-tight text-warm md:text-5xl";
+export const pageSubtitle = "text-lg text-muted-foreground md:text-xl";
+export const sectionTitle =
+  "text-2xl font-bold tracking-tight text-warm md:text-3xl";

@@ -46,14 +46,15 @@ export function DashboardSidebar() {
               <Link
                 key={key}
                 href={fullPath}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "flex items-center gap-4 rounded-2xl px-4 py-3.5 text-base font-medium transition-all",
+                  "flex items-center gap-4 rounded-2xl px-4 py-3.5 text-base font-medium transition-colors",
                   isActive
                     ? "bg-secondary text-warm"
                     : "text-muted-foreground hover:bg-secondary/60 hover:text-warm"
                 )}
               >
-                <span className="text-xl">{icon}</span>
+                <span className="text-xl" aria-hidden="true">{icon}</span>
                 {t(key)}
               </Link>
             );
@@ -100,12 +101,19 @@ export function DashboardSidebar() {
             <Link
               key={key}
               href={fullPath}
+              aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-medium",
+                "relative flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-medium transition-colors",
                 isActive ? "text-warm" : "text-muted-foreground"
               )}
             >
-              <span className="text-2xl">{icon}</span>
+              {isActive && (
+                <span
+                  aria-hidden="true"
+                  className="absolute top-0 h-0.5 w-10 rounded-full bg-giraffe"
+                />
+              )}
+              <span className="text-2xl" aria-hidden="true">{icon}</span>
               <span>{t(key)}</span>
             </Link>
           );
