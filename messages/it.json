@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "animal.ia — Assicurazione e Salute per il tuo Pet",
+    "title": "animal.ia — Assicurazione e Salute per il tuo amico domestico",
     "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo animale domestico in un unico posto."
   },
   "common": {
@@ -23,9 +23,9 @@
     "language": "Lingua"
   },
   "hero": {
-    "badge": "Assicurazione pet di nuova generazione",
+    "badge": "Assicurazione amico domestico di nuova generazione",
     "title": "Tutto per il tuo animale, in un'unica app",
-    "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI — tutto quello che serve per prenderti cura del tuo pet.",
+    "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI, tutto quello che serve per prenderti cura del tuo amico domestico.",
     "cta": "Inizia Gratis",
     "ctaSecondary": "Scopri i Piani",
     "trust1": "Senza pensieri",
@@ -36,7 +36,7 @@
     "title": "Cosa puoi fare con animal.ia",
     "subtitle": "Una piattaforma completa per la salute e la protezione del tuo animale domestico.",
     "insurance": {
-      "title": "Assicurazione Pet",
+      "title": "Assicurazione amico domestico",
       "description": "Scegli il piano perfetto per proteggere il tuo animale. Preventivi immediati e copertura completa."
     },
     "records": {
@@ -53,7 +53,7 @@
     },
     "documents": {
       "title": "Archivio Documenti",
-      "description": "Passaporto, libretto vaccini, microchip — tutti i documenti del tuo pet al sicuro nel cloud."
+      "description": "Passaporto, libretto vaccini, microchip — tutti i documenti del tuo amico domestico al sicuro nel cloud."
     },
     "onboarding": {
       "title": "Registrazione Facile",
@@ -62,7 +62,7 @@
   },
   "pricing": {
     "title": "Scegli il Piano Perfetto",
-    "subtitle": "Piani flessibili per ogni esigenza. Inizia a proteggere il tuo pet oggi.",
+    "subtitle": "Piani flessibili per ogni esigenza. Inizia a proteggere il tuo amico domestico oggi.",
     "monthly": "mese",
     "basic": {
       "name": "Base",
@@ -78,7 +78,7 @@
     "standard": {
       "name": "Standard",
       "price": "19.99",
-      "description": "La scelta più popolare per i pet lover",
+      "description": "La scelta più popolare per gli amanti degli amici domestici",
       "popular": "Più Popolare",
       "features": [
         "Tutto del piano Base",
@@ -103,7 +103,7 @@
     "cta": "Scegli Piano"
   },
   "footer": {
-    "tagline": "Assicurazione pet di nuova generazione, semplice come deve essere.",
+    "tagline": "Assicurazione amico domestico di nuova generazione, semplice come deve essere.",
     "product": "Prodotto",
     "legal": "Legale",
     "getStarted": "Inizia ora",
@@ -124,9 +124,9 @@
       "next": "Continua"
     },
     "step2": {
-      "title": "Aggiungi il tuo pet",
+      "title": "Aggiungi il tuo amico domestico",
       "subtitle": "Raccontaci del tuo animale domestico",
-      "petName": "Nome del pet",
+      "petName": "Nome dell'amico domestico",
       "species": "Specie",
       "speciesOptions": {
         "dog": "Cane",
@@ -142,10 +142,10 @@
       "back": "Indietro"
     },
     "step3": {
-      "title": "Salute del pet",
+      "title": "Salute dell'amico domestico",
       "subtitle": "Qualche domanda sulla salute del tuo animale",
-      "vaccinated": "Il pet è vaccinato?",
-      "sterilized": "Il pet è sterilizzato?",
+      "vaccinated": "L'amico domestico è vaccinato?",
+      "sterilized": "L'amico domestico è sterilizzato?",
       "chronicConditions": "Ha condizioni croniche?",
       "allergies": "Allergie note",
       "allergiesPlaceholder": "Descrivi eventuali allergie...",
@@ -156,13 +156,13 @@
     },
     "step4": {
       "title": "Scegli il tuo piano",
-      "subtitle": "Seleziona la copertura ideale per il tuo pet",
+      "subtitle": "Seleziona la copertura ideale per il tuo amico domestico",
       "finish": "Completa Registrazione",
       "back": "Indietro"
     },
     "complete": {
       "title": "Benvenuto in animal.ia!",
-      "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo pet.",
+      "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo amico domestico.",
       "cta": "Vai alla Dashboard"
     },
     "progress": "Passo {step} di {total}"
@@ -187,7 +187,7 @@
     "overview": {
       "greeting": "Ciao! 👋",
       "subtitle": "Ecco un riepilogo del tuo account",
-      "yourPet": "Il tuo pet",
+      "yourPet": "Il tuo amico domestico",
       "petAge": "{age} anni",
       "activePlan": "Piano attivo",
       "perMonth": "/mese",
@@ -201,7 +201,7 @@
       "fileClaim": "Apri Sinistro",
       "fileClaimDesc": "Invia una nuova richiesta di rimborso",
       "documents": "Documenti",
-      "documentsDesc": "Gestisci i documenti del tuo pet",
+      "documentsDesc": "Gestisci i documenti del tuo amico domestico",
       "records": "Cartella Clinica",
       "recordsDesc": "Visualizza la storia clinica"
     },
@@ -219,7 +219,7 @@
     },
     "newPolicy": {
       "title": "Scegli un Piano",
-      "subtitle": "Seleziona la copertura ideale per il tuo pet",
+      "subtitle": "Seleziona la copertura ideale per il tuo amico domestico",
       "continue": "Continua",
       "confirmTitle": "Conferma Acquisto",
       "summary": "Riepilogo Ordine",
@@ -286,7 +286,7 @@
     },
     "documents": {
       "title": "Archivio Documenti",
-      "subtitle": "Tutti i documenti del tuo pet al sicuro",
+      "subtitle": "Tutti i documenti del tuo amico domestico al sicuro",
       "upload": "Carica",
       "uploadTitle": "Carica Documento",
       "name": "Nome documento",
@@ -327,7 +327,7 @@
       "refund": "Una volta approvato il sinistro, il rimborso viene inviato sul tuo conto entro 3-5 giorni lavorativi. Puoi monitorare lo stato nella pagina dettagli del sinistro.",
       "cancel": "Puoi cancellare la tua polizza in qualsiasi momento dalle impostazioni del tuo account. Il recesso è gratuito entro i primi 14 giorni. Dopo, si applica un preavviso di 30 giorni.",
       "vaccine": "Puoi registrare le vaccinazioni nella sezione Cartella Clinica. Se hai il piano Standard o Premium, riceverai promemoria automatici per i richiami vaccinali.",
-      "documents": "Nella sezione Documenti puoi caricare e archiviare passaporto del pet, libretto vaccinale, certificato microchip e altri documenti. Tutti i file sono crittografati e accessibili solo a te."
+      "documents": "Nella sezione Documenti puoi caricare e archiviare passaporto dell'amico domestico, libretto vaccinale, certificato microchip e altri documenti. Tutti i file sono crittografati e accessibili solo a te."
     }
   },
   "cookies": {
@@ -346,7 +346,7 @@
     "recalc": "Modifica risposte",
     "activate": "Attiva questa polizza",
     "step1": {
-      "title": "Parlaci del tuo pet",
+      "title": "Parlaci del tuo amico domestico",
       "subtitle": "Specie, razza ed età",
       "species": "Specie",
       "speciesDog": "Cane",
