@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import {
@@ -20,6 +20,7 @@ import {
 } from "~/components/ui/dialog";
 import { mockDocuments } from "~/data/mock-data";
 import type { PetDocument } from "~/data/types";
+import { btnPrimary, dashContainer, dashPage } from "~/lib/ui";
 
 const typeIcons: Record<string, string> = {
   passport: "🛂",
@@ -37,18 +38,11 @@ const typeColors: Record<string, string> = {
   other: "bg-secondary",
 };
 
-const typeLabels: Record<string, { it: string; en: string }> = {
-  passport: { it: "Passaporto", en: "Passport" },
-  vaccination_card: { it: "Libretto Vaccini", en: "Vaccination Card" },
-  microchip: { it: "Microchip", en: "Microchip" },
-  adoption: { it: "Adozione", en: "Adoption" },
-  other: { it: "Altro", en: "Other" },
-};
+const typeKeys = ["passport", "vaccination_card", "microchip", "adoption", "other"] as const;
 
 export default function DocumentsPage() {
-  const params = useParams();
-  const locale = params.locale as string;
-  const isIt = locale === "it";
+  const t = useTranslations("dashboard.documents");
+  const tt = useTranslations("dashboard.documents.types");
   const [docs, setDocs] = useState<PetDocument[]>(mockDocuments);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState({ name: "", type: "" as string });
@@ -69,74 +63,66 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="px-6 py-10 md:px-12 md:py-14">
-      <div className="mx-auto max-w-6xl">
+    <div className={dashPage}>
+      <div className={dashContainer}>
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-              {isIt ? "Archivio Documenti" : "Document Archive"}
+              {t("title")}
             </h1>
-            <p className="text-xl text-muted-foreground">
-              {isIt ? "Tutti i documenti del tuo pet al sicuro" : "All your pet's documents safe and secure"}
-            </p>
+            <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger className="inline-flex h-14 shrink-0 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]">
-              📎 {isIt ? "Carica" : "Upload"}
-            </DialogTrigger>
+            <DialogTrigger className={`${btnPrimary} shrink-0`}>📎 {t("upload")}</DialogTrigger>
             <DialogContent className="rounded-3xl">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-warm">
-                  {isIt ? "Carica Documento" : "Upload Document"}
-                </DialogTitle>
+                <DialogTitle className="text-2xl text-warm">{t("uploadTitle")}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 pt-4">
                 <div>
-                  <Label className="mb-2 block">{isIt ? "Nome documento" : "Document name"}</Label>
+                  <Label className="mb-2 block">{t("name")}</Label>
                   <Input
                     className="h-12 rounded-2xl"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder={isIt ? "Es. Passaporto di Luna" : "E.g. Luna's Passport"}
+                    placeholder={t("namePlaceholder")}
                   />
                 </div>
                 <div>
-                  <Label className="mb-2 block">{isIt ? "Tipo" : "Type"}</Label>
+                  <Label className="mb-2 block">{t("type")}</Label>
                   <Select
                     value={form.type}
                     onValueChange={(v) => setForm({ ...form, type: v ?? "" })}
                   >
                     <SelectTrigger className="h-12 rounded-2xl">
-                      <SelectValue placeholder={isIt ? "Seleziona tipo..." : "Select type..."} />
+                      <SelectValue placeholder={t("typePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      {Object.entries(typeLabels).map(([key, label]) => (
+                      {typeKeys.map((key) => (
                         <SelectItem key={key} value={key}>
-                          {typeIcons[key]} {label[locale as "it" | "en"]}
+                          {typeIcons[key]} {tt(key)}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label className="mb-2 block">{isIt ? "File" : "File"}</Label>
+                  <Label className="mb-2 block">{t("file")}</Label>
                   <div className="flex items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-10">
                     <div className="text-center">
                       <span className="text-4xl">📎</span>
-                      <p className="mt-3 text-base text-muted-foreground">
-                        {isIt ? "Trascina o clicca" : "Drag or click"}
-                      </p>
-                      <p className="mt-1 text-sm text-muted-foreground">PDF, JPG, PNG (max 10MB)</p>
+                      <p className="mt-3 text-base text-muted-foreground">{t("dragFile")}</p>
+                      <p className="mt-1 text-sm text-muted-foreground">{t("fileTypes")}</p>
                     </div>
                   </div>
                 </div>
                 <button
                   type="button"
-                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 disabled:opacity-40"
+                  className={`${btnPrimary} w-full`}
                   onClick={addDocument}
                   disabled={!form.name || !form.type}
                 >
-                  {isIt ? "Carica Documento" : "Upload Document"}
+                  {t("uploadCta")}
                 </button>
               </div>
             </DialogContent>
@@ -154,10 +140,10 @@ export default function DocumentsPage() {
               </div>
               <p className="mb-2 text-lg font-semibold text-warm">{doc.name}</p>
               <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-warm">
-                {typeLabels[doc.type]?.[locale as "it" | "en"]}
+                {tt(doc.type)}
               </span>
               <p className="mt-4 text-sm text-muted-foreground">
-                {isIt ? "Caricato il" : "Uploaded"} {doc.uploadDate}
+                {t("uploadedOn")} {doc.uploadDate}
               </p>
             </div>
           ))}
@@ -168,9 +154,7 @@ export default function DocumentsPage() {
             className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-border bg-card/50 p-12 text-center transition-all hover:border-warm/30 hover:bg-card"
           >
             <span className="mb-3 text-5xl">➕</span>
-            <p className="text-base font-semibold text-muted-foreground">
-              {isIt ? "Aggiungi documento" : "Add document"}
-            </p>
+            <p className="text-base font-semibold text-muted-foreground">{t("addDoc")}</p>
           </button>
         </div>
       </div>

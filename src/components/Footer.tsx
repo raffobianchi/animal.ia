@@ -6,6 +6,8 @@ import Link from "next/link";
 
 export function Footer() {
   const t = useTranslations("footer");
+  const tn = useTranslations("nav");
+  const tc = useTranslations("common");
   const params = useParams();
   const locale = params.locale as string;
 
@@ -20,33 +22,29 @@ export function Footer() {
                 animal<span className="text-giraffe">.ia</span>
               </span>
             </Link>
-            <p className="mt-6 max-w-md text-lg text-cream/60">
-              {locale === "it"
-                ? "Assicurazione pet di nuova generazione, semplice come deve essere."
-                : "Next-gen pet insurance, as simple as it should be."}
-            </p>
+            <p className="mt-6 max-w-md text-lg text-cream/60">{t("tagline")}</p>
           </div>
 
           <div>
             <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
-              {locale === "it" ? "Prodotto" : "Product"}
+              {t("product")}
             </h4>
             <nav className="flex flex-col gap-3 text-base text-cream/70">
               <Link href={`/${locale}#features`} className="hover:text-cream">
-                {locale === "it" ? "Funzionalità" : "Features"}
+                {tn("features")}
               </Link>
               <Link href={`/${locale}#pricing`} className="hover:text-cream">
-                {locale === "it" ? "Prezzi" : "Pricing"}
+                {tn("pricing")}
               </Link>
               <Link href={`/${locale}/onboarding`} className="hover:text-cream">
-                {locale === "it" ? "Inizia ora" : "Get started"}
+                {t("getStarted")}
               </Link>
             </nav>
           </div>
 
           <div>
             <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
-              {locale === "it" ? "Legale" : "Legal"}
+              {t("legal")}
             </h4>
             <nav className="flex flex-col gap-3 text-base text-cream/70">
               <Link href={`/${locale}/privacy`} className="hover:text-cream">
@@ -69,9 +67,7 @@ export function Footer() {
           <p className="text-sm text-cream/50">
             © {new Date().getFullYear()} animal.ia — {t("rights")}
           </p>
-          <p className="text-sm text-cream/50">
-            {locale === "it" ? "Fatto con 🦒 in Italia" : "Made with 🦒 in Italy"}
-          </p>
+          <p className="text-sm text-cream/50">{tc("madeIn")}</p>
         </div>
       </div>
     </footer>

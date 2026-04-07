@@ -1,6 +1,4 @@
-import { getTranslations } from "next-intl/server";
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
+import { LegalLayout } from "~/components/LegalLayout";
 
 export default async function PrivacyPage({
   params,
@@ -11,16 +9,11 @@ export default async function PrivacyPage({
   const isIt = locale === "it";
 
   return (
-    <>
-      <Header />
-      <main className="mx-auto max-w-3xl flex-1 px-4 py-12">
-        <article className="prose prose-neutral max-w-none">
-          <h1 className="text-warm">{isIt ? "Informativa sulla Privacy" : "Privacy Policy"}</h1>
-          <p className="text-sm text-muted-foreground">
-            {isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
-          </p>
-
-          <h2>{isIt ? "1. Titolare del Trattamento" : "1. Data Controller"}</h2>
+    <LegalLayout
+      title={isIt ? "Informativa sulla Privacy" : "Privacy Policy"}
+      updatedLabel={isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
+    >
+      <h2>{isIt ? "1. Titolare del Trattamento" : "1. Data Controller"}</h2>
           <p>
             {isIt
               ? "Il titolare del trattamento dei dati personali è animal.ia S.r.l., con sede in Italia. Per qualsiasi richiesta relativa ai tuoi dati personali, puoi contattarci a: privacy@animal.ia"
@@ -82,9 +75,6 @@ export default async function PrivacyPage({
               ? "Per qualsiasi domanda sulla privacy, scrivi a privacy@animal.ia o al nostro DPO (Data Protection Officer) a dpo@animal.ia"
               : "For any privacy questions, write to privacy@animal.ia or our DPO (Data Protection Officer) at dpo@animal.ia"}
           </p>
-        </article>
-      </main>
-      <Footer />
-    </>
+    </LegalLayout>
   );
 }

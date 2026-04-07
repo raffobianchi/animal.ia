@@ -3,6 +3,15 @@
     "title": "animal.ia — Assicurazione e Salute per il tuo Pet",
     "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo animale domestico in un unico posto."
   },
+  "common": {
+    "back": "Indietro",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "loading": "Caricamento...",
+    "logout": "Esci",
+    "language": "Lingua",
+    "madeIn": "Fatto con 🦒 in Italia"
+  },
   "nav": {
     "home": "Home",
     "features": "Funzionalità",
@@ -14,10 +23,14 @@
     "language": "Lingua"
   },
   "hero": {
+    "badge": "Assicurazione pet di nuova generazione",
     "title": "Tutto per il tuo animale, in un'unica app",
     "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI — tutto quello che serve per prenderti cura del tuo pet.",
     "cta": "Inizia Gratis",
-    "ctaSecondary": "Scopri i Piani"
+    "ctaSecondary": "Scopri i Piani",
+    "trust1": "Senza pensieri",
+    "trust2": "Sinistri in 5 minuti",
+    "trust3": "Copertura completa"
   },
   "features": {
     "title": "Cosa puoi fare con animal.ia",
@@ -90,6 +103,10 @@
     "cta": "Scegli Piano"
   },
   "footer": {
+    "tagline": "Assicurazione pet di nuova generazione, semplice come deve essere.",
+    "product": "Prodotto",
+    "legal": "Legale",
+    "getStarted": "Inizia ora",
     "rights": "Tutti i diritti riservati.",
     "privacy": "Privacy Policy",
     "terms": "Termini di Servizio",
@@ -149,5 +166,175 @@
       "cta": "Vai alla Dashboard"
     },
     "progress": "Passo {step} di {total}"
+  },
+  "login": {
+    "title": "Bentornato",
+    "subtitle": "Accedi al tuo account animal.ia",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Accedi",
+    "noAccount": "Non hai un account?",
+    "signup": "Registrati"
+  },
+  "dashboard": {
+    "nav": {
+      "overview": "Panoramica",
+      "policies": "Polizze",
+      "claims": "Sinistri",
+      "records": "Cartella",
+      "documents": "Documenti"
+    },
+    "overview": {
+      "greeting": "Ciao! 👋",
+      "subtitle": "Ecco un riepilogo del tuo account",
+      "yourPet": "Il tuo pet",
+      "petAge": "{age} anni",
+      "activePlan": "Piano attivo",
+      "perMonth": "/mese",
+      "totalClaims": "Sinistri totali",
+      "totalClaimsSub": "Negli ultimi 12 mesi",
+      "reimbursed": "Rimborsato",
+      "reimbursedSub": "Totale ricevuto",
+      "recentClaims": "Sinistri Recenti",
+      "seeAll": "Vedi tutti",
+      "quickActions": "Azioni Rapide",
+      "fileClaim": "Apri Sinistro",
+      "fileClaimDesc": "Invia una nuova richiesta di rimborso",
+      "documents": "Documenti",
+      "documentsDesc": "Gestisci i documenti del tuo pet",
+      "records": "Cartella Clinica",
+      "recordsDesc": "Visualizza la storia clinica"
+    },
+    "policies": {
+      "title": "Le tue Polizze",
+      "subtitle": "Gestisci le tue coperture assicurative",
+      "new": "Nuova Polizza",
+      "plan": "Piano",
+      "for": "Per",
+      "active": "Attiva",
+      "monthlyPremium": "Premio Mensile",
+      "startDate": "Data Inizio",
+      "endDate": "Scadenza",
+      "covered": "Cosa copre:"
+    },
+    "newPolicy": {
+      "title": "Scegli un Piano",
+      "subtitle": "Seleziona la copertura ideale per il tuo pet",
+      "continue": "Continua",
+      "confirmTitle": "Conferma Acquisto",
+      "summary": "Riepilogo Ordine",
+      "annualTotal": "Totale Annuo",
+      "confirmPay": "Conferma e Paga",
+      "doneTitle": "Polizza Attivata!",
+      "doneSubtitle": "Il tuo piano {plan} è ora attivo.",
+      "goToPolicies": "Vai alle Polizze",
+      "popular": "Più Popolare"
+    },
+    "claims": {
+      "title": "I tuoi Sinistri",
+      "subtitle": "Gestisci e monitora le tue richieste",
+      "new": "Nuovo Sinistro",
+      "back": "Torna ai Sinistri",
+      "reference": "Riferimento",
+      "details": "Dettagli",
+      "incidentDate": "Data Incidente",
+      "submitted": "Data Invio",
+      "vet": "Veterinario",
+      "amount": "Importo",
+      "documents": "Documenti",
+      "timeline": "Cronologia Stato",
+      "notFound": "Sinistro non trovato"
+    },
+    "newClaim": {
+      "title": "Apri un Sinistro",
+      "subtitle": "Compila il modulo per il rimborso",
+      "description": "Descrizione dell'accaduto",
+      "descriptionPlaceholder": "Cosa è successo...",
+      "incidentDate": "Data dell'incidente",
+      "vetName": "Nome del veterinario",
+      "amount": "Importo richiesto (€)",
+      "uploadDocs": "Documenti (fatture, ricevute)",
+      "dragFiles": "Trascina i file qui o clicca",
+      "fileTypes": "PDF, JPG, PNG (max 10MB)",
+      "submit": "Invia Sinistro",
+      "doneTitle": "Sinistro Inviato!",
+      "doneSubtitle": "Il tuo sinistro è stato registrato.",
+      "doneRef": "Riferimento: CLM-2026-003",
+      "goToClaims": "Vai ai Sinistri"
+    },
+    "records": {
+      "title": "Cartella Clinica",
+      "subtitle": "Cronologia visite e trattamenti",
+      "new": "Nuova Voce",
+      "addTitle": "Aggiungi Voce Clinica",
+      "type": "Tipo",
+      "typePlaceholder": "Seleziona tipo...",
+      "entryTitle": "Titolo",
+      "titlePlaceholder": "Es. Visita di controllo",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Dettagli...",
+      "date": "Data",
+      "vet": "Veterinario",
+      "add": "Aggiungi",
+      "types": {
+        "visit": "Visita",
+        "vaccine": "Vaccino",
+        "treatment": "Terapia",
+        "surgery": "Intervento",
+        "checkup": "Controllo"
+      }
+    },
+    "documents": {
+      "title": "Archivio Documenti",
+      "subtitle": "Tutti i documenti del tuo pet al sicuro",
+      "upload": "Carica",
+      "uploadTitle": "Carica Documento",
+      "name": "Nome documento",
+      "namePlaceholder": "Es. Passaporto di Luna",
+      "type": "Tipo",
+      "typePlaceholder": "Seleziona tipo...",
+      "file": "File",
+      "dragFile": "Trascina o clicca",
+      "fileTypes": "PDF, JPG, PNG (max 10MB)",
+      "uploadCta": "Carica Documento",
+      "addDoc": "Aggiungi documento",
+      "uploadedOn": "Caricato il",
+      "types": {
+        "passport": "Passaporto",
+        "vaccination_card": "Libretto Vaccini",
+        "microchip": "Microchip",
+        "adoption": "Adozione",
+        "other": "Altro"
+      }
+    },
+    "claimStatus": {
+      "submitted": "Inviato",
+      "under_review": "In Revisione",
+      "approved": "Approvato",
+      "denied": "Rifiutato",
+      "paid": "Pagato"
+    }
+  },
+  "chatbot": {
+    "title": "Assistente AI",
+    "greeting": "Ciao! 🦒 Sono l'assistente di animal.ia. Come posso aiutarti?",
+    "placeholder": "Scrivi un messaggio...",
+    "ariaLabel": "Apri chat",
+    "fallback": "Non ho capito la tua domanda. Prova a chiedere informazioni su: copertura polizza, come aprire un sinistro, rimborsi, cancellazione, vaccini o documenti. Per assistenza diretta scrivi a supporto@animal.ia",
+    "responses": {
+      "coverage": "Il piano Base copre infortuni, archivio documenti, cartella clinica e assistente AI. Il piano Standard aggiunge copertura malattie, sinistri illimitati e supporto prioritario. Il Premium include anche copertura dentale, visite specialistiche e assistenza 24/7.",
+      "claim": "Per aprire un sinistro, vai nella sezione Sinistri della dashboard e clicca 'Nuovo Sinistro'. Compila il modulo con la descrizione, la data dell'incidente, il nome del veterinario e l'importo. Puoi allegare fatture e ricevute. Il sinistro verrà elaborato entro 5-10 giorni lavorativi.",
+      "refund": "Una volta approvato il sinistro, il rimborso viene inviato sul tuo conto entro 3-5 giorni lavorativi. Puoi monitorare lo stato nella pagina dettagli del sinistro.",
+      "cancel": "Puoi cancellare la tua polizza in qualsiasi momento dalle impostazioni del tuo account. Il recesso è gratuito entro i primi 14 giorni. Dopo, si applica un preavviso di 30 giorni.",
+      "vaccine": "Puoi registrare le vaccinazioni nella sezione Cartella Clinica. Se hai il piano Standard o Premium, riceverai promemoria automatici per i richiami vaccinali.",
+      "documents": "Nella sezione Documenti puoi caricare e archiviare passaporto del pet, libretto vaccinale, certificato microchip e altri documenti. Tutti i file sono crittografati e accessibili solo a te."
+    }
+  },
+  "cookies": {
+    "title": "Questo sito utilizza cookie",
+    "body": "Utilizziamo cookie tecnici necessari e, con il tuo consenso, cookie analitici per migliorare la tua esperienza.",
+    "learnMore": "Scopri di più",
+    "essential": "Solo essenziali",
+    "acceptAll": "Accetta tutti"
   }
 }

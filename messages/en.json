@@ -3,6 +3,15 @@
     "title": "animal.ia — Pet Insurance & Health",
     "description": "Manage your pet's insurance, medical records, and documents all in one place."
   },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading...",
+    "logout": "Log out",
+    "language": "Language",
+    "madeIn": "Made with 🦒 in Italy"
+  },
   "nav": {
     "home": "Home",
     "features": "Features",
@@ -14,10 +23,14 @@
     "language": "Language"
   },
   "hero": {
+    "badge": "Next-gen pet insurance",
     "title": "Everything for your pet, in one app",
     "subtitle": "Insurance, medical records, documents, and AI assistance — everything you need to take care of your pet.",
     "cta": "Start Free",
-    "ctaSecondary": "See Plans"
+    "ctaSecondary": "See Plans",
+    "trust1": "Hassle-free",
+    "trust2": "Claims in 5 minutes",
+    "trust3": "Full coverage"
   },
   "features": {
     "title": "What you can do with animal.ia",
@@ -90,6 +103,10 @@
     "cta": "Choose Plan"
   },
   "footer": {
+    "tagline": "Next-gen pet insurance, as simple as it should be.",
+    "product": "Product",
+    "legal": "Legal",
+    "getStarted": "Get started",
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
@@ -149,5 +166,175 @@
       "cta": "Go to Dashboard"
     },
     "progress": "Step {step} of {total}"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to your animal.ia account",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Log In",
+    "noAccount": "Don't have an account?",
+    "signup": "Sign up"
+  },
+  "dashboard": {
+    "nav": {
+      "overview": "Overview",
+      "policies": "Policies",
+      "claims": "Claims",
+      "records": "Records",
+      "documents": "Documents"
+    },
+    "overview": {
+      "greeting": "Hello! 👋",
+      "subtitle": "Here's a summary of your account",
+      "yourPet": "Your pet",
+      "petAge": "{age} years",
+      "activePlan": "Active plan",
+      "perMonth": "/month",
+      "totalClaims": "Total claims",
+      "totalClaimsSub": "In the last 12 months",
+      "reimbursed": "Reimbursed",
+      "reimbursedSub": "Total received",
+      "recentClaims": "Recent Claims",
+      "seeAll": "See all",
+      "quickActions": "Quick Actions",
+      "fileClaim": "File a Claim",
+      "fileClaimDesc": "Submit a new reimbursement request",
+      "documents": "Documents",
+      "documentsDesc": "Manage your pet's documents",
+      "records": "Medical Records",
+      "recordsDesc": "View clinical history"
+    },
+    "policies": {
+      "title": "Your Policies",
+      "subtitle": "Manage your insurance coverage",
+      "new": "New Policy",
+      "plan": "Plan",
+      "for": "For",
+      "active": "Active",
+      "monthlyPremium": "Monthly Premium",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "covered": "What's covered:"
+    },
+    "newPolicy": {
+      "title": "Choose a Plan",
+      "subtitle": "Select the ideal coverage for your pet",
+      "continue": "Continue",
+      "confirmTitle": "Confirm Purchase",
+      "summary": "Order Summary",
+      "annualTotal": "Annual Total",
+      "confirmPay": "Confirm & Pay",
+      "doneTitle": "Policy Activated!",
+      "doneSubtitle": "Your {plan} plan is now active.",
+      "goToPolicies": "Go to Policies",
+      "popular": "Most Popular"
+    },
+    "claims": {
+      "title": "Your Claims",
+      "subtitle": "Manage and track your requests",
+      "new": "New Claim",
+      "back": "Back to Claims",
+      "reference": "Reference",
+      "details": "Details",
+      "incidentDate": "Incident Date",
+      "submitted": "Submitted",
+      "vet": "Vet",
+      "amount": "Amount",
+      "documents": "Documents",
+      "timeline": "Status Timeline",
+      "notFound": "Claim not found"
+    },
+    "newClaim": {
+      "title": "File a Claim",
+      "subtitle": "Fill out the form for reimbursement",
+      "description": "Description of incident",
+      "descriptionPlaceholder": "What happened...",
+      "incidentDate": "Incident date",
+      "vetName": "Vet name",
+      "amount": "Amount requested (€)",
+      "uploadDocs": "Documents (invoices, receipts)",
+      "dragFiles": "Drag files here or click",
+      "fileTypes": "PDF, JPG, PNG (max 10MB)",
+      "submit": "Submit Claim",
+      "doneTitle": "Claim Submitted!",
+      "doneSubtitle": "Your claim has been registered.",
+      "doneRef": "Reference: CLM-2026-003",
+      "goToClaims": "Go to Claims"
+    },
+    "records": {
+      "title": "Medical Records",
+      "subtitle": "History of visits and treatments",
+      "new": "New Entry",
+      "addTitle": "Add Medical Entry",
+      "type": "Type",
+      "typePlaceholder": "Select type...",
+      "entryTitle": "Title",
+      "titlePlaceholder": "E.g. Routine checkup",
+      "description": "Description",
+      "descriptionPlaceholder": "Details...",
+      "date": "Date",
+      "vet": "Vet",
+      "add": "Add",
+      "types": {
+        "visit": "Visit",
+        "vaccine": "Vaccine",
+        "treatment": "Treatment",
+        "surgery": "Surgery",
+        "checkup": "Checkup"
+      }
+    },
+    "documents": {
+      "title": "Document Archive",
+      "subtitle": "All your pet's documents safe and secure",
+      "upload": "Upload",
+      "uploadTitle": "Upload Document",
+      "name": "Document name",
+      "namePlaceholder": "E.g. Luna's Passport",
+      "type": "Type",
+      "typePlaceholder": "Select type...",
+      "file": "File",
+      "dragFile": "Drag or click",
+      "fileTypes": "PDF, JPG, PNG (max 10MB)",
+      "uploadCta": "Upload Document",
+      "addDoc": "Add document",
+      "uploadedOn": "Uploaded",
+      "types": {
+        "passport": "Passport",
+        "vaccination_card": "Vaccination Card",
+        "microchip": "Microchip",
+        "adoption": "Adoption",
+        "other": "Other"
+      }
+    },
+    "claimStatus": {
+      "submitted": "Submitted",
+      "under_review": "Under Review",
+      "approved": "Approved",
+      "denied": "Denied",
+      "paid": "Paid"
+    }
+  },
+  "chatbot": {
+    "title": "AI Assistant",
+    "greeting": "Hi! 🦒 I'm the animal.ia assistant. How can I help you?",
+    "placeholder": "Type a message...",
+    "ariaLabel": "Open chat",
+    "fallback": "I didn't understand your question. Try asking about: policy coverage, how to file a claim, refunds, cancellation, vaccines, or documents. For direct support email support@animal.ia",
+    "responses": {
+      "coverage": "The Basic plan covers accidents, document archive, medical records, and AI assistant. The Standard plan adds illness coverage, unlimited claims, and priority support. Premium also includes dental coverage, specialist visits, and 24/7 support.",
+      "claim": "To file a claim, go to the Claims section of your dashboard and click 'New Claim'. Fill out the form with the description, incident date, vet name, and amount. You can attach invoices and receipts. The claim will be processed within 5-10 business days.",
+      "refund": "Once your claim is approved, the refund is sent to your account within 3-5 business days. You can track the status on the claim details page.",
+      "cancel": "You can cancel your policy at any time from your account settings. Withdrawal is free within the first 14 days. After that, a 30-day notice period applies.",
+      "vaccine": "You can log vaccinations in the Medical Records section. If you have the Standard or Premium plan, you'll receive automatic reminders for vaccine boosters.",
+      "documents": "In the Documents section you can upload and archive your pet's passport, vaccination booklet, microchip certificate, and other documents. All files are encrypted and accessible only to you."
+    }
+  },
+  "cookies": {
+    "title": "This site uses cookies",
+    "body": "We use necessary technical cookies and, with your consent, analytics cookies to improve your experience.",
+    "learnMore": "Learn more",
+    "essential": "Essential only",
+    "acceptAll": "Accept all"
   }
 }

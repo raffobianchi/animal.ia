@@ -13,13 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { btnGhost as ghostBtn, btnPrimary as primaryBtn } from "~/lib/ui";
 
 const TOTAL_STEPS = 4;
-
-const primaryBtn =
-  "inline-flex h-14 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02] disabled:opacity-40 disabled:hover:scale-100";
-const ghostBtn =
-  "inline-flex h-14 items-center justify-center rounded-full border-2 border-warm/15 bg-card px-8 text-base font-semibold text-warm transition-all hover:border-warm/30";
 
 export function OnboardingWizard() {
   const t = useTranslations("onboarding");

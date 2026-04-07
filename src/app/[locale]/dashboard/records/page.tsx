@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
@@ -21,6 +21,7 @@ import {
 } from "~/components/ui/dialog";
 import { mockMedicalRecords } from "~/data/mock-data";
 import type { MedicalRecord } from "~/data/types";
+import { btnPrimary, dashPage } from "~/lib/ui";
 
 const typeIcons: Record<string, string> = {
   visit: "🩺",
@@ -30,18 +31,11 @@ const typeIcons: Record<string, string> = {
   checkup: "✅",
 };
 
-const typeLabels: Record<string, { it: string; en: string }> = {
-  visit: { it: "Visita", en: "Visit" },
-  vaccine: { it: "Vaccino", en: "Vaccine" },
-  treatment: { it: "Terapia", en: "Treatment" },
-  surgery: { it: "Intervento", en: "Surgery" },
-  checkup: { it: "Controllo", en: "Checkup" },
-};
+const typeKeys = ["visit", "vaccine", "treatment", "surgery", "checkup"] as const;
 
 export default function RecordsPage() {
-  const params = useParams();
-  const locale = params.locale as string;
-  const isIt = locale === "it";
+  const t = useTranslations("dashboard.records");
+  const tt = useTranslations("dashboard.records.types");
   const [records, setRecords] = useState<MedicalRecord[]>(mockMedicalRecords);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [form, setForm] = useState({
@@ -69,67 +63,61 @@ export default function RecordsPage() {
   }
 
   return (
-    <div className="px-6 py-10 md:px-12 md:py-14">
+    <div className={dashPage}>
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-              {isIt ? "Cartella Clinica" : "Medical Records"}
+              {t("title")}
             </h1>
-            <p className="text-xl text-muted-foreground">
-              {isIt ? "Cronologia visite e trattamenti" : "History of visits and treatments"}
-            </p>
+            <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger className="inline-flex h-14 shrink-0 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]">
-              + {isIt ? "Nuova Voce" : "New Entry"}
-            </DialogTrigger>
+            <DialogTrigger className={`${btnPrimary} shrink-0`}>+ {t("new")}</DialogTrigger>
             <DialogContent className="rounded-3xl">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-warm">
-                  {isIt ? "Aggiungi Voce Clinica" : "Add Medical Entry"}
-                </DialogTitle>
+                <DialogTitle className="text-2xl text-warm">{t("addTitle")}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 pt-4">
                 <div>
-                  <Label className="mb-2 block">{isIt ? "Tipo" : "Type"}</Label>
+                  <Label className="mb-2 block">{t("type")}</Label>
                   <Select
                     value={form.type}
                     onValueChange={(v) => setForm({ ...form, type: v ?? "" })}
                   >
                     <SelectTrigger className="h-12 rounded-2xl">
-                      <SelectValue placeholder={isIt ? "Seleziona tipo..." : "Select type..."} />
+                      <SelectValue placeholder={t("typePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      {Object.entries(typeLabels).map(([key, label]) => (
+                      {typeKeys.map((key) => (
                         <SelectItem key={key} value={key}>
-                          {typeIcons[key]} {label[locale as "it" | "en"]}
+                          {typeIcons[key]} {tt(key)}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
                 <div>
-                  <Label className="mb-2 block">{isIt ? "Titolo" : "Title"}</Label>
+                  <Label className="mb-2 block">{t("entryTitle")}</Label>
                   <Input
                     className="h-12 rounded-2xl"
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    placeholder={isIt ? "Es. Visita di controllo" : "E.g. Routine checkup"}
+                    placeholder={t("titlePlaceholder")}
                   />
                 </div>
                 <div>
-                  <Label className="mb-2 block">{isIt ? "Descrizione" : "Description"}</Label>
+                  <Label className="mb-2 block">{t("description")}</Label>
                   <Textarea
                     className="min-h-24 rounded-2xl"
                     value={form.description}
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
-                    placeholder={isIt ? "Dettagli..." : "Details..."}
+                    placeholder={t("descriptionPlaceholder")}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="mb-2 block">{isIt ? "Data" : "Date"}</Label>
+                    <Label className="mb-2 block">{t("date")}</Label>
                     <Input
                       type="date"
                       className="h-12 rounded-2xl"
@@ -138,7 +126,7 @@ export default function RecordsPage() {
                     />
                   </div>
                   <div>
-                    <Label className="mb-2 block">{isIt ? "Veterinario" : "Vet"}</Label>
+                    <Label className="mb-2 block">{t("vet")}</Label>
                     <Input
                       className="h-12 rounded-2xl"
                       value={form.vetName}
@@ -149,11 +137,11 @@ export default function RecordsPage() {
                 </div>
                 <button
                   type="button"
-                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 disabled:opacity-40"
+                  className={`${btnPrimary} w-full`}
                   onClick={addRecord}
                   disabled={!form.title || !form.type || !form.date}
                 >
-                  {isIt ? "Aggiungi" : "Add"}
+                  {t("add")}
                 </button>
               </div>
             </DialogContent>
@@ -173,7 +161,7 @@ export default function RecordsPage() {
                 <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                   <h3 className="text-xl font-bold tracking-tight text-warm">{record.title}</h3>
                   <span className="rounded-full bg-secondary px-3 py-1.5 text-xs font-semibold text-warm">
-                    {typeLabels[record.type]?.[locale as "it" | "en"]}
+                    {tt(record.type)}
                   </span>
                 </div>
                 <p className="mb-3 text-base text-muted-foreground">{record.description}</p>

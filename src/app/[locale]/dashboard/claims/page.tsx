@@ -1,47 +1,30 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { mockClaims } from "~/data/mock-data";
-
-const statusColors: Record<string, string> = {
-  submitted: "bg-sunset/15 text-warm",
-  under_review: "bg-giraffe-light/40 text-warm",
-  approved: "bg-giraffe/20 text-warm",
-  denied: "bg-destructive/15 text-destructive",
-  paid: "bg-warm text-cream",
-};
-
-const statusLabels: Record<string, { it: string; en: string }> = {
-  submitted: { it: "Inviato", en: "Submitted" },
-  under_review: { it: "In Revisione", en: "Under Review" },
-  approved: { it: "Approvato", en: "Approved" },
-  denied: { it: "Rifiutato", en: "Denied" },
-  paid: { it: "Pagato", en: "Paid" },
-};
+import { claimStatusBadge } from "~/lib/claim-status";
+import { btnPrimary, dashContainer, dashPage } from "~/lib/ui";
 
 export default function ClaimsPage() {
+  const t = useTranslations("dashboard.claims");
+  const ts = useTranslations("dashboard.claimStatus");
   const params = useParams();
   const locale = params.locale as string;
-  const isIt = locale === "it";
 
   return (
-    <div className="px-6 py-10 md:px-12 md:py-14">
-      <div className="mx-auto max-w-5xl">
+    <div className={dashPage}>
+      <div className={dashContainer}>
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-              {isIt ? "I tuoi Sinistri" : "Your Claims"}
+              {t("title")}
             </h1>
-            <p className="text-xl text-muted-foreground">
-              {isIt ? "Gestisci e monitora le tue richieste" : "Manage and track your requests"}
-            </p>
+            <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
           </div>
-          <Link
-            href={`/${locale}/dashboard/claims/new`}
-            className="inline-flex h-14 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]"
-          >
-            + {isIt ? "Nuovo Sinistro" : "New Claim"}
+          <Link href={`/${locale}/dashboard/claims/new`} className={btnPrimary}>
+            + {t("new")}
           </Link>
         </div>
 
@@ -62,9 +45,9 @@ export default function ClaimsPage() {
                 </p>
               </div>
               <span
-                className={`shrink-0 self-start rounded-full px-4 py-2 text-xs font-bold ${statusColors[claim.status]}`}
+                className={`shrink-0 self-start rounded-full px-4 py-2 text-xs font-bold ${claimStatusBadge[claim.status]}`}
               >
-                {statusLabels[claim.status]?.[locale as "it" | "en"]}
+                {ts(claim.status)}
               </span>
             </Link>
           ))}

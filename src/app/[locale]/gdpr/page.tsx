@@ -1,5 +1,4 @@
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
+import { LegalLayout } from "~/components/LegalLayout";
 
 export default async function GdprPage({
   params,
@@ -10,16 +9,11 @@ export default async function GdprPage({
   const isIt = locale === "it";
 
   return (
-    <>
-      <Header />
-      <main className="mx-auto max-w-3xl flex-1 px-4 py-12">
-        <article className="prose prose-neutral max-w-none">
-          <h1 className="text-warm">{isIt ? "Informativa GDPR" : "GDPR Notice"}</h1>
-          <p className="text-sm text-muted-foreground">
-            {isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
-          </p>
-
-          <h2>{isIt ? "1. Il Nostro Impegno" : "1. Our Commitment"}</h2>
+    <LegalLayout
+      title={isIt ? "Informativa GDPR" : "GDPR Notice"}
+      updatedLabel={isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
+    >
+      <h2>{isIt ? "1. Il Nostro Impegno" : "1. Our Commitment"}</h2>
           <p>
             {isIt
               ? "animal.ia si impegna a proteggere i tuoi dati personali in conformità con il Regolamento Generale sulla Protezione dei Dati (GDPR - Regolamento UE 2016/679) e con il Codice Privacy italiano (D.Lgs. 196/2003, come modificato dal D.Lgs. 101/2018)."
@@ -116,9 +110,6 @@ export default async function GdprPage({
               ? "Se ritieni che il trattamento dei tuoi dati violi il GDPR, hai il diritto di presentare un reclamo presso il Garante per la Protezione dei Dati Personali (www.garanteprivacy.it)."
               : "If you believe that the processing of your data violates the GDPR, you have the right to file a complaint with the Italian Data Protection Authority (Garante per la Protezione dei Dati Personali — www.garanteprivacy.it)."}
           </p>
-        </article>
-      </main>
-      <Footer />
-    </>
+    </LegalLayout>
   );
 }

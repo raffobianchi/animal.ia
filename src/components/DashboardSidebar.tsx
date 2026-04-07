@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "~/lib/utils";
 
@@ -12,20 +13,13 @@ const navItems = [
   { key: "documents", icon: "📁", href: "/documents" },
 ] as const;
 
-const labels: Record<string, { it: string; en: string }> = {
-  overview: { it: "Panoramica", en: "Overview" },
-  policies: { it: "Polizze", en: "Policies" },
-  claims: { it: "Sinistri", en: "Claims" },
-  records: { it: "Cartella", en: "Records" },
-  documents: { it: "Documenti", en: "Documents" },
-};
-
 export function DashboardSidebar() {
+  const t = useTranslations("dashboard.nav");
+  const tc = useTranslations("common");
   const params = useParams();
   const pathname = usePathname();
   const router = useRouter();
   const locale = params.locale as string;
-  const isIt = locale === "it";
   const otherLocale = locale === "it" ? "en" : "it";
   const basePath = `/${locale}/dashboard`;
 
@@ -55,12 +49,12 @@ export function DashboardSidebar() {
                 className={cn(
                   "flex items-center gap-4 rounded-2xl px-4 py-3.5 text-base font-medium transition-all",
                   isActive
-                    ? "bg-warm text-cream"
+                    ? "bg-secondary text-warm"
                     : "text-muted-foreground hover:bg-secondary/60 hover:text-warm"
                 )}
               >
                 <span className="text-xl">{icon}</span>
-                {labels[key]?.[locale as "it" | "en"] ?? labels[key]?.en}
+                {t(key)}
               </Link>
             );
           })}
@@ -89,13 +83,13 @@ export function DashboardSidebar() {
             className="flex w-full items-center gap-4 rounded-2xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-warm"
           >
             <span className="text-xl">🚪</span>
-            {isIt ? "Esci" : "Log out"}
+            {tc("logout")}
           </button>
         </div>
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border/60 bg-background/95 backdrop-blur-xl md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border/60 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden">
         {navItems.map(({ key, icon, href }) => {
           const fullPath = `${basePath}${href}`;
           const isActive =
@@ -107,12 +101,12 @@ export function DashboardSidebar() {
               key={key}
               href={fullPath}
               className={cn(
-                "flex flex-1 flex-col items-center gap-1 py-3 text-xs font-medium",
+                "flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-medium",
                 isActive ? "text-warm" : "text-muted-foreground"
               )}
             >
               <span className="text-2xl">{icon}</span>
-              <span>{labels[key]?.[locale as "it" | "en"] ?? labels[key]?.en}</span>
+              <span>{t(key)}</span>
             </Link>
           );
         })}

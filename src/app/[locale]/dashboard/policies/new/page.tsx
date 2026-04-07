@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
+import { btnGhost, btnPrimary, dashContainer, dashPage } from "~/lib/ui";
 
 const plans = [
   {
@@ -31,42 +33,32 @@ const plans = [
   },
 ] as const;
 
-const planNames: Record<string, { it: string; en: string }> = {
-  basic: { it: "Base", en: "Basic" },
-  standard: { it: "Standard", en: "Standard" },
-  premium: { it: "Premium", en: "Premium" },
-};
-
-const primaryBtn =
-  "inline-flex h-14 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02] disabled:opacity-40 disabled:hover:scale-100";
-const ghostBtn =
-  "inline-flex h-14 items-center justify-center rounded-full border-2 border-warm/15 bg-card px-8 text-base font-semibold text-warm transition-all hover:border-warm/30";
-
 export default function NewPolicyPage() {
+  const t = useTranslations("dashboard.newPolicy");
+  const tp = useTranslations("pricing");
+  const tc = useTranslations("common");
   const params = useParams();
   const router = useRouter();
   const locale = params.locale as string;
-  const isIt = locale === "it";
   const [selected, setSelected] = useState<string>("");
   const [step, setStep] = useState<"select" | "confirm" | "done">("select");
 
   const selectedPlan = plans.find((p) => p.key === selected);
+  const planName = (key: string) => tp(`${key}.name`);
 
   if (step === "done") {
     return (
-      <div className="flex flex-1 items-center justify-center px-6 py-14">
+      <div className={`${dashPage} flex flex-1 items-center justify-center`}>
         <div className="w-full max-w-xl rounded-3xl bg-card p-12 text-center shadow-xl md:p-16">
           <div className="mb-6 text-7xl">🎉</div>
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-            {isIt ? "Polizza Attivata!" : "Policy Activated!"}
+            {t("doneTitle")}
           </h2>
           <p className="mb-10 text-lg text-muted-foreground">
-            {isIt
-              ? `Il tuo piano ${planNames[selected]?.it} è ora attivo.`
-              : `Your ${planNames[selected]?.en} plan is now active.`}
+            {t("doneSubtitle", { plan: planName(selected) })}
           </p>
-          <button className={primaryBtn} onClick={() => router.push(`/${locale}/dashboard/policies`)}>
-            {isIt ? "Vai alle Polizze" : "Go to Policies"} →
+          <button className={btnPrimary} onClick={() => router.push(`/${locale}/dashboard/policies`)}>
+            {t("goToPolicies")} →
           </button>
         </div>
       </div>
@@ -75,39 +67,35 @@ export default function NewPolicyPage() {
 
   if (step === "confirm" && selectedPlan) {
     return (
-      <div className="px-6 py-14 md:px-12">
+      <div className={dashPage}>
         <div className="mx-auto max-w-2xl">
           <h1 className="mb-8 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-            {isIt ? "Conferma Acquisto" : "Confirm Purchase"}
+            {t("confirmTitle")}
           </h1>
           <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-12">
-            <h2 className="mb-8 text-2xl font-bold tracking-tight text-warm">
-              {isIt ? "Riepilogo Ordine" : "Order Summary"}
-            </h2>
+            <h2 className="mb-8 text-2xl font-bold tracking-tight text-warm">{t("summary")}</h2>
             <div className="mb-8 space-y-5 text-lg">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">{isIt ? "Piano" : "Plan"}</span>
-                <span className="font-semibold text-warm">
-                  {planNames[selectedPlan.key]?.[locale as "it" | "en"]}
-                </span>
+                <span className="text-muted-foreground">{tp("monthly")}</span>
+                <span className="font-semibold text-warm">{planName(selectedPlan.key)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">{isIt ? "Premio Mensile" : "Monthly Premium"}</span>
+                <span className="text-muted-foreground">€/{tp("monthly")}</span>
                 <span className="font-semibold text-warm">€{selectedPlan.price}</span>
               </div>
               <div className="flex items-end justify-between border-t border-border pt-5">
-                <span className="text-muted-foreground">{isIt ? "Totale Annuo" : "Annual Total"}</span>
+                <span className="text-muted-foreground">{t("annualTotal")}</span>
                 <span className="text-3xl font-bold tracking-tight text-warm">
                   €{(selectedPlan.price * 12).toFixed(2)}
                 </span>
               </div>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <button className={`${ghostBtn} flex-1`} onClick={() => setStep("select")}>
-                ← {isIt ? "Indietro" : "Back"}
+              <button className={`${btnGhost} flex-1`} onClick={() => setStep("select")}>
+                ← {tc("back")}
               </button>
-              <button className={`${primaryBtn} flex-1`} onClick={() => setStep("done")}>
-                💳 {isIt ? "Conferma e Paga" : "Confirm & Pay"}
+              <button className={`${btnPrimary} flex-1`} onClick={() => setStep("done")}>
+                💳 {t("confirmPay")}
               </button>
             </div>
           </div>
@@ -117,15 +105,13 @@ export default function NewPolicyPage() {
   }
 
   return (
-    <div className="px-6 py-10 md:px-12 md:py-14">
-      <div className="mx-auto max-w-6xl">
+    <div className={dashPage}>
+      <div className={dashContainer}>
         <div className="mb-12">
           <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-            {isIt ? "Scegli un Piano" : "Choose a Plan"}
+            {t("title")}
           </h1>
-          <p className="text-xl text-muted-foreground">
-            {isIt ? "Seleziona la copertura ideale per il tuo pet" : "Select the ideal coverage for your pet"}
-          </p>
+          <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
         </div>
 
         <div className="mb-10 grid gap-6 md:grid-cols-3">
@@ -139,24 +125,26 @@ export default function NewPolicyPage() {
                 className={`relative flex flex-col rounded-3xl p-8 text-left transition-all md:p-10 ${
                   isSelected
                     ? "bg-warm text-cream shadow-2xl scale-[1.02]"
-                    : "border border-border/60 bg-card hover:shadow-lg"
+                    : isPopular
+                      ? "border-2 border-giraffe bg-card hover:shadow-lg"
+                      : "border border-border/60 bg-card hover:shadow-lg"
                 }`}
                 onClick={() => setSelected(plan.key)}
               >
-                {isPopular && (
+                {isPopular && !isSelected && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-giraffe px-5 py-2 text-sm font-bold text-warm">
-                    ★ {isIt ? "Più Popolare" : "Most Popular"}
+                    ★ {t("popular")}
                   </div>
                 )}
                 <h3 className={`mb-3 text-2xl font-semibold ${isSelected ? "text-cream" : "text-warm"}`}>
-                  {planNames[plan.key]?.[locale as "it" | "en"]}
+                  {planName(plan.key)}
                 </h3>
                 <div className="mb-6 flex items-baseline gap-2">
                   <span className={`text-5xl font-bold tracking-tight ${isSelected ? "text-cream" : "text-warm"}`}>
                     €{plan.price}
                   </span>
                   <span className={isSelected ? "text-cream/60" : "text-muted-foreground"}>
-                    /{isIt ? "mese" : "month"}
+                    /{tp("monthly")}
                   </span>
                 </div>
                 <ul className="flex-1 space-y-3">
@@ -176,8 +164,8 @@ export default function NewPolicyPage() {
         </div>
 
         <div className="flex justify-end">
-          <button className={primaryBtn} disabled={!selected} onClick={() => setStep("confirm")}>
-            {isIt ? "Continua" : "Continue"} →
+          <button className={btnPrimary} disabled={!selected} onClick={() => setStep("confirm")}>
+            {t("continue")} →
           </button>
         </div>
       </div>

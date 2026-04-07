@@ -1,5 +1,4 @@
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
+import { LegalLayout } from "~/components/LegalLayout";
 
 export default async function TermsPage({
   params,
@@ -10,16 +9,11 @@ export default async function TermsPage({
   const isIt = locale === "it";
 
   return (
-    <>
-      <Header />
-      <main className="mx-auto max-w-3xl flex-1 px-4 py-12">
-        <article className="prose prose-neutral max-w-none">
-          <h1 className="text-warm">{isIt ? "Termini di Servizio" : "Terms of Service"}</h1>
-          <p className="text-sm text-muted-foreground">
-            {isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
-          </p>
-
-          <h2>{isIt ? "1. Accettazione dei Termini" : "1. Acceptance of Terms"}</h2>
+    <LegalLayout
+      title={isIt ? "Termini di Servizio" : "Terms of Service"}
+      updatedLabel={isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
+    >
+      <h2>{isIt ? "1. Accettazione dei Termini" : "1. Acceptance of Terms"}</h2>
           <p>
             {isIt
               ? "Utilizzando il servizio animal.ia, accetti di essere vincolato dai presenti Termini di Servizio. Se non accetti questi termini, ti preghiamo di non utilizzare il servizio."
@@ -95,9 +89,6 @@ export default async function TermsPage({
               ? "Per domande sui termini di servizio: legal@animal.ia"
               : "For questions about terms of service: legal@animal.ia"}
           </p>
-        </article>
-      </main>
-      <Footer />
-    </>
+    </LegalLayout>
   );
 }

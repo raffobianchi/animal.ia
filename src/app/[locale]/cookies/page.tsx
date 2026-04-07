@@ -1,5 +1,4 @@
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
+import { LegalLayout } from "~/components/LegalLayout";
 
 export default async function CookiesPage({
   params,
@@ -10,16 +9,11 @@ export default async function CookiesPage({
   const isIt = locale === "it";
 
   return (
-    <>
-      <Header />
-      <main className="mx-auto max-w-3xl flex-1 px-4 py-12">
-        <article className="prose prose-neutral max-w-none">
-          <h1 className="text-warm">{isIt ? "Cookie Policy" : "Cookie Policy"}</h1>
-          <p className="text-sm text-muted-foreground">
-            {isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
-          </p>
-
-          <h2>{isIt ? "1. Cosa Sono i Cookie" : "1. What Are Cookies"}</h2>
+    <LegalLayout
+      title="Cookie Policy"
+      updatedLabel={isIt ? "Ultimo aggiornamento: 6 aprile 2026" : "Last updated: April 6, 2026"}
+    >
+      <h2>{isIt ? "1. Cosa Sono i Cookie" : "1. What Are Cookies"}</h2>
           <p>
             {isIt
               ? "I cookie sono piccoli file di testo che vengono memorizzati sul tuo dispositivo quando visiti il nostro sito. Ci aiutano a far funzionare il sito correttamente e a migliorare la tua esperienza."
@@ -77,9 +71,6 @@ export default async function CookiesPage({
               ? "Per domande sui cookie: privacy@animal.ia"
               : "For questions about cookies: privacy@animal.ia"}
           </p>
-        </article>
-      </main>
-      <Footer />
-    </>
+    </LegalLayout>
   );
 }

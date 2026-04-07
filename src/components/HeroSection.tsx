@@ -22,9 +22,7 @@ export function HeroSection() {
         <div className="text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 shadow-sm">
             <span className="text-xl">🦒</span>
-            <span className="text-sm font-medium text-warm">
-              {locale === "it" ? "Assicurazione pet di nuova generazione" : "Next-gen pet insurance"}
-            </span>
+            <span className="text-sm font-medium text-warm">{t("badge")}</span>
           </div>
 
           <h1 className="mx-auto mb-8 max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-warm sm:text-6xl md:text-7xl lg:text-8xl">
@@ -38,13 +36,13 @@ export function HeroSection() {
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href={`/${locale}/onboarding`}
-              className="w-full rounded-full bg-warm px-10 py-5 text-lg font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02] sm:w-auto"
+              className="w-full rounded-full bg-warm px-10 py-5 text-lg font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-giraffe focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
             >
               {t("cta")} →
             </Link>
             <Link
               href={`/${locale}#pricing`}
-              className="w-full rounded-full border-2 border-warm/15 bg-card px-10 py-5 text-lg font-semibold text-warm transition-all hover:border-warm/30 hover:bg-card sm:w-auto"
+              className="w-full rounded-full border-2 border-warm/15 bg-card px-10 py-5 text-lg font-semibold text-warm transition-all hover:border-warm/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-giraffe focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
             >
               {t("ctaSecondary")}
             </Link>
@@ -54,15 +52,15 @@ export function HeroSection() {
           <div className="mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <span className="text-lg">✨</span>
-              {locale === "it" ? "Senza pensieri" : "Hassle-free"}
+              {t("trust1")}
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡️</span>
-              {locale === "it" ? "Sinistri in 5 minuti" : "Claims in 5 minutes"}
+              {t("trust2")}
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg">🛡️</span>
-              {locale === "it" ? "Copertura completa" : "Full coverage"}
+              {t("trust3")}
             </div>
           </div>
         </div>
