@@ -41,7 +41,7 @@ export function HeroSection() {
               {t("cta")} →
             </Link>
             <Link
-              href={`/${locale}#pricing`}
+              href={`/${locale}#quote`}
               className="w-full rounded-full border-2 border-warm/15 bg-card px-10 py-5 text-lg font-semibold text-warm transition-all hover:border-warm/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-giraffe focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
             >
               {t("ctaSecondary")}

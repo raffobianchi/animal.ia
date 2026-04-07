@@ -336,5 +336,137 @@
     "learnMore": "Scopri di più",
     "essential": "Solo essenziali",
     "acceptAll": "Accetta tutti"
+  },
+  "quote": {
+    "title": "Ottieni il tuo preventivo personalizzato",
+    "subtitle": "Poche domande veloci — niente registrazione, niente email.",
+    "step": "Passo {step} di {total}",
+    "next": "Continua",
+    "back": "Indietro",
+    "recalc": "Modifica risposte",
+    "activate": "Attiva questa polizza",
+    "step1": {
+      "title": "Parlaci del tuo pet",
+      "subtitle": "Specie, razza ed età",
+      "species": "Specie",
+      "speciesDog": "Cane",
+      "speciesCat": "Gatto",
+      "breed": "Razza",
+      "breedHelp": "Non vedi la tua razza? Scegli \"Meticcio / non in lista\".",
+      "age": "Età (anni)",
+      "agePlaceholder": "es. 3"
+    },
+    "step2": {
+      "title": "Dove vivi?",
+      "subtitle": "I costi veterinari variano in Italia",
+      "region": "Regione",
+      "regionPlaceholder": "Seleziona la tua regione…"
+    },
+    "step3": {
+      "title": "Stato di salute",
+      "subtitle": "Per affinare il tuo prezzo",
+      "previousSurgery": "Interventi negli ultimi 24 mesi?",
+      "chronicCondition": "Condizioni croniche diagnosticate?",
+      "regularMedication": "Assume farmaci regolarmente?",
+      "vetVisits": "Visite veterinarie negli ultimi 12 mesi",
+      "yes": "Sì",
+      "no": "No"
+    },
+    "result": {
+      "title": "Il tuo preventivo personalizzato",
+      "perMonth": "/mese",
+      "perYear": "all'anno",
+      "includes": "Include una visita veterinaria annuale",
+      "breakdown": "Come l'abbiamo calcolato",
+      "rowSpecies": "Specie",
+      "rowStage": "Fase di vita",
+      "rowArea": "Area",
+      "rowBreedRisk": "Rischio razza",
+      "rowHealth": "Profilo salute",
+      "rowAnnual": "Premio annuo",
+      "disclaimer": "Preventivo indicativo basato sul modello attuariale v4. Il prezzo finale può variare al momento dell'emissione."
+    },
+    "stage": {
+      "juvenile": "Cucciolo",
+      "adult": "Adulto",
+      "senior": "Senior"
+    },
+    "area": {
+      "north_west": "Nord-Ovest",
+      "north_east": "Nord-Est",
+      "center": "Centro",
+      "south": "Sud",
+      "islands": "Isole"
+    },
+    "breedRisk": {
+      "low": "Basso",
+      "mid": "Medio",
+      "high": "Alto"
+    },
+    "health": {
+      "healthy": "In salute",
+      "watch": "Da monitorare",
+      "elevated": "Elevato"
+    },
+    "vetVisits": {
+      "0-1": "0–1",
+      "2-4": "2–4",
+      "5+": "5+"
+    },
+    "regions": {
+      "lombardia": "Lombardia",
+      "piemonte": "Piemonte",
+      "liguria": "Liguria",
+      "valle_aosta": "Valle d'Aosta",
+      "veneto": "Veneto",
+      "trentino": "Trentino-Alto Adige",
+      "friuli": "Friuli-Venezia Giulia",
+      "emilia_romagna": "Emilia-Romagna",
+      "toscana": "Toscana",
+      "umbria": "Umbria",
+      "marche": "Marche",
+      "lazio": "Lazio",
+      "abruzzo": "Abruzzo",
+      "molise": "Molise",
+      "campania": "Campania",
+      "puglia": "Puglia",
+      "basilicata": "Basilicata",
+      "calabria": "Calabria",
+      "sicilia": "Sicilia",
+      "sardegna": "Sardegna"
+    },
+    "breeds": {
+      "non_pedigree_dog": "Meticcio / non in lista",
+      "labrador": "Labrador Retriever",
+      "german_shepherd": "Pastore Tedesco",
+      "french_bulldog": "Bulldog Francese",
+      "jack_russell": "Jack Russell Terrier",
+      "golden_retriever": "Golden Retriever",
+      "chihuahua": "Chihuahua",
+      "yorkshire": "Yorkshire Terrier",
+      "maltese": "Maltese",
+      "poodle": "Barboncino",
+      "dachshund": "Bassotto",
+      "border_collie": "Border Collie",
+      "boxer": "Boxer",
+      "rottweiler": "Rottweiler",
+      "cocker_spaniel": "Cocker Spaniel",
+      "non_pedigree_cat": "Meticcio / non in lista",
+      "european_shorthair": "Europeo a Pelo Corto",
+      "maine_coon": "Maine Coon",
+      "persian": "Persiano",
+      "british_shorthair": "British Shorthair",
+      "siamese": "Siamese",
+      "ragdoll": "Ragdoll",
+      "bengal": "Bengala",
+      "sphynx": "Sphynx",
+      "scottish_fold": "Scottish Fold",
+      "abyssinian": "Abissino",
+      "norwegian_forest": "Gatto delle Foreste Norvegesi",
+      "oriental": "Orientale",
+      "russian_blue": "Blu di Russia",
+      "savannah": "Savannah",
+      "birman": "Sacro di Birmania"
+    }
   }
 }

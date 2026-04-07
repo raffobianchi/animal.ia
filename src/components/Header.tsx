@@ -30,7 +30,7 @@ export function Header() {
             {t("features")}
           </Link>
           <Link
-            href={`/${locale}#pricing`}
+            href={`/${locale}#quote`}
             className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t("pricing")}
@@ -85,7 +85,7 @@ export function Header() {
             <Link href={`/${locale}#features`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("features")}
             </Link>
-            <Link href={`/${locale}#pricing`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}#quote`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("pricing")}
             </Link>
             <Link href={`/${locale}#faq`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>

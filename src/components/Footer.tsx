@@ -33,7 +33,7 @@ export function Footer() {
               <Link href={`/${locale}#features`} className="hover:text-cream">
                 {tn("features")}
               </Link>
-              <Link href={`/${locale}#pricing`} className="hover:text-cream">
+              <Link href={`/${locale}#quote`} className="hover:text-cream">
                 {tn("pricing")}
               </Link>
               <Link href={`/${locale}/onboarding`} className="hover:text-cream">

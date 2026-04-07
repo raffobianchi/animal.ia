@@ -336,5 +336,137 @@
     "learnMore": "Learn more",
     "essential": "Essential only",
     "acceptAll": "Accept all"
+  },
+  "quote": {
+    "title": "Get your personalized quote",
+    "subtitle": "A few quick questions — no signup, no email required.",
+    "step": "Step {step} of {total}",
+    "next": "Continue",
+    "back": "Back",
+    "recalc": "Edit answers",
+    "activate": "Activate this policy",
+    "step1": {
+      "title": "Tell us about your pet",
+      "subtitle": "Species, breed and age",
+      "species": "Species",
+      "speciesDog": "Dog",
+      "speciesCat": "Cat",
+      "breed": "Breed",
+      "breedHelp": "Don't see your breed? Pick \"Mixed / not listed\".",
+      "age": "Age (years)",
+      "agePlaceholder": "e.g. 3"
+    },
+    "step2": {
+      "title": "Where do you live?",
+      "subtitle": "Vet costs vary across Italy",
+      "region": "Region",
+      "regionPlaceholder": "Select your region…"
+    },
+    "step3": {
+      "title": "Health snapshot",
+      "subtitle": "Just to fine-tune your price",
+      "previousSurgery": "Previous surgery in the last 24 months?",
+      "chronicCondition": "Any diagnosed chronic condition?",
+      "regularMedication": "On regular medication?",
+      "vetVisits": "Vet visits in the last 12 months",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "result": {
+      "title": "Your personalized quote",
+      "perMonth": "/month",
+      "perYear": "per year",
+      "includes": "Includes annual vet visit",
+      "breakdown": "How we got there",
+      "rowSpecies": "Species",
+      "rowStage": "Life stage",
+      "rowArea": "Area",
+      "rowBreedRisk": "Breed risk",
+      "rowHealth": "Health profile",
+      "rowAnnual": "Annual premium",
+      "disclaimer": "Indicative quote based on actuarial model v4. Final price may vary at policy issue."
+    },
+    "stage": {
+      "juvenile": "Juvenile",
+      "adult": "Adult",
+      "senior": "Senior"
+    },
+    "area": {
+      "north_west": "North-West",
+      "north_east": "North-East",
+      "center": "Center",
+      "south": "South",
+      "islands": "Islands"
+    },
+    "breedRisk": {
+      "low": "Low",
+      "mid": "Medium",
+      "high": "High"
+    },
+    "health": {
+      "healthy": "Healthy",
+      "watch": "To monitor",
+      "elevated": "Elevated"
+    },
+    "vetVisits": {
+      "0-1": "0–1",
+      "2-4": "2–4",
+      "5+": "5+"
+    },
+    "regions": {
+      "lombardia": "Lombardy",
+      "piemonte": "Piedmont",
+      "liguria": "Liguria",
+      "valle_aosta": "Aosta Valley",
+      "veneto": "Veneto",
+      "trentino": "Trentino-Alto Adige",
+      "friuli": "Friuli-Venezia Giulia",
+      "emilia_romagna": "Emilia-Romagna",
+      "toscana": "Tuscany",
+      "umbria": "Umbria",
+      "marche": "Marche",
+      "lazio": "Lazio",
+      "abruzzo": "Abruzzo",
+      "molise": "Molise",
+      "campania": "Campania",
+      "puglia": "Apulia",
+      "basilicata": "Basilicata",
+      "calabria": "Calabria",
+      "sicilia": "Sicily",
+      "sardegna": "Sardinia"
+    },
+    "breeds": {
+      "non_pedigree_dog": "Mixed / not listed",
+      "labrador": "Labrador Retriever",
+      "german_shepherd": "German Shepherd",
+      "french_bulldog": "French Bulldog",
+      "jack_russell": "Jack Russell Terrier",
+      "golden_retriever": "Golden Retriever",
+      "chihuahua": "Chihuahua",
+      "yorkshire": "Yorkshire Terrier",
+      "maltese": "Maltese",
+      "poodle": "Poodle",
+      "dachshund": "Dachshund",
+      "border_collie": "Border Collie",
+      "boxer": "Boxer",
+      "rottweiler": "Rottweiler",
+      "cocker_spaniel": "Cocker Spaniel",
+      "non_pedigree_cat": "Mixed / not listed",
+      "european_shorthair": "European Shorthair",
+      "maine_coon": "Maine Coon",
+      "persian": "Persian",
+      "british_shorthair": "British Shorthair",
+      "siamese": "Siamese",
+      "ragdoll": "Ragdoll",
+      "bengal": "Bengal",
+      "sphynx": "Sphynx",
+      "scottish_fold": "Scottish Fold",
+      "abyssinian": "Abyssinian",
+      "norwegian_forest": "Norwegian Forest",
+      "oriental": "Oriental",
+      "russian_blue": "Russian Blue",
+      "savannah": "Savannah",
+      "birman": "Birman"
+    }
   }
 }
