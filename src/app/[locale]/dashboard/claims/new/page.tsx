@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "~/components/ui/card";
-import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Textarea } from "~/components/ui/textarea";
+
+const primaryBtn =
+  "inline-flex h-14 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]";
+const ghostBtn =
+  "inline-flex h-14 items-center justify-center rounded-full border-2 border-warm/15 bg-card px-8 text-base font-semibold text-warm transition-all hover:border-warm/30";
 
 export default function NewClaimPage() {
   const params = useParams();
@@ -24,143 +27,120 @@ export default function NewClaimPage() {
 
   if (submitted) {
     return (
-      <div className="flex flex-1 items-center justify-center p-6">
-        <Card className="max-w-md w-full text-center">
-          <CardContent className="pt-8 pb-8">
-            <div className="text-5xl mb-4">✅</div>
-            <h2 className="text-xl font-bold text-warm mb-2">
-              {isIt ? "Sinistro Inviato!" : "Claim Submitted!"}
-            </h2>
-            <p className="text-muted-foreground mb-2">
-              {isIt
-                ? "Il tuo sinistro è stato registrato con successo."
-                : "Your claim has been registered successfully."}
-            </p>
-            <p className="text-sm text-muted-foreground mb-6">
-              {isIt
-                ? "Riferimento: CLM-2026-003"
-                : "Reference: CLM-2026-003"}
-            </p>
-            <Button
-              className="bg-giraffe text-warm hover:bg-giraffe-dark"
-              onClick={() => router.push(`/${locale}/dashboard/claims`)}
-            >
-              {isIt ? "Vai ai Sinistri" : "Go to Claims"}
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="flex flex-1 items-center justify-center px-6 py-14">
+        <div className="w-full max-w-xl rounded-3xl bg-card p-12 text-center shadow-xl md:p-16">
+          <div className="mb-6 text-7xl">✅</div>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-warm md:text-4xl">
+            {isIt ? "Sinistro Inviato!" : "Claim Submitted!"}
+          </h2>
+          <p className="mb-2 text-lg text-muted-foreground">
+            {isIt ? "Il tuo sinistro è stato registrato." : "Your claim has been registered."}
+          </p>
+          <p className="mb-10 text-sm text-muted-foreground">
+            {isIt ? "Riferimento: CLM-2026-003" : "Reference: CLM-2026-003"}
+          </p>
+          <button className={primaryBtn} onClick={() => router.push(`/${locale}/dashboard/claims`)}>
+            {isIt ? "Vai ai Sinistri" : "Go to Claims"} →
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-2xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-warm">
-          {isIt ? "Apri un Sinistro" : "File a Claim"}
-        </h1>
-        <p className="text-muted-foreground">
-          {isIt
-            ? "Compila il modulo per richiedere un rimborso"
-            : "Fill out the form to request a reimbursement"}
-        </p>
-      </div>
+    <div className="px-6 py-10 md:px-12 md:py-14">
+      <div className="mx-auto max-w-2xl">
+        <div className="mb-10">
+          <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
+            {isIt ? "Apri un Sinistro" : "File a Claim"}
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            {isIt ? "Compila il modulo per il rimborso" : "Fill out the form for reimbursement"}
+          </p>
+        </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{isIt ? "Dettagli Sinistro" : "Claim Details"}</CardTitle>
-          <CardDescription>
-            {isIt
-              ? "Descrivi l'accaduto e carica la documentazione"
-              : "Describe what happened and upload documentation"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          <div>
-            <Label htmlFor="description">
-              {isIt ? "Descrizione dell'accaduto" : "Description of incident"}
-            </Label>
-            <Textarea
-              id="description"
-              placeholder={isIt ? "Cosa è successo..." : "What happened..."}
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-              rows={4}
-            />
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
+        <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-12">
+          <div className="space-y-6">
             <div>
-              <Label htmlFor="incidentDate">
-                {isIt ? "Data dell'incidente" : "Incident date"}
+              <Label htmlFor="description" className="mb-2 block text-base">
+                {isIt ? "Descrizione dell'accaduto" : "Description of incident"}
               </Label>
-              <Input
-                id="incidentDate"
-                type="date"
-                value={form.incidentDate}
-                onChange={(e) => setForm({ ...form, incidentDate: e.target.value })}
+              <Textarea
+                id="description"
+                className="min-h-32 rounded-2xl text-base"
+                placeholder={isIt ? "Cosa è successo..." : "What happened..."}
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
               />
             </div>
-            <div>
-              <Label htmlFor="vetName">
-                {isIt ? "Nome del veterinario" : "Vet name"}
-              </Label>
-              <Input
-                id="vetName"
-                placeholder={isIt ? "Dr. ..." : "Dr. ..."}
-                value={form.vetName}
-                onChange={(e) => setForm({ ...form, vetName: e.target.value })}
-              />
-            </div>
-          </div>
 
-          <div>
-            <Label htmlFor="amount">
-              {isIt ? "Importo richiesto (€)" : "Amount requested (€)"}
-            </Label>
-            <Input
-              id="amount"
-              type="number"
-              placeholder="0.00"
-              value={form.amount}
-              onChange={(e) => setForm({ ...form, amount: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <Label>{isIt ? "Documenti (fatture, ricevute)" : "Documents (invoices, receipts)"}</Label>
-            <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-border px-6 py-10">
-              <div className="text-center">
-                <span className="text-3xl">📎</span>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {isIt
-                    ? "Trascina i file qui o clicca per caricare"
-                    : "Drag files here or click to upload"}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  PDF, JPG, PNG (max 10MB)
-                </p>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="incidentDate" className="mb-2 block text-base">
+                  {isIt ? "Data dell'incidente" : "Incident date"}
+                </Label>
+                <Input
+                  id="incidentDate"
+                  type="date"
+                  className="h-14 rounded-2xl text-base"
+                  value={form.incidentDate}
+                  onChange={(e) => setForm({ ...form, incidentDate: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="vetName" className="mb-2 block text-base">
+                  {isIt ? "Nome del veterinario" : "Vet name"}
+                </Label>
+                <Input
+                  id="vetName"
+                  className="h-14 rounded-2xl text-base"
+                  placeholder="Dr. ..."
+                  value={form.vetName}
+                  onChange={(e) => setForm({ ...form, vetName: e.target.value })}
+                />
               </div>
             </div>
-          </div>
 
-          <div className="flex gap-3 pt-2">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => router.back()}
-            >
-              {isIt ? "Annulla" : "Cancel"}
-            </Button>
-            <Button
-              className="flex-1 bg-giraffe text-warm hover:bg-giraffe-dark"
-              onClick={() => setSubmitted(true)}
-            >
-              {isIt ? "Invia Sinistro" : "Submit Claim"}
-            </Button>
+            <div>
+              <Label htmlFor="amount" className="mb-2 block text-base">
+                {isIt ? "Importo richiesto (€)" : "Amount requested (€)"}
+              </Label>
+              <Input
+                id="amount"
+                type="number"
+                className="h-14 rounded-2xl text-base"
+                placeholder="0.00"
+                value={form.amount}
+                onChange={(e) => setForm({ ...form, amount: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <Label className="mb-2 block text-base">
+                {isIt ? "Documenti (fatture, ricevute)" : "Documents (invoices, receipts)"}
+              </Label>
+              <div className="flex items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-12">
+                <div className="text-center">
+                  <span className="text-4xl">📎</span>
+                  <p className="mt-3 text-base text-muted-foreground">
+                    {isIt ? "Trascina i file qui o clicca" : "Drag files here or click"}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">PDF, JPG, PNG (max 10MB)</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+              <button className={`${ghostBtn} flex-1`} onClick={() => router.back()}>
+                {isIt ? "Annulla" : "Cancel"}
+              </button>
+              <button className={`${primaryBtn} flex-1`} onClick={() => setSubmitted(true)}>
+                {isIt ? "Invia Sinistro" : "Submit Claim"} →
+              </button>
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

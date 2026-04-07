@@ -1,18 +1,14 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 import { mockClaims } from "~/data/mock-data";
 
 const statusColors: Record<string, string> = {
-  submitted: "bg-blue-100 text-blue-800",
-  under_review: "bg-yellow-100 text-yellow-800",
-  approved: "bg-green-100 text-green-800",
-  denied: "bg-red-100 text-red-800",
-  paid: "bg-giraffe/20 text-warm",
+  submitted: "bg-sunset/15 text-warm",
+  under_review: "bg-giraffe-light/40 text-warm",
+  approved: "bg-giraffe/20 text-warm",
+  denied: "bg-destructive/15 text-destructive",
+  paid: "bg-warm text-cream",
 };
 
 const statusLabels: Record<string, { it: string; en: string }> = {
@@ -24,11 +20,11 @@ const statusLabels: Record<string, { it: string; en: string }> = {
 };
 
 const dotColors: Record<string, string> = {
-  submitted: "bg-blue-500",
-  under_review: "bg-yellow-500",
-  approved: "bg-green-500",
-  denied: "bg-red-500",
-  paid: "bg-giraffe",
+  submitted: "bg-sunset",
+  under_review: "bg-giraffe",
+  approved: "bg-giraffe-dark",
+  denied: "bg-destructive",
+  paid: "bg-warm",
 };
 
 export default function ClaimDetailPage() {
@@ -42,8 +38,8 @@ export default function ClaimDetailPage() {
 
   if (!claim) {
     return (
-      <div className="flex flex-1 items-center justify-center p-6">
-        <p className="text-muted-foreground">
+      <div className="flex flex-1 items-center justify-center p-12">
+        <p className="text-lg text-muted-foreground">
           {isIt ? "Sinistro non trovato" : "Claim not found"}
         </p>
       </div>
@@ -51,101 +47,95 @@ export default function ClaimDetailPage() {
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-3xl mx-auto">
-      <Button
-        variant="ghost"
-        className="mb-4"
-        onClick={() => router.push(`/${locale}/dashboard/claims`)}
-      >
-        ← {isIt ? "Torna ai Sinistri" : "Back to Claims"}
-      </Button>
+    <div className="px-6 py-10 md:px-12 md:py-14">
+      <div className="mx-auto max-w-4xl">
+        <button
+          className="mb-8 inline-flex items-center gap-2 text-base font-medium text-muted-foreground transition-colors hover:text-warm"
+          onClick={() => router.push(`/${locale}/dashboard/claims`)}
+        >
+          ← {isIt ? "Torna ai Sinistri" : "Back to Claims"}
+        </button>
 
-      <div className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-warm">{claim.description}</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {isIt ? "Riferimento" : "Reference"}: {claim.id.toUpperCase()}
-          </p>
+        <div className="mb-10 flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
+              {claim.description}
+            </h1>
+            <p className="text-base text-muted-foreground">
+              {isIt ? "Riferimento" : "Reference"}: {claim.id.toUpperCase()}
+            </p>
+          </div>
+          <span className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-bold ${statusColors[claim.status]}`}>
+            {statusLabels[claim.status]?.[locale as "it" | "en"]}
+          </span>
         </div>
-        <Badge className={cn("text-sm", statusColors[claim.status])}>
-          {statusLabels[claim.status]?.[locale as "it" | "en"]}
-        </Badge>
-      </div>
 
-      <div className="grid gap-6 md:grid-cols-2 mb-8">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{isIt ? "Dettagli" : "Details"}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{isIt ? "Data Incidente" : "Incident Date"}</span>
-              <span className="font-medium text-warm">{claim.incidentDate}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{isIt ? "Data Invio" : "Submitted"}</span>
-              <span className="font-medium text-warm">{claim.submittedDate}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{isIt ? "Veterinario" : "Vet"}</span>
-              <span className="font-medium text-warm">{claim.vetName}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{isIt ? "Importo" : "Amount"}</span>
-              <span className="font-bold text-warm text-lg">€{claim.amount}</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{isIt ? "Documenti" : "Documents"}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {claim.documents.map((doc, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 rounded-lg border border-border p-3 text-sm"
-              >
-                <span>📄</span>
-                <span className="text-warm">{doc}</span>
+        <div className="mb-8 grid gap-6 md:grid-cols-2">
+          <div className="rounded-3xl border border-border/60 bg-card p-8">
+            <h2 className="mb-6 text-xl font-bold tracking-tight text-warm">
+              {isIt ? "Dettagli" : "Details"}
+            </h2>
+            <div className="space-y-4">
+              {[
+                { label: isIt ? "Data Incidente" : "Incident Date", value: claim.incidentDate },
+                { label: isIt ? "Data Invio" : "Submitted", value: claim.submittedDate },
+                { label: isIt ? "Veterinario" : "Vet", value: claim.vetName },
+              ].map((d) => (
+                <div key={d.label} className="flex justify-between">
+                  <span className="text-base text-muted-foreground">{d.label}</span>
+                  <span className="text-base font-semibold text-warm">{d.value}</span>
+                </div>
+              ))}
+              <div className="flex items-end justify-between border-t border-border pt-4">
+                <span className="text-base text-muted-foreground">{isIt ? "Importo" : "Amount"}</span>
+                <span className="text-2xl font-bold tracking-tight text-warm">€{claim.amount}</span>
               </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
+            </div>
+          </div>
 
-      {/* Status timeline */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
+          <div className="rounded-3xl border border-border/60 bg-card p-8">
+            <h2 className="mb-6 text-xl font-bold tracking-tight text-warm">
+              {isIt ? "Documenti" : "Documents"}
+            </h2>
+            <div className="space-y-3">
+              {claim.documents.map((doc, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 rounded-2xl border border-border/60 p-4 text-base"
+                >
+                  <span className="text-2xl">📄</span>
+                  <span className="text-warm">{doc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-border/60 bg-card p-8">
+          <h2 className="mb-8 text-xl font-bold tracking-tight text-warm">
             {isIt ? "Cronologia Stato" : "Status Timeline"}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+          </h2>
           <div className="space-y-0">
             {claim.statusHistory.map((entry, i) => (
-              <div key={i} className="flex gap-4">
-                {/* Timeline line and dot */}
+              <div key={i} className="flex gap-5">
                 <div className="flex flex-col items-center">
-                  <div className={cn("h-3 w-3 rounded-full shrink-0 mt-1.5", dotColors[entry.status])} />
+                  <div className={`mt-1.5 h-4 w-4 shrink-0 rounded-full ring-4 ring-secondary ${dotColors[entry.status]}`} />
                   {i < claim.statusHistory.length - 1 && (
-                    <div className="w-px flex-1 bg-border" />
+                    <div className="my-2 w-0.5 flex-1 bg-border" />
                   )}
                 </div>
-                {/* Content */}
-                <div className="pb-6">
-                  <p className="font-medium text-sm text-warm">
+                <div className="pb-8">
+                  <p className="text-lg font-semibold text-warm">
                     {statusLabels[entry.status]?.[locale as "it" | "en"]}
                   </p>
-                  <p className="text-xs text-muted-foreground">{entry.date}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{entry.note}</p>
+                  <p className="mb-1 text-sm text-muted-foreground">{entry.date}</p>
+                  <p className="text-base text-muted-foreground">{entry.note}</p>
                 </div>
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

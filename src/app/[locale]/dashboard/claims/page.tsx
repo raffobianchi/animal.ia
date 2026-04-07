@@ -2,18 +2,14 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
-import { buttonVariants } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 import { mockClaims } from "~/data/mock-data";
 
 const statusColors: Record<string, string> = {
-  submitted: "bg-blue-100 text-blue-800",
-  under_review: "bg-yellow-100 text-yellow-800",
-  approved: "bg-green-100 text-green-800",
-  denied: "bg-red-100 text-red-800",
-  paid: "bg-giraffe/20 text-warm",
+  submitted: "bg-sunset/15 text-warm",
+  under_review: "bg-giraffe-light/40 text-warm",
+  approved: "bg-giraffe/20 text-warm",
+  denied: "bg-destructive/15 text-destructive",
+  paid: "bg-warm text-cream",
 };
 
 const statusLabels: Record<string, { it: string; en: string }> = {
@@ -30,44 +26,49 @@ export default function ClaimsPage() {
   const isIt = locale === "it";
 
   return (
-    <div className="p-6 md:p-8">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-warm">
-            {isIt ? "I tuoi Sinistri" : "Your Claims"}
-          </h1>
-          <p className="text-muted-foreground">
-            {isIt ? "Gestisci e monitora le tue richieste di rimborso" : "Manage and track your reimbursement requests"}
-          </p>
-        </div>
-        <Link
-          href={`/${locale}/dashboard/claims/new`}
-          className={cn(buttonVariants(), "bg-giraffe text-warm hover:bg-giraffe-dark")}
-        >
-          {isIt ? "+ Nuovo Sinistro" : "+ New Claim"}
-        </Link>
-      </div>
-
-      <div className="space-y-4">
-        {mockClaims.map((claim) => (
-          <Link key={claim.id} href={`/${locale}/dashboard/claims/${claim.id}`}>
-            <Card className="transition-shadow hover:shadow-md cursor-pointer">
-              <CardContent className="flex items-center justify-between py-5">
-                <div className="flex-1 min-w-0 mr-4">
-                  <p className="font-medium text-warm truncate">
-                    {claim.description}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {claim.submittedDate} · {claim.vetName} · €{claim.amount}
-                  </p>
-                </div>
-                <Badge className={cn("shrink-0", statusColors[claim.status])}>
-                  {statusLabels[claim.status]?.[locale as "it" | "en"]}
-                </Badge>
-              </CardContent>
-            </Card>
+    <div className="px-6 py-10 md:px-12 md:py-14">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
+              {isIt ? "I tuoi Sinistri" : "Your Claims"}
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              {isIt ? "Gestisci e monitora le tue richieste" : "Manage and track your requests"}
+            </p>
+          </div>
+          <Link
+            href={`/${locale}/dashboard/claims/new`}
+            className="inline-flex h-14 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]"
+          >
+            + {isIt ? "Nuovo Sinistro" : "New Claim"}
           </Link>
-        ))}
+        </div>
+
+        <div className="space-y-4">
+          {mockClaims.map((claim) => (
+            <Link
+              key={claim.id}
+              href={`/${locale}/dashboard/claims/${claim.id}`}
+              className="flex flex-col gap-4 rounded-3xl border border-border/60 bg-card p-6 transition-all hover:border-warm/30 hover:shadow-lg sm:flex-row sm:items-center md:p-8"
+            >
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-secondary text-3xl">
+                📝
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="mb-1 text-lg font-semibold text-warm">{claim.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {claim.submittedDate} · {claim.vetName} · €{claim.amount}
+                </p>
+              </div>
+              <span
+                className={`shrink-0 self-start rounded-full px-4 py-2 text-xs font-bold ${statusColors[claim.status]}`}
+              >
+                {statusLabels[claim.status]?.[locale as "it" | "en"]}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

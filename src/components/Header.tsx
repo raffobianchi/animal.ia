@@ -3,8 +3,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { buttonVariants } from "~/components/ui/button";
-import { cn } from "~/lib/utils";
 import { useState } from "react";
 
 export function Header() {
@@ -15,72 +13,63 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href={`/${locale}`} className="flex items-center gap-2">
-          <span className="text-2xl">🦒</span>
-          <span className="text-xl font-bold text-warm">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:px-10">
+        <Link href={`/${locale}`} className="flex items-center gap-2.5">
+          <span className="text-3xl">🦒</span>
+          <span className="text-2xl font-bold tracking-tight text-warm">
             animal<span className="text-giraffe">.ia</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-10 md:flex">
           <Link
             href={`/${locale}#features`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t("features")}
           </Link>
           <Link
             href={`/${locale}#pricing`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t("pricing")}
           </Link>
           <Link
             href={`/${locale}#faq`}
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t("faq")}
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 md:flex">
           <Link
             href={`/${otherLocale}`}
-            className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
           >
             {otherLocale.toUpperCase()}
           </Link>
           <Link
             href={`/${locale}/login`}
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+            className="text-base font-medium text-warm transition-colors hover:text-giraffe-dark"
           >
             {t("login")}
           </Link>
           <Link
             href={`/${locale}/onboarding`}
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "bg-giraffe text-warm hover:bg-giraffe-dark"
-            )}
+            className="rounded-full bg-warm px-6 py-3 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]"
           >
             {t("signup")}
           </Link>
         </div>
 
         <button
-          className="md:hidden p-2"
+          className="rounded-full p-2 md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
+          <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -91,48 +80,30 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-border bg-background px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3">
-            <Link
-              href={`/${locale}#features`}
-              className="text-sm text-muted-foreground"
-              onClick={() => setMenuOpen(false)}
-            >
+        <div className="border-t border-border bg-background px-6 py-6 md:hidden">
+          <nav className="flex flex-col gap-5">
+            <Link href={`/${locale}#features`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("features")}
             </Link>
-            <Link
-              href={`/${locale}#pricing`}
-              className="text-sm text-muted-foreground"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link href={`/${locale}#pricing`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("pricing")}
             </Link>
-            <Link
-              href={`/${locale}#faq`}
-              className="text-sm text-muted-foreground"
-              onClick={() => setMenuOpen(false)}
-            >
+            <Link href={`/${locale}#faq`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("faq")}
             </Link>
-            <Link
-              href={`/${otherLocale}`}
-              className="text-sm font-medium text-muted-foreground"
-            >
+            <Link href={`/${otherLocale}`} className="text-lg font-medium text-muted-foreground">
               {otherLocale.toUpperCase()}
             </Link>
-            <div className="flex gap-2 pt-2">
+            <div className="flex flex-col gap-3 pt-3">
               <Link
                 href={`/${locale}/login`}
-                className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+                className="rounded-full border border-border px-6 py-3.5 text-center text-base font-semibold text-warm"
               >
                 {t("login")}
               </Link>
               <Link
                 href={`/${locale}/onboarding`}
-                className={cn(
-                  buttonVariants({ size: "sm" }),
-                  "bg-giraffe text-warm hover:bg-giraffe-dark"
-                )}
+                className="rounded-full bg-warm px-6 py-3.5 text-center text-base font-semibold text-cream"
               >
                 {t("signup")}
               </Link>

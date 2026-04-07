@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
-import { Card, CardContent } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import {
@@ -30,6 +27,14 @@ const typeIcons: Record<string, string> = {
   microchip: "📡",
   adoption: "🏠",
   other: "📄",
+};
+
+const typeColors: Record<string, string> = {
+  passport: "bg-giraffe/15",
+  vaccination_card: "bg-sunset/15",
+  microchip: "bg-giraffe-light/40",
+  adoption: "bg-sunset-light/30",
+  other: "bg-secondary",
 };
 
 const typeLabels: Record<string, { it: string; en: string }> = {
@@ -64,115 +69,110 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="p-6 md:p-8">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-warm">
-            {isIt ? "Archivio Documenti" : "Document Archive"}
-          </h1>
-          <p className="text-muted-foreground">
-            {isIt ? "Tutti i documenti del tuo pet al sicuro" : "All your pet's documents safe and secure"}
-          </p>
-        </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger className="inline-flex shrink-0 items-center justify-center rounded-lg px-2.5 h-8 text-sm font-medium bg-giraffe text-warm hover:bg-giraffe-dark transition-colors">
-            {isIt ? "📎 Carica" : "📎 Upload"}
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle className="text-warm">
-                {isIt ? "Carica Documento" : "Upload Document"}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-2">
-              <div>
-                <Label>{isIt ? "Nome documento" : "Document name"}</Label>
-                <Input
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  placeholder={isIt ? "Es. Passaporto di Luna" : "E.g. Luna's Passport"}
-                />
-              </div>
-              <div>
-                <Label>{isIt ? "Tipo" : "Type"}</Label>
-                <Select
-                  value={form.type}
-                  onValueChange={(v) => setForm({ ...form, type: v ?? "" })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={isIt ? "Seleziona tipo..." : "Select type..."} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(typeLabels).map(([key, label]) => (
-                      <SelectItem key={key} value={key}>
-                        {typeIcons[key]} {label[locale as "it" | "en"]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>{isIt ? "File" : "File"}</Label>
-                <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-border px-6 py-8">
-                  <div className="text-center">
-                    <span className="text-3xl">📎</span>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {isIt
-                        ? "Trascina il file qui o clicca per caricare"
-                        : "Drag file here or click to upload"}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      PDF, JPG, PNG (max 10MB)
-                    </p>
+    <div className="px-6 py-10 md:px-12 md:py-14">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
+              {isIt ? "Archivio Documenti" : "Document Archive"}
+            </h1>
+            <p className="text-xl text-muted-foreground">
+              {isIt ? "Tutti i documenti del tuo pet al sicuro" : "All your pet's documents safe and secure"}
+            </p>
+          </div>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger className="inline-flex h-14 shrink-0 items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 hover:scale-[1.02]">
+              📎 {isIt ? "Carica" : "Upload"}
+            </DialogTrigger>
+            <DialogContent className="rounded-3xl">
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-warm">
+                  {isIt ? "Carica Documento" : "Upload Document"}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 pt-4">
+                <div>
+                  <Label className="mb-2 block">{isIt ? "Nome documento" : "Document name"}</Label>
+                  <Input
+                    className="h-12 rounded-2xl"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder={isIt ? "Es. Passaporto di Luna" : "E.g. Luna's Passport"}
+                  />
+                </div>
+                <div>
+                  <Label className="mb-2 block">{isIt ? "Tipo" : "Type"}</Label>
+                  <Select
+                    value={form.type}
+                    onValueChange={(v) => setForm({ ...form, type: v ?? "" })}
+                  >
+                    <SelectTrigger className="h-12 rounded-2xl">
+                      <SelectValue placeholder={isIt ? "Seleziona tipo..." : "Select type..."} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(typeLabels).map(([key, label]) => (
+                        <SelectItem key={key} value={key}>
+                          {typeIcons[key]} {label[locale as "it" | "en"]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="mb-2 block">{isIt ? "File" : "File"}</Label>
+                  <div className="flex items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-10">
+                    <div className="text-center">
+                      <span className="text-4xl">📎</span>
+                      <p className="mt-3 text-base text-muted-foreground">
+                        {isIt ? "Trascina o clicca" : "Drag or click"}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">PDF, JPG, PNG (max 10MB)</p>
+                    </div>
                   </div>
                 </div>
+                <button
+                  type="button"
+                  className="inline-flex h-14 w-full items-center justify-center rounded-full bg-warm px-8 text-base font-semibold text-cream transition-all hover:bg-warm/90 disabled:opacity-40"
+                  onClick={addDocument}
+                  disabled={!form.name || !form.type}
+                >
+                  {isIt ? "Carica Documento" : "Upload Document"}
+                </button>
               </div>
-              <Button
-                className="w-full bg-giraffe text-warm hover:bg-giraffe-dark"
-                onClick={addDocument}
-                disabled={!form.name || !form.type}
-              >
-                {isIt ? "Carica Documento" : "Upload Document"}
-              </Button>
+            </DialogContent>
+          </Dialog>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {docs.map((doc) => (
+            <div
+              key={doc.id}
+              className="rounded-3xl border border-border/60 bg-card p-7 transition-all hover:border-warm/30 hover:shadow-lg"
+            >
+              <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${typeColors[doc.type]} text-3xl`}>
+                {typeIcons[doc.type]}
+              </div>
+              <p className="mb-2 text-lg font-semibold text-warm">{doc.name}</p>
+              <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-warm">
+                {typeLabels[doc.type]?.[locale as "it" | "en"]}
+              </span>
+              <p className="mt-4 text-sm text-muted-foreground">
+                {isIt ? "Caricato il" : "Uploaded"} {doc.uploadDate}
+              </p>
             </div>
-          </DialogContent>
-        </Dialog>
-      </div>
+          ))}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {docs.map((doc) => (
-          <Card key={doc.id} className="transition-shadow hover:shadow-md">
-            <CardContent className="py-5">
-              <div className="flex items-start gap-3">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-giraffe/10 text-2xl">
-                  {typeIcons[doc.type]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-warm truncate">{doc.name}</p>
-                  <Badge variant="secondary" className="mt-1 text-xs">
-                    {typeLabels[doc.type]?.[locale as "it" | "en"]}
-                  </Badge>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    {isIt ? "Caricato il" : "Uploaded"} {doc.uploadDate}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-
-        {/* Upload placeholder card */}
-        <Card
-          className="border-2 border-dashed border-border/50 transition-colors hover:border-giraffe/30 cursor-pointer"
-          onClick={() => setDialogOpen(true)}
-        >
-          <CardContent className="flex flex-col items-center justify-center py-10 text-center">
-            <span className="text-3xl mb-2">➕</span>
-            <p className="text-sm font-medium text-muted-foreground">
+          <button
+            type="button"
+            onClick={() => setDialogOpen(true)}
+            className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-border bg-card/50 p-12 text-center transition-all hover:border-warm/30 hover:bg-card"
+          >
+            <span className="mb-3 text-5xl">➕</span>
+            <p className="text-base font-semibold text-muted-foreground">
               {isIt ? "Aggiungi documento" : "Add document"}
             </p>
-          </CardContent>
-        </Card>
+          </button>
+        </div>
       </div>
     </div>
   );

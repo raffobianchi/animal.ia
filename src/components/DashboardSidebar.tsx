@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "~/lib/utils";
-import { Separator } from "~/components/ui/separator";
 
 const navItems = [
   { key: "overview", icon: "📊", href: "" },
@@ -17,7 +16,7 @@ const labels: Record<string, { it: string; en: string }> = {
   overview: { it: "Panoramica", en: "Overview" },
   policies: { it: "Polizze", en: "Policies" },
   claims: { it: "Sinistri", en: "Claims" },
-  records: { it: "Cartella Clinica", en: "Medical Records" },
+  records: { it: "Cartella", en: "Records" },
   documents: { it: "Documenti", en: "Documents" },
 };
 
@@ -33,16 +32,16 @@ export function DashboardSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden w-60 shrink-0 flex-col border-r border-border bg-card md:flex">
-        <div className="flex h-16 items-center gap-2 border-b border-border px-5">
-          <Link href={`/${locale}`} className="flex items-center gap-2">
-            <span className="text-xl">🦒</span>
-            <span className="font-bold text-warm">
+      <aside className="hidden w-72 shrink-0 flex-col border-r border-border/60 bg-card md:flex">
+        <div className="flex h-20 items-center gap-2.5 px-7">
+          <Link href={`/${locale}`} className="flex items-center gap-2.5">
+            <span className="text-3xl">🦒</span>
+            <span className="text-2xl font-bold tracking-tight text-warm">
               animal<span className="text-giraffe">.ia</span>
             </span>
           </Link>
         </div>
-        <nav className="flex flex-1 flex-col gap-1 p-3">
+        <nav className="flex flex-1 flex-col gap-1.5 p-5">
           {navItems.map(({ key, icon, href }) => {
             const fullPath = `${basePath}${href}`;
             const isActive =
@@ -54,13 +53,13 @@ export function DashboardSidebar() {
                 key={key}
                 href={fullPath}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
+                  "flex items-center gap-4 rounded-2xl px-4 py-3.5 text-base font-medium transition-all",
                   isActive
-                    ? "bg-giraffe/10 font-medium text-warm"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    ? "bg-warm text-cream"
+                    : "text-muted-foreground hover:bg-secondary/60 hover:text-warm"
                 )}
               >
-                <span>{icon}</span>
+                <span className="text-xl">{icon}</span>
                 {labels[key]?.[locale as "it" | "en"] ?? labels[key]?.en}
               </Link>
             );
@@ -68,36 +67,35 @@ export function DashboardSidebar() {
         </nav>
 
         {/* User section */}
-        <div className="border-t border-border p-3">
+        <div className="border-t border-border/60 p-5">
           <Link
             href={`/${otherLocale}/dashboard`}
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="mb-2 flex items-center gap-4 rounded-2xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-warm"
           >
-            <span>🌐</span>
+            <span className="text-xl">🌐</span>
             {otherLocale.toUpperCase()}
           </Link>
-          <Separator className="my-2" />
-          <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-giraffe/20 text-sm font-medium text-warm">
+          <div className="my-3 flex items-center gap-3 rounded-2xl bg-secondary/50 px-4 py-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-giraffe text-base font-bold text-warm">
               U
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-warm truncate">User</p>
-              <p className="text-xs text-muted-foreground truncate">user@animal.ia</p>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-warm">User</p>
+              <p className="truncate text-xs text-muted-foreground">user@animal.ia</p>
             </div>
           </div>
           <button
             onClick={() => router.push(`/${locale}`)}
-            className="mt-1 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="flex w-full items-center gap-4 rounded-2xl px-4 py-3 text-base font-medium text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-warm"
           >
-            <span>🚪</span>
+            <span className="text-xl">🚪</span>
             {isIt ? "Esci" : "Log out"}
           </button>
         </div>
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border bg-card md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border/60 bg-background/95 backdrop-blur-xl md:hidden">
         {navItems.map(({ key, icon, href }) => {
           const fullPath = `${basePath}${href}`;
           const isActive =
@@ -109,13 +107,11 @@ export function DashboardSidebar() {
               key={key}
               href={fullPath}
               className={cn(
-                "flex flex-1 flex-col items-center gap-1 py-2.5 text-xs",
-                isActive
-                  ? "text-giraffe font-medium"
-                  : "text-muted-foreground"
+                "flex flex-1 flex-col items-center gap-1 py-3 text-xs font-medium",
+                isActive ? "text-warm" : "text-muted-foreground"
               )}
             >
-              <span className="text-lg">{icon}</span>
+              <span className="text-2xl">{icon}</span>
               <span>{labels[key]?.[locale as "it" | "en"] ?? labels[key]?.en}</span>
             </Link>
           );
