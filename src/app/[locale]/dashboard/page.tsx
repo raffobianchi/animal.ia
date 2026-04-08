@@ -1,68 +1,64 @@
-"use client";
-
-import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
 import Link from "next/link";
-import { mockPet, mockPolicy, mockClaims, planPricing } from "~/data/mock-data";
+import { getTranslations } from "next-intl/server";
+import { getDashboardData } from "~/lib/queries";
 import { claimStatusBadge } from "~/lib/claim-status";
 import { dashContainer, dashPage } from "~/lib/ui";
 
-export default function DashboardPage() {
-  const t = useTranslations("dashboard.overview");
-  const ts = useTranslations("dashboard.claimStatus");
-  const params = useParams();
-  const locale = params.locale as string;
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function DashboardPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations("dashboard.overview");
+  const ts = await getTranslations("dashboard.claimStatus");
+  const data = await getDashboardData();
+
+  if (!data) {
+    return (
+      <div className={dashPage}>
+        <p className="text-lg text-muted-foreground">No pet found.</p>
+      </div>
+    );
+  }
+  const { pet, policy, claims } = data;
+  const reimbursed = claims
+    .filter((c) => c.status === "paid")
+    .reduce((s, c) => s + c.amount, 0);
 
   const stats = [
     {
       icon: "🐾",
       label: t("yourPet"),
-      value: mockPet.name,
-      sub: `${mockPet.breed} · ${t("petAge", { age: mockPet.age })}`,
+      value: pet.name,
+      sub: `${pet.breed} · ${t("petAge", { age: pet.ageYears })}`,
       color: "bg-giraffe/15",
     },
     {
       icon: "🛡️",
       label: t("activePlan"),
-      value: planPricing[mockPolicy.plan]?.name ?? "",
-      sub: `€${mockPolicy.monthlyPremium}${t("perMonth")}`,
+      value: policy?.plan ?? "—",
+      sub: policy ? `€${policy.monthlyPremium.toFixed(2)}${t("perMonth")}` : "",
       color: "bg-sunset/15",
     },
     {
       icon: "📝",
       label: t("totalClaims"),
-      value: String(mockClaims.length),
+      value: String(claims.length),
       sub: t("totalClaimsSub"),
       color: "bg-giraffe-light/40",
     },
     {
       icon: "💰",
       label: t("reimbursed"),
-      value: `€${mockClaims.filter((c) => c.status === "paid").reduce((s, c) => s + c.amount, 0)}`,
+      value: `€${reimbursed.toFixed(0)}`,
       sub: t("reimbursedSub"),
       color: "bg-sunset-light/30",
     },
   ];
 
   const actions = [
-    {
-      href: `/${locale}/dashboard/claims/new`,
-      icon: "📝",
-      title: t("fileClaim"),
-      desc: t("fileClaimDesc"),
-    },
-    {
-      href: `/${locale}/dashboard/documents`,
-      icon: "📁",
-      title: t("documents"),
-      desc: t("documentsDesc"),
-    },
-    {
-      href: `/${locale}/dashboard/records`,
-      icon: "📋",
-      title: t("records"),
-      desc: t("recordsDesc"),
-    },
+    { href: `/${locale}/dashboard/claims/new`, icon: "📝", title: t("fileClaim"), desc: t("fileClaimDesc") },
+    { href: `/${locale}/dashboard/documents`, icon: "📁", title: t("documents"), desc: t("documentsDesc") },
+    { href: `/${locale}/dashboard/records`, icon: "📋", title: t("records"), desc: t("recordsDesc") },
   ];
 
   return (
@@ -107,27 +103,30 @@ export default function DashboardPage() {
               </Link>
             </div>
             <div className="space-y-3">
-              {mockClaims.map((claim) => (
-                <Link
-                  key={claim.id}
-                  href={`/${locale}/dashboard/claims/${claim.id}`}
-                  className="flex items-center justify-between gap-4 rounded-2xl border border-border/60 p-5 transition-all hover:border-warm/30 hover:shadow-sm"
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="mb-1 line-clamp-1 text-base font-semibold text-warm">
-                      {claim.description}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {claim.submittedDate} · €{claim.amount}
-                    </p>
-                  </div>
-                  <span
-                    className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${claimStatusBadge[claim.status]}`}
+              {claims.map((claim) => {
+                const status = claim.status as keyof typeof claimStatusBadge;
+                return (
+                  <Link
+                    key={claim.id}
+                    href={`/${locale}/dashboard/claims/${claim.id}`}
+                    className="flex items-center justify-between gap-4 rounded-2xl border border-border/60 p-5 transition-all hover:border-warm/30 hover:shadow-sm"
                   >
-                    {ts(claim.status)}
-                  </span>
-                </Link>
-              ))}
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-1 line-clamp-1 text-base font-semibold text-warm">
+                        {claim.description}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {claim.submittedDate.toISOString().slice(0, 10)} · €{claim.amount}
+                      </p>
+                    </div>
+                    <span
+                      className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${claimStatusBadge[status]}`}
+                    >
+                      {ts(claim.status)}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

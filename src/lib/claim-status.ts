@@ -1,4 +1,9 @@
-import type { ClaimStatus } from "~/data/types";
+export type ClaimStatus =
+  | "submitted"
+  | "under_review"
+  | "approved"
+  | "denied"
+  | "paid";
 
 export const claimStatusBadge: Record<ClaimStatus, string> = {
   submitted: "bg-sunset/15 text-warm",

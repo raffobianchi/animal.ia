@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  pets      Pet[]
+}
+
+model Pet {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name              String
+  species           String   // dog | cat | rabbit | bird | other
+  breed             String
+  ageYears          Int
+  weightKg          Float
+  photoUrl          String?
+  vaccinated        Boolean  @default(false)
+  sterilized        Boolean  @default(false)
+  chronicConditions Boolean  @default(false)
+  allergies         String   @default("")
+  region            String?  // italian region id (from pricing.ts)
+  createdAt         DateTime @default(now())
+
+  policies  Policy[]
+  claims    Claim[]
+  records   MedicalRecord[]
+  documents PetDocument[]
+
+  @@index([userId])
+}
+
+model Policy {
+  id             String   @id @default(cuid())
+  petId          String
+  pet            Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  plan           String   // basic | standard | premium | personalized
+  status         String   // active | expired | cancelled
+  startDate      DateTime
+  endDate        DateTime
+  monthlyPremium Float
+  coverageJson   String   @default("[]") // JSON array of strings
+  breakdownJson  String?  // JSON of QuoteBreakdown when personalized
+  createdAt      DateTime @default(now())
+
+  claims Claim[]
+
+  @@index([petId])
+}
+
+model Claim {
+  id             String   @id @default(cuid())
+  policyId       String
+  policy         Policy   @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  petId          String
+  pet            Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  status         String   // submitted | under_review | approved | denied | paid
+  description    String
+  incidentDate   DateTime
+  submittedDate  DateTime @default(now())
+  vetName        String
+  amount         Float
+  documentsJson  String   @default("[]") // JSON array of file names
+  history        ClaimHistory[]
+
+  @@index([petId])
+  @@index([policyId])
+}
+
+model ClaimHistory {
+  id      String   @id @default(cuid())
+  claimId String
+  claim   Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  status  String
+  date    DateTime
+  note    String
+
+  @@index([claimId])
+}
+
+model MedicalRecord {
+  id          String   @id @default(cuid())
+  petId       String
+  pet         Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  date        DateTime
+  type        String   // visit | vaccine | treatment | surgery | checkup
+  title       String
+  description String
+  vetName     String
+
+  @@index([petId])
+}
+
+model PetDocument {
+  id         String   @id @default(cuid())
+  petId      String
+  pet        Pet      @relation(fields: [petId], references: [id], onDelete: Cascade)
+  type       String   // passport | vaccination_card | microchip | adoption | other
+  name       String
+  uploadDate DateTime @default(now())
+  fileUrl    String
+
+  @@index([petId])
+}

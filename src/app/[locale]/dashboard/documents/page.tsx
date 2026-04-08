@@ -1,162 +1,21 @@
-"use client";
+import { getPrimaryPet, getDocuments } from "~/lib/queries";
+import { dashContainer, dashPage } from "~/lib/ui";
+import { DocumentsClient, type ClientDocument } from "~/components/dashboard/DocumentsClient";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
-import { mockDocuments } from "~/data/mock-data";
-import type { PetDocument } from "~/data/types";
-import { btnPrimary, dashContainer, dashPage } from "~/lib/ui";
-
-const typeIcons: Record<string, string> = {
-  passport: "🛂",
-  vaccination_card: "💉",
-  microchip: "📡",
-  adoption: "🏠",
-  other: "📄",
-};
-
-const typeColors: Record<string, string> = {
-  passport: "bg-giraffe/15",
-  vaccination_card: "bg-sunset/15",
-  microchip: "bg-giraffe-light/40",
-  adoption: "bg-sunset-light/30",
-  other: "bg-secondary",
-};
-
-const typeKeys = ["passport", "vaccination_card", "microchip", "adoption", "other"] as const;
-
-export default function DocumentsPage() {
-  const t = useTranslations("dashboard.documents");
-  const tt = useTranslations("dashboard.documents.types");
-  const [docs, setDocs] = useState<PetDocument[]>(mockDocuments);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", type: "" as string });
-
-  function addDocument() {
-    if (!form.name || !form.type) return;
-    const newDoc: PetDocument = {
-      id: `doc-${Date.now()}`,
-      petId: "pet-1",
-      type: form.type as PetDocument["type"],
-      name: form.name,
-      uploadDate: new Date().toISOString().split("T")[0]!,
-      fileUrl: "#",
-    };
-    setDocs([...docs, newDoc]);
-    setForm({ name: "", type: "" });
-    setDialogOpen(false);
-  }
+export default async function DocumentsPage() {
+  const pet = await getPrimaryPet();
+  const rows = pet ? await getDocuments(pet.id) : [];
+  const docs: ClientDocument[] = rows.map((d) => ({
+    id: d.id,
+    type: d.type,
+    name: d.name,
+    uploadDate: d.uploadDate.toISOString().slice(0, 10),
+  }));
 
   return (
     <div className={dashPage}>
       <div className={dashContainer}>
-        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-              {t("title")}
-            </h1>
-            <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
-          </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger className={`${btnPrimary} shrink-0`}>📎 {t("upload")}</DialogTrigger>
-            <DialogContent className="rounded-3xl">
-              <DialogHeader>
-                <DialogTitle className="text-2xl text-warm">{t("uploadTitle")}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 pt-4">
-                <div>
-                  <Label className="mb-2 block">{t("name")}</Label>
-                  <Input
-                    className="h-12 rounded-2xl"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder={t("namePlaceholder")}
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block">{t("type")}</Label>
-                  <Select
-                    value={form.type}
-                    onValueChange={(v) => setForm({ ...form, type: v ?? "" })}
-                  >
-                    <SelectTrigger className="h-12 rounded-2xl">
-                      <SelectValue placeholder={t("typePlaceholder")} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {typeKeys.map((key) => (
-                        <SelectItem key={key} value={key}>
-                          {typeIcons[key]} {tt(key)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label className="mb-2 block">{t("file")}</Label>
-                  <div className="flex items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-10">
-                    <div className="text-center">
-                      <span className="text-4xl">📎</span>
-                      <p className="mt-3 text-base text-muted-foreground">{t("dragFile")}</p>
-                      <p className="mt-1 text-sm text-muted-foreground">{t("fileTypes")}</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className={`${btnPrimary} w-full`}
-                  onClick={addDocument}
-                  disabled={!form.name || !form.type}
-                >
-                  {t("uploadCta")}
-                </button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {docs.map((doc) => (
-            <div
-              key={doc.id}
-              className="rounded-3xl border border-border/60 bg-card p-7 transition-all hover:border-warm/30 hover:shadow-lg"
-            >
-              <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${typeColors[doc.type]} text-3xl`}>
-                {typeIcons[doc.type]}
-              </div>
-              <p className="mb-2 text-lg font-semibold text-warm">{doc.name}</p>
-              <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-warm">
-                {tt(doc.type)}
-              </span>
-              <p className="mt-4 text-sm text-muted-foreground">
-                {t("uploadedOn")} {doc.uploadDate}
-              </p>
-            </div>
-          ))}
-
-          <button
-            type="button"
-            onClick={() => setDialogOpen(true)}
-            className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-border bg-card/50 p-12 text-center transition-all hover:border-warm/30 hover:bg-card"
-          >
-            <span className="mb-3 text-5xl">➕</span>
-            <p className="text-base font-semibold text-muted-foreground">{t("addDoc")}</p>
-          </button>
-        </div>
+        <DocumentsClient docs={docs} />
       </div>
     </div>
   );
