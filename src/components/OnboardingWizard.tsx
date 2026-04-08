@@ -1,42 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Textarea } from "~/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
-import { btnGhost as ghostBtn, btnPrimary as primaryBtn } from "~/lib/ui";
+import { btnGhost, btnPrimary } from "~/lib/ui";
+import { completeOnboarding } from "~/lib/actions";
+import type { QuoteBreakdown } from "~/data/pricing";
 
-const TOTAL_STEPS = 4;
+type StoredQuote = {
+  form: {
+    species: "dog" | "cat";
+    breedId: string;
+    ageYears: number;
+    region: string;
+  };
+  quote: QuoteBreakdown;
+};
 
 export function OnboardingWizard() {
   const t = useTranslations("onboarding");
-  const tp = useTranslations("pricing");
+  const tr = useTranslations("onboarding.review");
+  const tq = useTranslations("quote");
   const params = useParams();
   const locale = params.locale as string;
   const router = useRouter();
 
-  const [step, setStep] = useState(1);
+  const [hydrated, setHydrated] = useState(false);
+  const [stored, setStored] = useState<StoredQuote | null>(null);
+  const [petName, setPetName] = useState("");
+  const [ownerName, setOwnerName] = useState("");
+  const [ownerEmail, setOwnerEmail] = useState("");
+  const [isPending, startTransition] = useTransition();
   const [completed, setCompleted] = useState(false);
 
-  const [owner, setOwner] = useState({ name: "", email: "", password: "", confirmPassword: "" });
-  const [pet, setPet] = useState({ name: "", species: "", breed: "", age: "", weight: "" });
-  const [health, setHealth] = useState({
-    vaccinated: "",
-    sterilized: "",
-    chronicConditions: "",
-    allergies: "",
-  });
-  const [selectedPlan, setSelectedPlan] = useState("");
+  useEffect(() => {
+    setHydrated(true);
+    try {
+      const raw = sessionStorage.getItem("animalia.quote");
+      if (raw) setStored(JSON.parse(raw) as StoredQuote);
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
+  if (!hydrated) return null;
+
+  // Missing-quote state: send user back to the homepage quote wizard
+  if (!stored) {
+    return (
+      <div className="w-full max-w-xl rounded-3xl bg-card p-10 text-center shadow-xl md:p-14">
+        <div className="mb-6 text-6xl">🦒</div>
+        <h2 className="mb-3 text-3xl font-bold tracking-tight text-warm md:text-4xl">
+          {tr("noQuoteTitle")}
+        </h2>
+        <p className="mb-8 text-lg text-muted-foreground">{tr("noQuoteSubtitle")}</p>
+        <Link href={`/${locale}#quote`} className={btnPrimary}>
+          {tr("noQuoteCta")} →
+        </Link>
+      </div>
+    );
+  }
+
+  // Completion splash
   if (completed) {
     return (
       <div className="w-full max-w-xl rounded-3xl bg-card p-12 text-center shadow-xl md:p-16">
@@ -44,12 +72,10 @@ export function OnboardingWizard() {
         <h2 className="mb-4 text-3xl font-bold tracking-tight text-warm md:text-4xl">
           {t("complete.title")}
         </h2>
-        <p className="mb-10 text-lg text-muted-foreground">
-          {t("complete.subtitle")}
-        </p>
+        <p className="mb-10 text-lg text-muted-foreground">{t("complete.subtitle")}</p>
         <button
           type="button"
-          className={primaryBtn}
+          className={btnPrimary}
           onClick={() => router.push(`/${locale}/dashboard`)}
         >
           {t("complete.cta")} →
@@ -58,254 +84,106 @@ export function OnboardingWizard() {
     );
   }
 
+  const { form, quote } = stored;
+  const canSubmit = petName.trim() && ownerName.trim() && ownerEmail.trim();
+
+  function submit() {
+    if (!canSubmit) return;
+    startTransition(async () => {
+      await completeOnboarding({
+        ownerName: ownerName.trim(),
+        ownerEmail: ownerEmail.trim(),
+        petName: petName.trim(),
+        quoteForm: form,
+        quote,
+      });
+      try {
+        sessionStorage.removeItem("animalia.quote");
+      } catch {
+        /* ignore */
+      }
+      setCompleted(true);
+    });
+  }
+
   return (
     <div className="w-full max-w-2xl rounded-3xl bg-card p-8 shadow-xl md:p-12">
-      {/* Progress */}
-      <div className="mb-10">
-        <div className="mb-3 flex justify-between text-sm font-medium text-muted-foreground">
-          <span>{t("progress", { step, total: TOTAL_STEPS })}</span>
-          <span>{Math.round((step / TOTAL_STEPS) * 100)}%</span>
+      <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
+        {tr("title")}
+      </h2>
+      <p className="mb-8 text-lg text-muted-foreground">{tr("subtitle")}</p>
+
+      {/* Quote summary */}
+      <div className="mb-8 rounded-2xl border border-border/60 bg-secondary/40 p-6">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          {tr("yourQuote")}
+        </p>
+        <div className="mb-3 flex items-baseline gap-2">
+          <span className="text-5xl font-bold tracking-tight text-warm">
+            €{quote.finalMonthly.toFixed(2)}
+          </span>
+          <span className="text-base text-muted-foreground">/ {tr("monthly")}</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full rounded-full bg-giraffe transition-all duration-500"
-            style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-          />
-        </div>
+        <p className="text-sm text-muted-foreground">
+          {tq(`breeds.${form.breedId}`)} · {tq(`regions.${form.region}`)} ·{" "}
+          {form.ageYears} {form.ageYears === 1 ? "anno" : "anni"}
+        </p>
       </div>
 
-      {/* Step 1: Account */}
-      {step === 1 && (
-        <>
-          <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-            {t("step1.title")}
-          </h2>
-          <p className="mb-8 text-lg text-muted-foreground">{t("step1.subtitle")}</p>
-          <div className="space-y-5">
-            <div>
-              <Label htmlFor="name" className="mb-2 block text-base">{t("step1.name")}</Label>
-              <Input
-                id="name"
-                className="h-14 rounded-2xl text-base"
-                value={owner.name}
-                onChange={(e) => setOwner({ ...owner, name: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="email" className="mb-2 block text-base">{t("step1.email")}</Label>
-              <Input
-                id="email"
-                type="email"
-                className="h-14 rounded-2xl text-base"
-                value={owner.email}
-                onChange={(e) => setOwner({ ...owner, email: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="password" className="mb-2 block text-base">{t("step1.password")}</Label>
-              <Input
-                id="password"
-                type="password"
-                className="h-14 rounded-2xl text-base"
-                value={owner.password}
-                onChange={(e) => setOwner({ ...owner, password: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label htmlFor="confirmPassword" className="mb-2 block text-base">{t("step1.confirmPassword")}</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                className="h-14 rounded-2xl text-base"
-                value={owner.confirmPassword}
-                onChange={(e) => setOwner({ ...owner, confirmPassword: e.target.value })}
-              />
-            </div>
-            <button type="button" className={`${primaryBtn} mt-4 w-full`} onClick={() => setStep(2)}>
-              {t("step1.next")} →
-            </button>
+      {/* Details */}
+      <div className="space-y-5">
+        <div>
+          <Label htmlFor="petName" className="mb-2 block text-base">
+            {tr("petNameLabel")}
+          </Label>
+          <Input
+            id="petName"
+            className="h-14 rounded-2xl text-base"
+            value={petName}
+            onChange={(e) => setPetName(e.target.value)}
+            placeholder={tr("petNamePlaceholder")}
+          />
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div>
+            <Label htmlFor="ownerName" className="mb-2 block text-base">
+              {tr("ownerName")}
+            </Label>
+            <Input
+              id="ownerName"
+              className="h-14 rounded-2xl text-base"
+              value={ownerName}
+              onChange={(e) => setOwnerName(e.target.value)}
+            />
           </div>
-        </>
-      )}
+          <div>
+            <Label htmlFor="ownerEmail" className="mb-2 block text-base">
+              {tr("ownerEmail")}
+            </Label>
+            <Input
+              id="ownerEmail"
+              type="email"
+              className="h-14 rounded-2xl text-base"
+              value={ownerEmail}
+              onChange={(e) => setOwnerEmail(e.target.value)}
+            />
+          </div>
+        </div>
 
-      {/* Step 2: Pet info */}
-      {step === 2 && (
-        <>
-          <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-            {t("step2.title")}
-          </h2>
-          <p className="mb-8 text-lg text-muted-foreground">{t("step2.subtitle")}</p>
-          <div className="space-y-5">
-            <div>
-              <Label htmlFor="petName" className="mb-2 block text-base">{t("step2.petName")}</Label>
-              <Input
-                id="petName"
-                className="h-14 rounded-2xl text-base"
-                value={pet.name}
-                onChange={(e) => setPet({ ...pet, name: e.target.value })}
-              />
-            </div>
-            <div>
-              <Label className="mb-2 block text-base">{t("step2.species")}</Label>
-              <Select
-                value={pet.species}
-                onValueChange={(v) => setPet({ ...pet, species: v ?? "" })}
-              >
-                <SelectTrigger className="h-14 rounded-2xl text-base">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {(["dog", "cat", "rabbit", "bird", "other"] as const).map((s) => (
-                    <SelectItem key={s} value={s}>
-                      {t(`step2.speciesOptions.${s}`)}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="breed" className="mb-2 block text-base">{t("step2.breed")}</Label>
-              <Input
-                id="breed"
-                className="h-14 rounded-2xl text-base"
-                value={pet.breed}
-                onChange={(e) => setPet({ ...pet, breed: e.target.value })}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="age" className="mb-2 block text-base">{t("step2.age")}</Label>
-                <Input
-                  id="age"
-                  type="number"
-                  className="h-14 rounded-2xl text-base"
-                  value={pet.age}
-                  onChange={(e) => setPet({ ...pet, age: e.target.value })}
-                />
-              </div>
-              <div>
-                <Label htmlFor="weight" className="mb-2 block text-base">{t("step2.weight")}</Label>
-                <Input
-                  id="weight"
-                  type="number"
-                  className="h-14 rounded-2xl text-base"
-                  value={pet.weight}
-                  onChange={(e) => setPet({ ...pet, weight: e.target.value })}
-                />
-              </div>
-            </div>
-            <div className="flex gap-3 pt-2">
-              <button type="button" className={`${ghostBtn} flex-1`} onClick={() => setStep(1)}>
-                ← {t("step2.back")}
-              </button>
-              <button type="button" className={`${primaryBtn} flex-1`} onClick={() => setStep(3)}>
-                {t("step2.next")} →
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* Step 3: Health */}
-      {step === 3 && (
-        <>
-          <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-            {t("step3.title")}
-          </h2>
-          <p className="mb-8 text-lg text-muted-foreground">{t("step3.subtitle")}</p>
-          <div className="space-y-6">
-            {(["vaccinated", "sterilized", "chronicConditions"] as const).map((field) => (
-              <div key={field}>
-                <Label className="mb-3 block text-base">{t(`step3.${field}`)}</Label>
-                <div className="flex gap-3">
-                  {(["yes", "no"] as const).map((val) => (
-                    <button
-                      key={val}
-                      type="button"
-                      className={`flex-1 rounded-2xl border-2 px-6 py-4 text-base font-semibold transition-all ${
-                        health[field] === val
-                          ? "border-warm bg-warm text-cream"
-                          : "border-border bg-card text-warm hover:border-warm/40"
-                      }`}
-                      onClick={() => setHealth({ ...health, [field]: val })}
-                    >
-                      {t(`step3.${val}`)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div>
-              <Label htmlFor="allergies" className="mb-2 block text-base">{t("step3.allergies")}</Label>
-              <Textarea
-                id="allergies"
-                className="min-h-28 rounded-2xl text-base"
-                placeholder={t("step3.allergiesPlaceholder")}
-                value={health.allergies}
-                onChange={(e) => setHealth({ ...health, allergies: e.target.value })}
-              />
-            </div>
-            <div className="flex gap-3 pt-2">
-              <button type="button" className={`${ghostBtn} flex-1`} onClick={() => setStep(2)}>
-                ← {t("step3.back")}
-              </button>
-              <button type="button" className={`${primaryBtn} flex-1`} onClick={() => setStep(4)}>
-                {t("step3.next")} →
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* Step 4: Plan selection */}
-      {step === 4 && (
-        <>
-          <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-            {t("step4.title")}
-          </h2>
-          <p className="mb-8 text-lg text-muted-foreground">{t("step4.subtitle")}</p>
-          <div className="space-y-4">
-            {(["basic", "standard", "premium"] as const).map((plan) => (
-              <button
-                key={plan}
-                type="button"
-                className={`w-full rounded-2xl border-2 p-6 text-left transition-all ${
-                  selectedPlan === plan
-                    ? "border-warm bg-warm/5 shadow-md"
-                    : "border-border bg-card hover:border-warm/30"
-                }`}
-                onClick={() => setSelectedPlan(plan)}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-warm">
-                    {tp(`${plan}.name`)}
-                  </span>
-                  <span className="text-2xl font-bold text-warm">
-                    €{tp(`${plan}.price`)}
-                    <span className="text-sm font-normal text-muted-foreground">/{tp("monthly")}</span>
-                  </span>
-                </div>
-                <p className="mt-2 text-base text-muted-foreground">
-                  {tp(`${plan}.description`)}
-                </p>
-              </button>
-            ))}
-            <div className="flex gap-3 pt-4">
-              <button type="button" className={`${ghostBtn} flex-1`} onClick={() => setStep(3)}>
-                ← {t("step4.back")}
-              </button>
-              <button
-                type="button"
-                className={`${primaryBtn} flex-1`}
-                disabled={!selectedPlan}
-                onClick={() => setCompleted(true)}
-              >
-                {t("step4.finish")} →
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+        <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+          <Link href={`/${locale}#quote`} className={`${btnGhost} flex-1 text-center`}>
+            ← {tq("recalc")}
+          </Link>
+          <button
+            type="button"
+            className={`${btnPrimary} flex-1`}
+            disabled={!canSubmit || isPending}
+            onClick={submit}
+          >
+            {isPending ? tr("creating") : `${tr("finishCta")} →`}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

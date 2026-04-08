@@ -10,6 +10,7 @@ export default async function DocumentsPage() {
     type: d.type,
     name: d.name,
     uploadDate: d.uploadDate.toISOString().slice(0, 10),
+    fileUrl: d.fileUrl,
   }));
 
   return (

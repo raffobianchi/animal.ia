@@ -165,7 +165,22 @@
       "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo amico domestico.",
       "cta": "Vai alla Dashboard"
     },
-    "progress": "Passo {step} di {total}"
+    "progress": "Passo {step} di {total}",
+    "review": {
+      "title": "Ci siamo quasi",
+      "subtitle": "Conferma i dati e attiva la polizza personalizzata.",
+      "yourQuote": "Il tuo preventivo",
+      "monthly": "al mese",
+      "petNameLabel": "Come si chiama?",
+      "petNamePlaceholder": "Es. Luna",
+      "ownerName": "Il tuo nome",
+      "ownerEmail": "La tua email",
+      "finishCta": "Attiva la polizza",
+      "creating": "Creazione in corso…",
+      "noQuoteTitle": "Calcola prima il preventivo",
+      "noQuoteSubtitle": "Fai il preventivo gratuito in homepage, poi torna qui per attivare la polizza.",
+      "noQuoteCta": "Fai il preventivo"
+    }
   },
   "login": {
     "title": "Bentornato",

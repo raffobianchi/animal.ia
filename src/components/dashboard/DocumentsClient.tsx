@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -44,6 +44,7 @@ export type ClientDocument = {
   type: string;
   name: string;
   uploadDate: string;
+  fileUrl: string;
 };
 
 export function DocumentsClient({ docs }: { docs: ClientDocument[] }) {
@@ -52,12 +53,32 @@ export function DocumentsClient({ docs }: { docs: ClientDocument[] }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [form, setForm] = useState({ name: "", type: "" });
+  const [file, setFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function pickFile(f: File | null) {
+    setUploadError(null);
+    setFile(f);
+    if (f && !form.name) setForm((prev) => ({ ...prev, name: f.name }));
+  }
 
   function onSubmit() {
-    if (!form.name || !form.type) return;
+    if (!form.name || !form.type || !file) return;
     startTransition(async () => {
-      await createDocument(form);
+      setUploadError(null);
+      const data = new FormData();
+      data.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: data });
+      if (!res.ok) {
+        const msg = await res.json().catch(() => ({ error: "Upload failed" }));
+        setUploadError(msg.error ?? "Upload failed");
+        return;
+      }
+      const { url } = (await res.json()) as { url: string };
+      await createDocument({ name: form.name, type: form.type, fileUrl: url });
       setForm({ name: "", type: "" });
+      setFile(null);
       setDialogOpen(false);
     });
   }
@@ -107,19 +128,39 @@ export function DocumentsClient({ docs }: { docs: ClientDocument[] }) {
               </div>
               <div>
                 <Label className="mb-2 block">{t("file")}</Label>
-                <div className="flex items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-10">
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept="image/*,application/pdf"
+                  className="hidden"
+                  onChange={(e) => pickFile(e.target.files?.[0] ?? null)}
+                />
+                <button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  className="flex w-full items-center justify-center rounded-2xl border-2 border-dashed border-border bg-secondary/30 px-6 py-10 transition-colors hover:border-warm/40"
+                >
                   <div className="text-center">
                     <span className="text-4xl">📎</span>
-                    <p className="mt-3 text-base text-muted-foreground">{t("dragFile")}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{t("fileTypes")}</p>
+                    {file ? (
+                      <p className="mt-3 text-base font-medium text-warm">{file.name}</p>
+                    ) : (
+                      <>
+                        <p className="mt-3 text-base text-muted-foreground">{t("dragFile")}</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{t("fileTypes")}</p>
+                      </>
+                    )}
                   </div>
-                </div>
+                </button>
+                {uploadError && (
+                  <p className="mt-2 text-sm text-destructive">{uploadError}</p>
+                )}
               </div>
               <button
                 type="button"
                 className={`${btnPrimary} w-full`}
                 onClick={onSubmit}
-                disabled={isPending || !form.name || !form.type}
+                disabled={isPending || !form.name || !form.type || !file}
               >
                 {isPending ? "…" : t("uploadCta")}
               </button>
@@ -130,9 +171,12 @@ export function DocumentsClient({ docs }: { docs: ClientDocument[] }) {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {docs.map((doc) => (
-          <div
+          <a
             key={doc.id}
-            className="rounded-3xl border border-border/60 bg-card p-7 transition-all hover:border-warm/30 hover:shadow-lg"
+            href={doc.fileUrl && doc.fileUrl !== "#" ? doc.fileUrl : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-3xl border border-border/60 bg-card p-7 transition-all hover:border-warm/30 hover:shadow-lg"
           >
             <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${typeColors[doc.type]} text-3xl`}>
               {typeIcons[doc.type]}
@@ -144,7 +188,7 @@ export function DocumentsClient({ docs }: { docs: ClientDocument[] }) {
             <p className="mt-4 text-sm text-muted-foreground">
               {t("uploadedOn")} {doc.uploadDate}
             </p>
-          </div>
+          </a>
         ))}
 
         <button

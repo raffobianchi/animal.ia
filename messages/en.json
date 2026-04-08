@@ -165,7 +165,22 @@
       "subtitle": "Your account has been created successfully. You're ready to protect your pet.",
       "cta": "Go to Dashboard"
     },
-    "progress": "Step {step} of {total}"
+    "progress": "Step {step} of {total}",
+    "review": {
+      "title": "Almost there",
+      "subtitle": "Confirm your details and activate your personalized policy.",
+      "yourQuote": "Your quote",
+      "monthly": "per month",
+      "petNameLabel": "What's their name?",
+      "petNamePlaceholder": "e.g. Luna",
+      "ownerName": "Your name",
+      "ownerEmail": "Your email",
+      "finishCta": "Activate policy",
+      "creating": "Creating…",
+      "noQuoteTitle": "Get your quote first",
+      "noQuoteSubtitle": "Run the free quote on the homepage, then come back here to activate your policy.",
+      "noQuoteCta": "Get a quote"
+    }
   },
   "login": {
     "title": "Welcome back",

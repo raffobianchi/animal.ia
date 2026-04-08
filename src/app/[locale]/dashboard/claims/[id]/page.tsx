@@ -65,15 +65,33 @@ export default async function ClaimDetailPage({ params }: Props) {
           <div className="rounded-3xl border border-border/60 bg-card p-8">
             <h2 className="mb-6 text-xl font-bold tracking-tight text-warm">{t("documents")}</h2>
             <div className="space-y-3">
-              {documents.map((doc, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 rounded-2xl border border-border/60 p-4 text-base"
-                >
-                  <span className="text-2xl">📄</span>
-                  <span className="text-warm">{doc}</span>
-                </div>
-              ))}
+              {documents.length === 0 && (
+                <p className="text-sm text-muted-foreground">—</p>
+              )}
+              {documents.map((doc, i) => {
+                const isUrl = doc.startsWith("/") || doc.startsWith("http");
+                const label = isUrl ? doc.split("/").pop() ?? doc : doc;
+                return isUrl ? (
+                  <a
+                    key={i}
+                    href={doc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-2xl border border-border/60 p-4 text-base transition-colors hover:border-warm/40"
+                  >
+                    <span className="text-2xl">📄</span>
+                    <span className="truncate text-warm">{label}</span>
+                  </a>
+                ) : (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 rounded-2xl border border-border/60 p-4 text-base"
+                  >
+                    <span className="text-2xl">📄</span>
+                    <span className="text-warm">{doc}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
