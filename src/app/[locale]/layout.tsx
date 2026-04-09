@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import { routing } from "~/i18n/routing";
 import itMessages from "../../../messages/it.json";
 import enMessages from "../../../messages/en.json";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CookieBanner } from "~/components/CookieBanner";
 import { ChatBot } from "~/components/ChatBot";
 import "../globals.css";
@@ -76,6 +78,8 @@ export default async function LocaleLayout({
           <CookieBanner />
           <ChatBot />
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
