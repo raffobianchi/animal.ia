@@ -8,14 +8,23 @@ import { getBreed, type QuoteBreakdown } from "~/data/pricing";
 
 // ── Login (mock) ──────────────────────────────────────────────────────────
 
-const MOCK_PASSWORD = "demo1234";
+const MOCK_CREDENTIALS = { email: "demo@animal.ia", password: "demo1234" };
 
-export async function mockLogin(email: string, password: string) {
-  const user = await db.user.findUnique({ where: { email } });
-  if (!user || password !== MOCK_PASSWORD) {
+export async function mockLogin(email: string, password: string, locale: string) {
+  if (
+    email.toLowerCase() !== MOCK_CREDENTIALS.email ||
+    password !== MOCK_CREDENTIALS.password
+  ) {
     return { ok: false as const };
   }
-  return { ok: true as const };
+  // Ensure the mock user exists in DB
+  await db.user.upsert({
+    where: { email: MOCK_CREDENTIALS.email },
+    update: {},
+    create: { email: MOCK_CREDENTIALS.email, name: "Demo User" },
+  });
+  const { redirect } = await import("next/navigation");
+  redirect(`/${locale}/dashboard`);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────
