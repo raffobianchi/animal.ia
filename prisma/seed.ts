@@ -36,6 +36,7 @@ async function main() {
       sterilized: true,
       chronicConditions: false,
       allergies: "",
+      microchipCode: "380260000123456",
       region: "lombardia",
     },
   });

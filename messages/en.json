@@ -17,6 +17,9 @@
     "features": "Features",
     "pricing": "Plans",
     "faq": "FAQ",
+    "blog": "Blog",
+    "shop": "Shop",
+    "vet": "Find a vet",
     "login": "Log In",
     "signup": "Get Started",
     "dashboard": "Dashboard",
@@ -69,7 +72,11 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "cookies": "Cookie Policy",
-    "gdpr": "GDPR"
+    "gdpr": "GDPR",
+    "explore": "Explore",
+    "blog": "Blog",
+    "shop": "Shop",
+    "vet": "Find a vet"
   },
   "onboarding": {
     "complete": {
@@ -84,6 +91,8 @@
       "monthly": "per month",
       "petNameLabel": "What's their name?",
       "petNamePlaceholder": "e.g. Luna",
+      "microchipLabel": "Microchip code (optional)",
+      "microchipPlaceholder": "e.g. 380260000123456",
       "ownerName": "Your name",
       "ownerEmail": "Your email",
       "finishCta": "Activate policy",
@@ -118,6 +127,7 @@
       "subtitle": "Here's a summary of your account",
       "yourPet": "Your pet",
       "petAge": "{age} years",
+      "microchip": "Microchip",
       "activePlan": "Active plan",
       "perMonth": "/month",
       "totalClaims": "Total claims",
@@ -292,7 +302,9 @@
       "breed": "Breed",
       "breedHelp": "Don't see your breed? Pick \"Mixed / not listed\".",
       "age": "Age (years)",
-      "agePlaceholder": "e.g. 3"
+      "agePlaceholder": "e.g. 3",
+      "microchip": "Microchip code (optional)",
+      "microchipPlaceholder": "e.g. 380260000123456"
     },
     "step2": {
       "title": "Where do you live?",
@@ -405,6 +417,20 @@
       "russian_blue": "Russian Blue",
       "savannah": "Savannah",
       "birman": "Birman"
+    }
+  },
+  "comingSoon": {
+    "subtitle": "Coming soon",
+    "description": "We're working on something special. Check back soon for updates!",
+    "cta": "Back to home",
+    "blog": {
+      "title": "Blog"
+    },
+    "shop": {
+      "title": "Shop"
+    },
+    "vet": {
+      "title": "Find your vet"
     }
   }
 }

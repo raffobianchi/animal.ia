@@ -14,7 +14,7 @@ export function Footer() {
   return (
     <footer className="bg-warm px-6 py-20 text-cream md:px-10 md:py-28">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-4 md:gap-8">
+        <div className="grid gap-12 md:grid-cols-5 md:gap-8">
           <div className="md:col-span-2">
             <Link href={`/${locale}`} className="inline-flex items-center gap-2.5">
               <span className="text-3xl">🦒</span>
@@ -38,6 +38,23 @@ export function Footer() {
               </Link>
               <Link href={`/${locale}/onboarding`} className="hover:text-cream">
                 {t("getStarted")}
+              </Link>
+            </nav>
+          </div>
+
+          <div>
+            <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
+              {t("explore")}
+            </h4>
+            <nav className="flex flex-col gap-3 text-base text-cream/70">
+              <Link href={`/${locale}/blog`} className="hover:text-cream">
+                {t("blog")}
+              </Link>
+              <Link href={`/${locale}/shop`} className="hover:text-cream">
+                {t("shop")}
+              </Link>
+              <Link href={`/${locale}/vet`} className="hover:text-cream">
+                {t("vet")}
               </Link>
             </nav>
           </div>

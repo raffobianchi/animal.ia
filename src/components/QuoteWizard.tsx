@@ -25,6 +25,7 @@ type FormState = {
   species: Species;
   breedId: string;
   ageYears: string;
+  microchipCode: string;
   region: Region | "";
   health: HealthAnswers;
 };
@@ -33,6 +34,7 @@ const initial: FormState = {
   species: "dog",
   breedId: "non_pedigree_dog",
   ageYears: "",
+  microchipCode: "",
   region: "",
   health: HEALTH_DEFAULTS,
 };
@@ -81,7 +83,7 @@ export function QuoteWizard() {
     if (typeof window !== "undefined") {
       sessionStorage.setItem(
         "animalia.quote",
-        JSON.stringify({ form: { ...form, ageYears: ageNum }, quote })
+        JSON.stringify({ form: { ...form, ageYears: ageNum }, quote, microchipCode: form.microchipCode })
       );
     }
     router.push(`/${locale}/onboarding`);
@@ -168,7 +170,7 @@ export function QuoteWizard() {
             <p className="mt-2 text-sm text-muted-foreground">{t("step1.breedHelp")}</p>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-6">
             <label
               htmlFor="age"
               className="mb-3 block text-sm font-semibold uppercase tracking-wider text-muted-foreground"
@@ -185,6 +187,24 @@ export function QuoteWizard() {
               placeholder={t("step1.agePlaceholder")}
               value={form.ageYears}
               onChange={(e) => setForm({ ...form, ageYears: e.target.value })}
+              className={cn(inputBig, "w-full border border-border bg-card px-4")}
+            />
+          </div>
+
+          <div className="mb-8">
+            <label
+              htmlFor="microchip"
+              className="mb-3 block text-sm font-semibold uppercase tracking-wider text-muted-foreground"
+            >
+              {t("step1.microchip")}
+            </label>
+            <input
+              id="microchip"
+              type="text"
+              inputMode="numeric"
+              placeholder={t("step1.microchipPlaceholder")}
+              value={form.microchipCode}
+              onChange={(e) => setForm({ ...form, microchipCode: e.target.value })}
               className={cn(inputBig, "w-full border border-border bg-card px-4")}
             />
           </div>

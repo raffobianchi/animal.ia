@@ -29,7 +29,7 @@ export default async function DashboardPage({ params }: Props) {
       icon: "🐾",
       label: t("yourPet"),
       value: pet.name,
-      sub: `${pet.breed} · ${t("petAge", { age: pet.ageYears })}`,
+      sub: `${pet.breed} · ${t("petAge", { age: pet.ageYears })}${pet.microchipCode ? ` · ${t("microchip")}: ${pet.microchipCode}` : ""}`,
       color: "bg-giraffe/15",
     },
     {

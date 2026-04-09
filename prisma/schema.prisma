@@ -29,6 +29,7 @@ model Pet {
   sterilized        Boolean  @default(false)
   chronicConditions Boolean  @default(false)
   allergies         String   @default("")
+  microchipCode     String   @default("")
   region            String?  // italian region id (from pricing.ts)
   createdAt         DateTime @default(now())
 

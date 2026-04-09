@@ -41,6 +41,24 @@ export function Header() {
           >
             {t("faq")}
           </Link>
+          <Link
+            href={`/${locale}/blog`}
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {t("blog")}
+          </Link>
+          <Link
+            href={`/${locale}/shop`}
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {t("shop")}
+          </Link>
+          <Link
+            href={`/${locale}/vet`}
+            className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {t("vet")}
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-4 md:flex">
@@ -90,6 +108,15 @@ export function Header() {
             </Link>
             <Link href={`/${locale}#faq`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
               {t("faq")}
+            </Link>
+            <Link href={`/${locale}/blog`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+              {t("blog")}
+            </Link>
+            <Link href={`/${locale}/shop`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+              {t("shop")}
+            </Link>
+            <Link href={`/${locale}/vet`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+              {t("vet")}
             </Link>
             <Link href={`/${otherLocale}`} className="text-lg font-medium text-muted-foreground">
               {otherLocale.toUpperCase()}

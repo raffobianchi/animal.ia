@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "animal.ia — Assicurazione e Salute per il tuo amico domestico",
-    "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo animale domestico in un unico posto."
+    "title": "animal.ia — Assicurazione e Salute per il tuo amico a quattro zampe",
+    "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo amico a quattro zampe in un unico posto."
   },
   "common": {
     "back": "Indietro",
@@ -17,15 +17,18 @@
     "features": "Funzionalità",
     "pricing": "Piani",
     "faq": "FAQ",
+    "blog": "Blog",
+    "shop": "Shop",
+    "vet": "Trova veterinario",
     "login": "Accedi",
     "signup": "Inizia Ora",
     "dashboard": "Dashboard",
     "language": "Lingua"
   },
   "hero": {
-    "badge": "Assicurazione amico domestico di nuova generazione",
-    "title": "Tutto per il tuo animale, in un'unica app",
-    "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI, tutto quello che serve per prenderti cura del tuo amico domestico.",
+    "badge": "Assicurazione per il tuo amico a quattro zampe",
+    "title": "Tutto per il tuo amico a quattro zampe, in un'unica app",
+    "subtitle": "Assicurazione, cartella clinica, documenti e assistenza AI, tutto quello che serve per prenderti cura del tuo amico a quattro zampe.",
     "cta": "Inizia Gratis",
     "ctaSecondary": "Scopri i Piani",
     "trust1": "Senza pensieri",
@@ -34,10 +37,10 @@
   },
   "features": {
     "title": "Cosa puoi fare con animal.ia",
-    "subtitle": "Una piattaforma completa per la salute e la protezione del tuo animale domestico.",
+    "subtitle": "Una piattaforma completa per la salute e la protezione del tuo amico a quattro zampe.",
     "insurance": {
-      "title": "Assicurazione amico domestico",
-      "description": "Scegli il piano perfetto per proteggere il tuo animale. Preventivi immediati e copertura completa."
+      "title": "Assicurazione per il tuo amico",
+      "description": "Scegli il piano perfetto per proteggere il tuo amico a quattro zampe. Preventivi immediati e copertura completa."
     },
     "records": {
       "title": "Cartella Clinica",
@@ -53,15 +56,15 @@
     },
     "documents": {
       "title": "Archivio Documenti",
-      "description": "Passaporto, libretto vaccini, microchip — tutti i documenti del tuo amico domestico al sicuro nel cloud."
+      "description": "Passaporto, libretto vaccini, microchip — tutti i documenti del tuo amico a quattro zampe al sicuro nel cloud."
     },
     "onboarding": {
       "title": "Registrazione Facile",
-      "description": "In pochi passi registri te e il tuo animale. Nessuna burocrazia, solo semplicità."
+      "description": "In pochi passi registri te e il tuo amico a quattro zampe. Nessuna burocrazia, solo semplicità."
     }
   },
   "footer": {
-    "tagline": "Assicurazione amico domestico di nuova generazione, semplice come deve essere.",
+    "tagline": "Assicurazione per il tuo amico a quattro zampe, semplice come deve essere.",
     "product": "Prodotto",
     "legal": "Legale",
     "getStarted": "Inizia ora",
@@ -69,12 +72,16 @@
     "privacy": "Privacy Policy",
     "terms": "Termini di Servizio",
     "cookies": "Cookie Policy",
-    "gdpr": "GDPR"
+    "gdpr": "GDPR",
+    "explore": "Esplora",
+    "blog": "Blog",
+    "shop": "Shop",
+    "vet": "Trova veterinario"
   },
   "onboarding": {
     "complete": {
       "title": "Benvenuto in animal.ia!",
-      "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo amico domestico.",
+      "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo amico a quattro zampe.",
       "cta": "Vai alla Dashboard"
     },
     "review": {
@@ -84,6 +91,8 @@
       "monthly": "al mese",
       "petNameLabel": "Come si chiama?",
       "petNamePlaceholder": "Es. Luna",
+      "microchipLabel": "Codice microchip (opzionale)",
+      "microchipPlaceholder": "Es. 380260000123456",
       "ownerName": "Il tuo nome",
       "ownerEmail": "La tua email",
       "finishCta": "Attiva la polizza",
@@ -116,8 +125,9 @@
     "overview": {
       "greeting": "Ciao! 👋",
       "subtitle": "Ecco un riepilogo del tuo account",
-      "yourPet": "Il tuo amico domestico",
+      "yourPet": "Il tuo amico a quattro zampe",
       "petAge": "{age} anni",
+      "microchip": "Microchip",
       "activePlan": "Piano attivo",
       "perMonth": "/mese",
       "totalClaims": "Sinistri totali",
@@ -130,7 +140,7 @@
       "fileClaim": "Apri Sinistro",
       "fileClaimDesc": "Invia una nuova richiesta di rimborso",
       "documents": "Documenti",
-      "documentsDesc": "Gestisci i documenti del tuo amico domestico",
+      "documentsDesc": "Gestisci i documenti del tuo amico a quattro zampe",
       "records": "Cartella Clinica",
       "recordsDesc": "Visualizza la storia clinica"
     },
@@ -224,7 +234,7 @@
     },
     "documents": {
       "title": "Archivio Documenti",
-      "subtitle": "Tutti i documenti del tuo amico domestico al sicuro",
+      "subtitle": "Tutti i documenti del tuo amico a quattro zampe al sicuro",
       "upload": "Carica",
       "uploadTitle": "Carica Documento",
       "name": "Nome documento",
@@ -265,7 +275,7 @@
       "refund": "Una volta approvato il sinistro, il rimborso viene inviato sul tuo conto entro 3-5 giorni lavorativi. Puoi monitorare lo stato nella pagina dettagli del sinistro.",
       "cancel": "Puoi cancellare la tua polizza in qualsiasi momento dalle impostazioni del tuo account. Il recesso è gratuito entro i primi 14 giorni. Dopo, si applica un preavviso di 30 giorni.",
       "vaccine": "Puoi registrare le vaccinazioni nella sezione Cartella Clinica. Se hai il piano Standard o Premium, riceverai promemoria automatici per i richiami vaccinali.",
-      "documents": "Nella sezione Documenti puoi caricare e archiviare passaporto dell'amico domestico, libretto vaccinale, certificato microchip e altri documenti. Tutti i file sono crittografati e accessibili solo a te."
+      "documents": "Nella sezione Documenti puoi caricare e archiviare passaporto del tuo amico a quattro zampe, libretto vaccinale, certificato microchip e altri documenti. Tutti i file sono crittografati e accessibili solo a te."
     }
   },
   "cookies": {
@@ -284,7 +294,7 @@
     "recalc": "Modifica risposte",
     "activate": "Attiva questa polizza",
     "step1": {
-      "title": "Parlaci del tuo amico domestico",
+      "title": "Parlaci del tuo amico a quattro zampe",
       "subtitle": "Specie, razza ed età",
       "species": "Specie",
       "speciesDog": "Cane",
@@ -292,7 +302,9 @@
       "breed": "Razza",
       "breedHelp": "Non vedi la tua razza? Scegli \"Meticcio / non in lista\".",
       "age": "Età (anni)",
-      "agePlaceholder": "es. 3"
+      "agePlaceholder": "es. 3",
+      "microchip": "Codice microchip (opzionale)",
+      "microchipPlaceholder": "es. 380260000123456"
     },
     "step2": {
       "title": "Dove vivi?",
@@ -405,6 +417,20 @@
       "russian_blue": "Blu di Russia",
       "savannah": "Savannah",
       "birman": "Sacro di Birmania"
+    }
+  },
+  "comingSoon": {
+    "subtitle": "In arrivo",
+    "description": "Stiamo lavorando a qualcosa di speciale. Torna presto per scoprire le novità!",
+    "cta": "Torna alla home",
+    "blog": {
+      "title": "Blog"
+    },
+    "shop": {
+      "title": "Shop"
+    },
+    "vet": {
+      "title": "Trova il tuo veterinario"
     }
   }
 }

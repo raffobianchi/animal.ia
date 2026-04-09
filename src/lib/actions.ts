@@ -42,6 +42,7 @@ export type OnboardingInput = {
   ownerName: string;
   ownerEmail: string;
   petName: string;
+  microchipCode?: string;
   quoteForm: {
     species: "dog" | "cat";
     breedId: string;
@@ -78,6 +79,7 @@ export async function completeOnboarding(input: OnboardingInput) {
       sterilized: false,
       chronicConditions: false,
       allergies: "",
+      microchipCode: input.microchipCode?.trim() ?? "",
     },
   });
 

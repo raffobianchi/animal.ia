@@ -18,6 +18,7 @@ type StoredQuote = {
     region: string;
   };
   quote: QuoteBreakdown;
+  microchipCode?: string;
 };
 
 export function OnboardingWizard() {
@@ -31,6 +32,7 @@ export function OnboardingWizard() {
   const [hydrated, setHydrated] = useState(false);
   const [stored, setStored] = useState<StoredQuote | null>(null);
   const [petName, setPetName] = useState("");
+  const [microchipCode, setMicrochipCode] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [ownerEmail, setOwnerEmail] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -40,7 +42,11 @@ export function OnboardingWizard() {
     setHydrated(true);
     try {
       const raw = sessionStorage.getItem("animalia.quote");
-      if (raw) setStored(JSON.parse(raw) as StoredQuote);
+      if (raw) {
+        const parsed = JSON.parse(raw) as StoredQuote;
+        setStored(parsed);
+        if (parsed.microchipCode) setMicrochipCode(parsed.microchipCode);
+      }
     } catch {
       /* ignore */
     }
@@ -94,6 +100,7 @@ export function OnboardingWizard() {
         ownerName: ownerName.trim(),
         ownerEmail: ownerEmail.trim(),
         petName: petName.trim(),
+        microchipCode: microchipCode.trim() || undefined,
         quoteForm: form,
         quote,
       });
@@ -142,6 +149,18 @@ export function OnboardingWizard() {
             value={petName}
             onChange={(e) => setPetName(e.target.value)}
             placeholder={tr("petNamePlaceholder")}
+          />
+        </div>
+        <div>
+          <Label htmlFor="microchipCode" className="mb-2 block text-base">
+            {tr("microchipLabel")}
+          </Label>
+          <Input
+            id="microchipCode"
+            className="h-14 rounded-2xl text-base"
+            value={microchipCode}
+            onChange={(e) => setMicrochipCode(e.target.value)}
+            placeholder={tr("microchipPlaceholder")}
           />
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
