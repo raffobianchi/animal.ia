@@ -10,6 +10,7 @@ import {
   breedsForSpecies,
   computeQuote,
   healthClass,
+  type Gender,
   type HealthAnswers,
   type QuoteBreakdown,
   type Region,
@@ -23,6 +24,7 @@ const TOTAL_STEPS = 3;
 
 type FormState = {
   species: Species;
+  gender: Gender;
   breedId: string;
   ageYears: string;
   microchipCode: string;
@@ -32,6 +34,7 @@ type FormState = {
 
 const initial: FormState = {
   species: "dog",
+  gender: "male",
   breedId: "non_pedigree_dog",
   ageYears: "",
   microchipCode: "",
@@ -39,7 +42,14 @@ const initial: FormState = {
   health: HEALTH_DEFAULTS,
 };
 
-export function QuoteWizard() {
+type QuoteWizardProps = {
+  onSave?: (
+    form: { species: Species; gender: Gender; breedId: string; ageYears: number; region: string; health: HealthAnswers },
+    quote: QuoteBreakdown,
+  ) => Promise<void>;
+};
+
+export function QuoteWizard({ onSave }: QuoteWizardProps = {}) {
   const t = useTranslations("quote");
   const params = useParams();
   const router = useRouter();
@@ -68,6 +78,7 @@ export function QuoteWizard() {
     try {
       return computeQuote({
         species: form.species,
+        gender: form.gender,
         breedId: form.breedId,
         ageYears: ageNum,
         region: form.region as Region,
@@ -83,7 +94,7 @@ export function QuoteWizard() {
     if (typeof window !== "undefined") {
       sessionStorage.setItem(
         "animalia.quote",
-        JSON.stringify({ form: { ...form, ageYears: ageNum }, quote, microchipCode: form.microchipCode })
+        JSON.stringify({ form: { ...form, ageYears: ageNum, gender: form.gender }, quote, microchipCode: form.microchipCode })
       );
     }
     router.push(`/${locale}/onboarding`);
@@ -91,7 +102,29 @@ export function QuoteWizard() {
 
   // ── Result view ───────────────────────────────────────────────────────────
   if (showResult && quote) {
-    return <ResultCard quote={quote} onEdit={() => setShowResult(false)} onActivate={activate} />;
+    return (
+      <ResultCard
+        quote={quote}
+        onEdit={() => setShowResult(false)}
+        onActivate={activate}
+        onSave={
+          onSave
+            ? () =>
+                onSave(
+                  {
+                    species: form.species,
+                    gender: form.gender,
+                    breedId: form.breedId,
+                    ageYears: ageNum,
+                    region: form.region as string,
+                    health: form.health,
+                  },
+                  quote,
+                )
+            : undefined
+        }
+      />
+    );
   }
 
   return (
@@ -142,6 +175,36 @@ export function QuoteWizard() {
                       {s === "dog" ? "🐶" : "🐱"}
                     </span>
                     {t(`step1.species${s === "dog" ? "Dog" : "Cat"}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <label className="mb-3 block text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              {t("step1.gender")}
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {(["male", "female"] as const).map((g) => {
+                const active = form.gender === g;
+                return (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => setForm({ ...form, gender: g })}
+                    aria-pressed={active}
+                    className={cn(
+                      "flex items-center justify-center gap-3 rounded-2xl border-2 px-6 py-5 text-base font-semibold transition-all",
+                      active
+                        ? "border-warm bg-warm text-cream shadow-md"
+                        : "border-border bg-card text-warm hover:border-warm/40"
+                    )}
+                  >
+                    <span className="text-2xl" aria-hidden="true">
+                      {g === "male" ? "♂" : "♀"}
+                    </span>
+                    {t(`step1.gender${g === "male" ? "Male" : "Female"}`)}
                   </button>
                 );
               })}
@@ -391,16 +454,20 @@ function ResultCard({
   quote,
   onEdit,
   onActivate,
+  onSave,
 }: {
   quote: QuoteBreakdown;
   onEdit: () => void;
   onActivate: () => void;
+  onSave?: () => Promise<void>;
 }) {
   const t = useTranslations("quote");
+  const [saving, setSaving] = useState(false);
   const hClass = healthClass(quote.healthMult);
 
   const rows: { label: string; value: string }[] = [
     { label: t("result.rowSpecies"), value: t(`step1.species${quote.species === "dog" ? "Dog" : "Cat"}`) },
+    { label: t("result.rowGender"), value: t(`step1.gender${quote.gender === "male" ? "Male" : "Female"}`) },
     { label: t("result.rowStage"), value: t(`stage.${quote.stage}`) },
     { label: t("result.rowArea"), value: t(`area.${quote.area}`) },
     { label: t("result.rowBreedRisk"), value: t(`breedRisk.${quote.breedRisk}`) },
@@ -456,6 +523,23 @@ function ResultCard({
         >
           {t("result.downloadPdf")}
         </button>
+        {onSave && (
+          <button
+            type="button"
+            className={cn(btnPrimary, "flex-1")}
+            disabled={saving}
+            onClick={async () => {
+              setSaving(true);
+              try {
+                await onSave();
+              } finally {
+                setSaving(false);
+              }
+            }}
+          >
+            {saving ? t("saving") : t("save")}
+          </button>
+        )}
         <button type="button" className={cn(btnPrimary, "flex-1")} onClick={onActivate}>
           {t("activate")} →
         </button>

@@ -161,7 +161,8 @@
       "claims": "Claims",
       "records": "Records",
       "documents": "Documents",
-      "vet": "Find a Vet"
+      "vet": "Find a Vet",
+      "preventivi": "Quotes"
     },
     "overview": {
       "greeting": "Hello! 👋",
@@ -296,6 +297,21 @@
         "other": "Other"
       }
     },
+    "preventivi": {
+      "title": "Your Quotes",
+      "subtitle": "Saved quotes for your pet",
+      "new": "New Quote",
+      "empty": "No saved quotes.",
+      "emptyCta": "Calculate your first quote",
+      "perMonth": "/month",
+      "perYear": "/year",
+      "createdAt": "Created",
+      "activate": "Activate Policy",
+      "back": "Back to Quotes",
+      "saved": "Quote saved!",
+      "breakdown": "Calculation breakdown",
+      "print": "Print"
+    },
     "claimStatus": {
       "submitted": "Submitted",
       "under_review": "Under Review",
@@ -334,12 +350,17 @@
     "back": "Back",
     "recalc": "Edit answers",
     "activate": "Activate this policy",
+    "save": "Save Quote",
+    "saving": "Saving…",
     "step1": {
       "title": "Tell us about your pet",
       "subtitle": "Species, breed and age",
       "species": "Species",
       "speciesDog": "Dog",
       "speciesCat": "Cat",
+      "gender": "Gender",
+      "genderMale": "Male",
+      "genderFemale": "Female",
       "breed": "Breed",
       "breedHelp": "Don't see your breed? Pick \"Mixed / not listed\".",
       "age": "Age (years)",
@@ -370,6 +391,7 @@
       "includes": "Includes annual vet visit",
       "breakdown": "How we got there",
       "rowSpecies": "Species",
+      "rowGender": "Gender",
       "rowStage": "Life stage",
       "rowArea": "Area",
       "rowBreedRisk": "Breed risk",

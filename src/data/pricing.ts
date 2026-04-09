@@ -3,6 +3,7 @@
 // where pure_premium = base_freq × stage_factor × base_severity × area_factor
 
 export type Species = "dog" | "cat";
+export type Gender = "male" | "female";
 export type Stage = "juvenile" | "adult" | "senior";
 export type Area = "north_west" | "north_east" | "center" | "south" | "islands";
 export type BreedRisk = "low" | "mid" | "high";
@@ -180,6 +181,7 @@ export function healthClass(m: number): HealthClass {
 // ── Quote calculation ───────────────────────────────────────────────────────
 export type QuoteInput = {
   species: Species;
+  gender: Gender;
   breedId: string;
   ageYears: number;
   region: Region;
@@ -189,6 +191,7 @@ export type QuoteInput = {
 export type QuoteBreakdown = {
   // Inputs (resolved)
   species: Species;
+  gender: Gender;
   stage: Stage;
   area: Area;
   breedRisk: BreedRisk;
@@ -231,6 +234,7 @@ export function computeQuote(input: QuoteInput): QuoteBreakdown {
 
   return {
     species: input.species,
+    gender: input.gender,
     stage,
     area,
     breedRisk: breed.risk,

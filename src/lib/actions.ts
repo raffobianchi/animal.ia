@@ -193,6 +193,38 @@ export async function createClaim(input: {
   return claim.id;
 }
 
+// ── Quotes (Preventivi) ──────────────────────────────────────────────────
+
+export type SaveQuoteInput = {
+  species: "dog" | "cat";
+  gender: "male" | "female";
+  breedId: string;
+  ageYears: number;
+  region: string;
+  health: import("~/data/pricing").HealthAnswers;
+  breakdown: QuoteBreakdown;
+};
+
+export async function saveQuote(input: SaveQuoteInput) {
+  const userId = await getCurrentUserId();
+  const quote = await db.quote.create({
+    data: {
+      userId,
+      species: input.species,
+      gender: input.gender,
+      breedId: input.breedId,
+      ageYears: input.ageYears,
+      region: input.region,
+      healthJson: JSON.stringify(input.health),
+      breakdownJson: JSON.stringify(input.breakdown),
+      monthlyPremium: Number(input.breakdown.finalMonthly.toFixed(2)),
+      annualPremium: Number(input.breakdown.finalAnnual.toFixed(2)),
+    },
+  });
+  revalidatePath("/[locale]/dashboard/preventivi", "page");
+  return quote.id;
+}
+
 // ── Vet Search ────────────────────────────────────────────────────────
 
 export async function searchVets(input: {

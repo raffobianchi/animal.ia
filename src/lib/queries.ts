@@ -65,6 +65,23 @@ export async function getPolicies(petId: string) {
   });
 }
 
+// ── Quotes (Preventivi) ───────────────────────────────────────────────
+
+export async function getQuotes() {
+  const userId = await getCurrentUserId();
+  return db.quote.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getQuote(id: string) {
+  const userId = await getCurrentUserId();
+  return db.quote.findFirst({
+    where: { id, userId },
+  });
+}
+
 // ── Veterinarians ─────────────────────────────────────────────────────
 
 export async function getAllVets(): Promise<VetWithDistance[]> {

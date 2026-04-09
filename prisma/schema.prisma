@@ -13,6 +13,25 @@ model User {
   name      String?
   createdAt DateTime @default(now())
   pets      Pet[]
+  quotes    Quote[]
+}
+
+model Quote {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  species        String   // dog | cat
+  gender         String   // male | female
+  breedId        String
+  ageYears       Int
+  region         String
+  healthJson     String   // JSON of HealthAnswers
+  breakdownJson  String   // JSON of QuoteBreakdown
+  monthlyPremium Float
+  annualPremium  Float
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
 }
 
 model Pet {

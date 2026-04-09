@@ -161,7 +161,8 @@
       "claims": "Sinistri",
       "records": "Cartella",
       "documents": "Documenti",
-      "vet": "Trova Veterinario"
+      "vet": "Trova Veterinario",
+      "preventivi": "Preventivi"
     },
     "overview": {
       "greeting": "Ciao! 👋",
@@ -296,6 +297,21 @@
         "other": "Altro"
       }
     },
+    "preventivi": {
+      "title": "I tuoi Preventivi",
+      "subtitle": "Preventivi salvati per il tuo amico a quattro zampe",
+      "new": "Nuovo Preventivo",
+      "empty": "Nessun preventivo salvato.",
+      "emptyCta": "Calcola il tuo primo preventivo",
+      "perMonth": "/mese",
+      "perYear": "/anno",
+      "createdAt": "Creato il",
+      "activate": "Attiva Polizza",
+      "back": "Torna ai Preventivi",
+      "saved": "Preventivo salvato!",
+      "breakdown": "Dettaglio calcolo",
+      "print": "Stampa"
+    },
     "claimStatus": {
       "submitted": "Inviato",
       "under_review": "In Revisione",
@@ -334,12 +350,17 @@
     "back": "Indietro",
     "recalc": "Modifica risposte",
     "activate": "Attiva questa polizza",
+    "save": "Salva Preventivo",
+    "saving": "Salvataggio…",
     "step1": {
       "title": "Parlaci del tuo amico a quattro zampe",
       "subtitle": "Specie, razza ed età",
       "species": "Specie",
       "speciesDog": "Cane",
       "speciesCat": "Gatto",
+      "gender": "Sesso",
+      "genderMale": "Maschio",
+      "genderFemale": "Femmina",
       "breed": "Razza",
       "breedHelp": "Non vedi la tua razza? Scegli \"Meticcio / non in lista\".",
       "age": "Età (anni)",
@@ -370,6 +391,7 @@
       "includes": "Include una visita veterinaria annuale",
       "breakdown": "Come l'abbiamo calcolato",
       "rowSpecies": "Specie",
+      "rowGender": "Sesso",
       "rowStage": "Fase di vita",
       "rowArea": "Area",
       "rowBreedRisk": "Rischio razza",

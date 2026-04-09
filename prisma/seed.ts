@@ -10,6 +10,7 @@ const db = new PrismaClient({ adapter });
 async function main() {
   // Wipe (idempotent reseed)
   await db.veterinarian.deleteMany();
+  await db.quote.deleteMany();
   await db.claimHistory.deleteMany();
   await db.claim.deleteMany();
   await db.medicalRecord.deleteMany();
@@ -161,6 +162,86 @@ async function main() {
         name: "Microchip Certificate",
         uploadDate: new Date("2022-08-20"),
         fileUrl: "#",
+      },
+    ],
+  });
+
+  // ── Sample quotes (preventivi) ──────────────────────────────────────────
+  await db.quote.createMany({
+    data: [
+      {
+        userId: user.id,
+        species: "dog",
+        gender: "female",
+        breedId: "golden_retriever",
+        ageYears: 4,
+        region: "lombardia",
+        healthJson: JSON.stringify({
+          previousSurgery: false,
+          chronicCondition: false,
+          regularMedication: false,
+          vetVisits: "2-4",
+        }),
+        breakdownJson: JSON.stringify({
+          species: "dog",
+          gender: "female",
+          stage: "adult",
+          area: "north_west",
+          breedRisk: "mid",
+          baseFrequency: 0.28,
+          baseSeverity: 550,
+          stageFactor: 1.0,
+          areaFactor: 1.15,
+          breedFactor: 1.15,
+          healthMult: 1.0,
+          pureRaw: 177.1,
+          pureBreed: 203.67,
+          pureHealth: 203.67,
+          loadings: 1.5,
+          vetCost: 70,
+          finalAnnual: 375.5,
+          finalMonthly: 31.29,
+        }),
+        monthlyPremium: 31.29,
+        annualPremium: 375.5,
+        createdAt: new Date("2026-03-15"),
+      },
+      {
+        userId: user.id,
+        species: "cat",
+        gender: "male",
+        breedId: "european_shorthair",
+        ageYears: 2,
+        region: "lazio",
+        healthJson: JSON.stringify({
+          previousSurgery: false,
+          chronicCondition: false,
+          regularMedication: false,
+          vetVisits: "0-1",
+        }),
+        breakdownJson: JSON.stringify({
+          species: "cat",
+          gender: "male",
+          stage: "adult",
+          area: "center",
+          breedRisk: "low",
+          baseFrequency: 0.2,
+          baseSeverity: 350,
+          stageFactor: 1.0,
+          areaFactor: 1.05,
+          breedFactor: 1.0,
+          healthMult: 0.95,
+          pureRaw: 73.5,
+          pureBreed: 73.5,
+          pureHealth: 69.83,
+          loadings: 1.5,
+          vetCost: 70,
+          finalAnnual: 174.74,
+          finalMonthly: 14.56,
+        }),
+        monthlyPremium: 14.56,
+        annualPremium: 174.74,
+        createdAt: new Date("2026-04-01"),
       },
     ],
   });

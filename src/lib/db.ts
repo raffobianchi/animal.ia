@@ -118,6 +118,23 @@ function ensureSchema() {
       );
       CREATE INDEX IF NOT EXISTS "PetDocument_petId_idx" ON "PetDocument"("petId");
 
+      CREATE TABLE IF NOT EXISTS "Quote" (
+        "id" TEXT NOT NULL PRIMARY KEY,
+        "userId" TEXT NOT NULL,
+        "species" TEXT NOT NULL,
+        "gender" TEXT NOT NULL,
+        "breedId" TEXT NOT NULL,
+        "ageYears" INTEGER NOT NULL,
+        "region" TEXT NOT NULL,
+        "healthJson" TEXT NOT NULL,
+        "breakdownJson" TEXT NOT NULL,
+        "monthlyPremium" REAL NOT NULL,
+        "annualPremium" REAL NOT NULL,
+        "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT "Quote_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+      );
+      CREATE INDEX IF NOT EXISTS "Quote_userId_idx" ON "Quote"("userId");
+
       CREATE TABLE IF NOT EXISTS "Veterinarian" (
         "id" TEXT NOT NULL PRIMARY KEY,
         "name" TEXT NOT NULL,

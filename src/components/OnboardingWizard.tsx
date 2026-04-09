@@ -13,6 +13,7 @@ import type { QuoteBreakdown } from "~/data/pricing";
 type StoredQuote = {
   form: {
     species: "dog" | "cat";
+    gender?: "male" | "female";
     breedId: string;
     ageYears: number;
     region: string;
