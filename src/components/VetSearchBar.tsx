@@ -73,13 +73,22 @@ export function VetSearchBar({
           <Input
             className={inputBig}
             placeholder={t("searchPlaceholder")}
+            aria-label={t("searchPlaceholder")}
+            aria-expanded={open}
+            aria-autocomplete="list"
+            aria-controls={open ? "vet-search-listbox" : undefined}
+            role="combobox"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           {open && results.length > 0 && (
-            <ul className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-2xl border border-border/60 bg-card shadow-lg">
+            <ul
+              id="vet-search-listbox"
+              role="listbox"
+              className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-auto rounded-2xl border border-border/60 bg-card shadow-lg"
+            >
               {results.map((r, i) => (
-                <li key={i}>
+                <li key={i} role="option" aria-selected={false}>
                   <button
                     type="button"
                     className="w-full px-4 py-3 text-left text-sm transition-colors hover:bg-secondary/60"
@@ -98,6 +107,7 @@ export function VetSearchBar({
           disabled={isGeolocationLoading}
           className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border/60 bg-card text-xl transition-colors hover:bg-secondary/60 disabled:opacity-40"
           title={t("useMyLocation")}
+          aria-label={t("useMyLocation")}
         >
           {isGeolocationLoading ? (
             <span className="animate-spin">⏳</span>

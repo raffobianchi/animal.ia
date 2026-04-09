@@ -26,7 +26,7 @@ export function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-[60] rounded-3xl border border-border/60 bg-card p-6 shadow-2xl md:bottom-8 md:left-8 md:right-auto md:max-w-md md:p-7">
+    <div role="region" aria-label="Cookie consent" className="fixed bottom-4 left-4 right-4 z-[60] rounded-3xl border border-border/60 bg-card p-6 shadow-2xl md:bottom-8 md:left-8 md:right-auto md:max-w-md md:p-7">
       <div className="mb-5">
         <p className="mb-2 text-base font-bold text-warm">🍪 {t("title")}</p>
         <p className="text-sm leading-relaxed text-muted-foreground">

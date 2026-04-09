@@ -32,7 +32,7 @@ export function FeaturesSection() {
               key={key}
               className={`${spans} group relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 transition-all hover:border-giraffe/40 hover:shadow-lg md:p-10`}
             >
-              <div className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl ${color} text-4xl`}>
+              <div className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl ${color} text-4xl`} aria-hidden="true">
                 {icon}
               </div>
               <h3 className="mb-3 text-2xl font-semibold tracking-tight text-warm md:text-3xl">

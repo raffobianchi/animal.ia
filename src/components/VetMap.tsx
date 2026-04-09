@@ -109,6 +109,8 @@ export function VetMap({ vets, center, selectedVetId, onMarkerClick }: Props) {
   return (
     <div
       ref={containerRef}
+      role="region"
+      aria-label="Map"
       className="h-full min-h-[400px] w-full rounded-2xl"
     />
   );

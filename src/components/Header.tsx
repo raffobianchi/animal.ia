@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export function Header() {
   const t = useTranslations("nav");
@@ -11,6 +11,18 @@ export function Header() {
   const locale = params.locale as string;
   const otherLocale = locale === "it" ? "en" : "it";
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  // Escape key closes mobile menu
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeMenu();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen, closeMenu]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
@@ -22,7 +34,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-10 md:flex" aria-label="Main navigation">
           <Link
             href={`/${locale}#features`}
             className="text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -86,6 +98,7 @@ export function Header() {
           className="rounded-full p-2 md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             {menuOpen ? (
@@ -99,23 +112,23 @@ export function Header() {
 
       {menuOpen && (
         <div className="border-t border-border bg-background px-6 py-6 md:hidden">
-          <nav className="flex flex-col gap-5">
-            <Link href={`/${locale}#features`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+          <nav className="flex flex-col gap-5" aria-label="Mobile navigation">
+            <Link href={`/${locale}#features`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("features")}
             </Link>
-            <Link href={`/${locale}#quote`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}#quote`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("pricing")}
             </Link>
-            <Link href={`/${locale}#faq`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}#faq`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("faq")}
             </Link>
-            <Link href={`/${locale}/blog`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}/blog`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("blog")}
             </Link>
-            <Link href={`/${locale}/shop`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}/shop`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("shop")}
             </Link>
-            <Link href={`/${locale}/vet`} className="text-lg font-medium text-warm" onClick={() => setMenuOpen(false)}>
+            <Link href={`/${locale}/vet`} className="text-lg font-medium text-warm" onClick={closeMenu}>
               {t("vet")}
             </Link>
             <Link href={`/${otherLocale}`} className="text-lg font-medium text-muted-foreground">

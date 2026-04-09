@@ -28,12 +28,19 @@ export function VetList({ vets, selectedVetId, onVetSelect }: Props) {
   return (
     <div className="flex flex-col gap-3">
       {vets.map((vet) => (
-        <button
+        <div
           key={vet.id}
-          type="button"
+          role="button"
+          tabIndex={0}
           onClick={() => onVetSelect(vet.id)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onVetSelect(vet.id);
+            }
+          }}
           className={cn(
-            "rounded-2xl border border-border/60 bg-card p-4 text-left transition-all hover:shadow-md",
+            "rounded-2xl border border-border/60 bg-card p-4 text-left transition-all hover:shadow-md cursor-pointer",
             selectedVetId === vet.id && "border-giraffe ring-2 ring-giraffe/30",
           )}
         >
@@ -93,7 +100,7 @@ export function VetList({ vets, selectedVetId, onVetSelect }: Props) {
               ))}
             </div>
           )}
-        </button>
+        </div>
       ))}
     </div>
   );

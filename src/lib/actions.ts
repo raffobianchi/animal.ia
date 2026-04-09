@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { db } from "~/lib/db";
-import { getCurrentUserId, MOCK_USER_EMAIL } from "~/lib/auth";
+import { getCurrentUserId, MOCK_USER_EMAIL, setSessionCookie } from "~/lib/auth";
 import { getPrimaryPet, getVetsNearby } from "~/lib/queries";
 import { getBreed, type QuoteBreakdown } from "~/data/pricing";
 import { geocodeAddress } from "~/lib/geocoding";
@@ -28,6 +28,7 @@ export async function mockLogin(
     update: {},
     create: { email: MOCK_CREDENTIALS.email, name: "Demo User" },
   });
+  await setSessionCookie();
   return { ok: true as const, redirectTo: returnTo ?? "/dashboard" };
 }
 

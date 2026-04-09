@@ -26,7 +26,7 @@ export function DashboardSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden w-72 shrink-0 flex-col border-r border-border/60 bg-card md:flex">
+      <aside className="hidden w-72 shrink-0 flex-col border-r border-border/60 bg-card md:flex" aria-label="Dashboard sidebar">
         <div className="flex h-20 items-center gap-2.5 px-7">
           <Link href={`/${locale}`} className="flex items-center gap-2.5">
             <span className="text-3xl">🦒</span>
@@ -35,7 +35,7 @@ export function DashboardSidebar() {
             </span>
           </Link>
         </div>
-        <nav className="flex flex-1 flex-col gap-1.5 p-5">
+        <nav className="flex flex-1 flex-col gap-1.5 p-5" aria-label="Dashboard navigation">
           {navItems.map(({ key, icon, href }) => {
             const fullPath = `${basePath}${href}`;
             const isActive =
@@ -99,7 +99,7 @@ export function DashboardSidebar() {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border/60 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t border-border/60 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden" aria-label="Dashboard navigation">
         {navItems.map(({ key, icon, href }) => {
           const fullPath = `${basePath}${href}`;
           const isActive =

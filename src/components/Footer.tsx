@@ -29,7 +29,7 @@ export function Footer() {
             <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
               {t("product")}
             </h4>
-            <nav className="flex flex-col gap-3 text-base text-cream/70">
+            <nav aria-label="Product" className="flex flex-col gap-3 text-base text-cream/70">
               <Link href={`/${locale}#features`} className="hover:text-cream">
                 {tn("features")}
               </Link>
@@ -46,7 +46,7 @@ export function Footer() {
             <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
               {t("explore")}
             </h4>
-            <nav className="flex flex-col gap-3 text-base text-cream/70">
+            <nav aria-label="Explore" className="flex flex-col gap-3 text-base text-cream/70">
               <Link href={`/${locale}/blog`} className="hover:text-cream">
                 {t("blog")}
               </Link>
@@ -63,7 +63,7 @@ export function Footer() {
             <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-cream/40">
               {t("legal")}
             </h4>
-            <nav className="flex flex-col gap-3 text-base text-cream/70">
+            <nav aria-label="Legal" className="flex flex-col gap-3 text-base text-cream/70">
               <Link href={`/${locale}/privacy`} className="hover:text-cream">
                 {t("privacy")}
               </Link>

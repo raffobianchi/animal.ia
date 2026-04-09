@@ -21,7 +21,7 @@ export function HeroSection() {
       <div className="relative mx-auto max-w-6xl">
         <div className="text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 shadow-sm">
-            <span className="text-xl">🦒</span>
+            <span className="text-xl" aria-hidden="true">🦒</span>
             <span className="text-sm font-medium text-warm">{t("badge")}</span>
           </div>
 
@@ -51,15 +51,15 @@ export function HeroSection() {
           {/* Trust indicators */}
           <div className="mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <span className="text-lg">✨</span>
+              <span className="text-lg" aria-hidden="true">✨</span>
               {t("trust1")}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-lg">⚡️</span>
+              <span className="text-lg" aria-hidden="true">⚡️</span>
               {t("trust2")}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-lg">🛡️</span>
+              <span className="text-lg" aria-hidden="true">🛡️</span>
               {t("trust3")}
             </div>
           </div>

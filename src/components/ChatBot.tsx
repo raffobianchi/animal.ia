@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "~/lib/utils";
 
@@ -37,6 +37,18 @@ export function ChatBot() {
     }
   }, [messages]);
 
+  const closeChat = useCallback(() => setOpen(false), []);
+
+  // Escape key closes chat
+  useEffect(() => {
+    if (!open) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeChat();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, closeChat]);
+
   function send() {
     const text = input.trim();
     if (!text) return;
@@ -53,6 +65,7 @@ export function ChatBot() {
         onClick={() => setOpen(!open)}
         className="fixed bottom-24 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-warm text-cream shadow-2xl transition-all hover:bg-warm/90 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-giraffe focus-visible:ring-offset-2 focus-visible:ring-offset-background md:bottom-8 md:right-8"
         aria-label={t("ariaLabel")}
+        aria-expanded={open}
       >
         {open ? (
           <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
@@ -65,7 +78,12 @@ export function ChatBot() {
 
       {/* Chat window */}
       {open && (
-        <div className="fixed bottom-44 right-6 z-50 flex h-[32rem] w-[calc(100vw-3rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-border/60 bg-card shadow-2xl md:bottom-28 md:right-8">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("title")}
+          className="fixed bottom-44 right-6 z-50 flex h-[32rem] w-[calc(100vw-3rem)] max-w-sm flex-col overflow-hidden rounded-3xl border border-border/60 bg-card shadow-2xl md:bottom-28 md:right-8"
+        >
           {/* Header */}
           <div className="flex items-center gap-3 bg-warm px-6 py-5 text-cream">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-giraffe text-2xl">
@@ -78,7 +96,7 @@ export function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto bg-secondary/30 p-5">
+          <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto bg-secondary/30 p-5" aria-live="polite">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -106,6 +124,7 @@ export function ChatBot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={t("placeholder")}
+              aria-label={t("placeholder")}
               className="flex-1 rounded-full border border-border bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-giraffe"
             />
             <button
