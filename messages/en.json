@@ -188,8 +188,11 @@
     "email": "Email",
     "password": "Password",
     "submit": "Log In",
+    "submitting": "Logging in…",
+    "error": "Invalid email or password.",
     "noAccount": "Don't have an account?",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "demoHint": "Demo: demo@animal.ia / demo1234"
   },
   "dashboard": {
     "nav": {

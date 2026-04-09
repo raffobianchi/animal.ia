@@ -6,6 +6,20 @@ import { getCurrentUserId, MOCK_USER_EMAIL } from "~/lib/auth";
 import { getPrimaryPet } from "~/lib/queries";
 import { getBreed, type QuoteBreakdown } from "~/data/pricing";
 
+// ── Login (mock) ──────────────────────────────────────────────────────────
+
+const MOCK_PASSWORD = "demo1234";
+
+export async function mockLogin(email: string, password: string) {
+  const user = await db.user.findUnique({ where: { email } });
+  if (!user || password !== MOCK_PASSWORD) {
+    return { ok: false as const };
+  }
+  return { ok: true as const };
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+
 async function requirePet() {
   const pet = await getPrimaryPet();
   if (!pet) throw new Error("No pet found for current user");
