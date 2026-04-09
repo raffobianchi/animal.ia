@@ -1,52 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
-import { btnGhost, btnPrimary, dashContainer, dashPage } from "~/lib/ui";
+import Link from "next/link";
+import { btnPrimary, dashPage } from "~/lib/ui";
+import { completeOnboarding } from "~/lib/actions";
+import type { QuoteBreakdown } from "~/data/pricing";
 
-const plans = [
-  {
-    key: "basic",
-    price: 9.99,
-    features: {
-      it: ["Copertura infortuni", "Archivio documenti", "Cartella clinica base", "Assistente AI"],
-      en: ["Accident coverage", "Document archive", "Basic medical records", "AI Assistant"],
-    },
-  },
-  {
-    key: "standard",
-    price: 19.99,
-    popular: true,
-    features: {
-      it: ["Tutto del piano Base", "Copertura malattie", "Sinistri illimitati", "Supporto prioritario", "Promemoria vaccini"],
-      en: ["Everything in Basic", "Illness coverage", "Unlimited claims", "Priority support", "Vaccine reminders"],
-    },
-  },
-  {
-    key: "premium",
-    price: 34.99,
-    features: {
-      it: ["Tutto del piano Standard", "Copertura dentale", "Visite specialistiche", "Terapie riabilitative", "Assistenza telefonica 24/7"],
-      en: ["Everything in Standard", "Dental coverage", "Specialist visits", "Rehabilitation therapy", "24/7 phone support"],
-    },
-  },
-] as const;
+type StoredQuote = {
+  form: {
+    species: "dog" | "cat";
+    breedId: string;
+    ageYears: number;
+    region: string;
+  };
+  quote: QuoteBreakdown;
+};
 
 export default function NewPolicyPage() {
   const t = useTranslations("dashboard.newPolicy");
-  const tp = useTranslations("pricing");
-  const tc = useTranslations("common");
+  const tq = useTranslations("quote");
   const params = useParams();
   const router = useRouter();
   const locale = params.locale as string;
-  const [selected, setSelected] = useState<string>("");
-  const [step, setStep] = useState<"select" | "confirm" | "done">("select");
 
-  const selectedPlan = plans.find((p) => p.key === selected);
-  const planName = (key: string) => tp(`${key}.name`);
+  const [hydrated, setHydrated] = useState(false);
+  const [stored, setStored] = useState<StoredQuote | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [done, setDone] = useState(false);
 
-  if (step === "done") {
+  useEffect(() => {
+    setHydrated(true);
+    try {
+      const raw = sessionStorage.getItem("animalia.quote");
+      if (raw) setStored(JSON.parse(raw) as StoredQuote);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  function activate() {
+    if (!stored) return;
+    startTransition(async () => {
+      await completeOnboarding({
+        ownerName: "—",
+        ownerEmail: "demo@animal.ia",
+        petName: stored.form.breedId,
+        quoteForm: stored.form,
+        quote: stored.quote,
+      });
+      try {
+        sessionStorage.removeItem("animalia.quote");
+      } catch {
+        /* ignore */
+      }
+      setDone(true);
+    });
+  }
+
+  if (!hydrated) return null;
+
+  // Done splash
+  if (done) {
     return (
       <div className={`${dashPage} flex flex-1 items-center justify-center`}>
         <div className="w-full max-w-xl rounded-3xl bg-card p-12 text-center shadow-xl md:p-16">
@@ -54,10 +70,12 @@ export default function NewPolicyPage() {
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-warm md:text-4xl">
             {t("doneTitle")}
           </h2>
-          <p className="mb-10 text-lg text-muted-foreground">
-            {t("doneSubtitle", { plan: planName(selected) })}
-          </p>
-          <button className={btnPrimary} onClick={() => router.push(`/${locale}/dashboard/policies`)}>
+          <p className="mb-10 text-lg text-muted-foreground">{t("doneSubtitle")}</p>
+          <button
+            type="button"
+            className={btnPrimary}
+            onClick={() => router.push(`/${locale}/dashboard/policies`)}
+          >
             {t("goToPolicies")} →
           </button>
         </div>
@@ -65,107 +83,78 @@ export default function NewPolicyPage() {
     );
   }
 
-  if (step === "confirm" && selectedPlan) {
+  // No quote — redirect to homepage
+  if (!stored) {
     return (
-      <div className={dashPage}>
-        <div className="mx-auto max-w-2xl">
-          <h1 className="mb-8 text-4xl font-bold tracking-tight text-warm md:text-5xl">
-            {t("confirmTitle")}
-          </h1>
-          <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-12">
-            <h2 className="mb-8 text-2xl font-bold tracking-tight text-warm">{t("summary")}</h2>
-            <div className="mb-8 space-y-5 text-lg">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{tp("monthly")}</span>
-                <span className="font-semibold text-warm">{planName(selectedPlan.key)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">€/{tp("monthly")}</span>
-                <span className="font-semibold text-warm">€{selectedPlan.price}</span>
-              </div>
-              <div className="flex items-end justify-between border-t border-border pt-5">
-                <span className="text-muted-foreground">{t("annualTotal")}</span>
-                <span className="text-3xl font-bold tracking-tight text-warm">
-                  €{(selectedPlan.price * 12).toFixed(2)}
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <button className={`${btnGhost} flex-1`} onClick={() => setStep("select")}>
-                ← {tc("back")}
-              </button>
-              <button className={`${btnPrimary} flex-1`} onClick={() => setStep("done")}>
-                💳 {t("confirmPay")}
-              </button>
-            </div>
-          </div>
+      <div className={`${dashPage} flex flex-1 items-center justify-center`}>
+        <div className="w-full max-w-xl rounded-3xl bg-card p-10 text-center shadow-xl md:p-14">
+          <div className="mb-6 text-6xl">🦒</div>
+          <h2 className="mb-3 text-3xl font-bold tracking-tight text-warm md:text-4xl">
+            {t("noQuoteTitle")}
+          </h2>
+          <p className="mb-8 text-lg text-muted-foreground">{t("noQuoteSubtitle")}</p>
+          <Link href={`/${locale}#quote`} className={btnPrimary}>
+            {t("noQuoteCta")} →
+          </Link>
         </div>
       </div>
     );
   }
 
+  const { form, quote } = stored;
+
   return (
     <div className={dashPage}>
-      <div className={dashContainer}>
-        <div className="mb-12">
+      <div className="mx-auto max-w-2xl">
+        <div className="mb-10">
           <h1 className="mb-3 text-4xl font-bold tracking-tight text-warm md:text-5xl">
             {t("title")}
           </h1>
           <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
         </div>
 
-        <div className="mb-10 grid gap-6 md:grid-cols-3">
-          {plans.map((plan) => {
-            const isSelected = selected === plan.key;
-            const isPopular = "popular" in plan && plan.popular;
-            return (
-              <button
-                key={plan.key}
-                type="button"
-                className={`relative flex flex-col rounded-3xl p-8 text-left transition-all md:p-10 ${
-                  isSelected
-                    ? "bg-warm text-cream shadow-2xl scale-[1.02]"
-                    : isPopular
-                      ? "border-2 border-giraffe bg-card hover:shadow-lg"
-                      : "border border-border/60 bg-card hover:shadow-lg"
-                }`}
-                onClick={() => setSelected(plan.key)}
-              >
-                {isPopular && !isSelected && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-giraffe px-5 py-2 text-sm font-bold text-warm">
-                    ★ {t("popular")}
-                  </div>
-                )}
-                <h3 className={`mb-3 text-2xl font-semibold ${isSelected ? "text-cream" : "text-warm"}`}>
-                  {planName(plan.key)}
-                </h3>
-                <div className="mb-6 flex items-baseline gap-2">
-                  <span className={`text-5xl font-bold tracking-tight ${isSelected ? "text-cream" : "text-warm"}`}>
-                    €{plan.price}
-                  </span>
-                  <span className={isSelected ? "text-cream/60" : "text-muted-foreground"}>
-                    /{tp("monthly")}
-                  </span>
-                </div>
-                <ul className="flex-1 space-y-3">
-                  {plan.features[locale as "it" | "en"].map((f, i) => (
-                    <li
-                      key={i}
-                      className={`flex items-start gap-3 text-base ${isSelected ? "text-cream/90" : "text-muted-foreground"}`}
-                    >
-                      <span className={isSelected ? "text-giraffe" : "text-giraffe-dark"}>✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </button>
-            );
-          })}
-        </div>
+        <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-12">
+          {/* Quote summary */}
+          <div className="mb-8 rounded-2xl bg-secondary/40 p-6">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {t("yourQuote")}
+            </p>
+            <div className="mb-3 flex items-baseline gap-2">
+              <span className="text-5xl font-bold tracking-tight text-warm">
+                €{quote.finalMonthly.toFixed(2)}
+              </span>
+              <span className="text-base text-muted-foreground">/ {t("monthly")}</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              €{quote.finalAnnual.toFixed(2)} / {t("annual")}
+            </p>
+          </div>
 
-        <div className="flex justify-end">
-          <button className={btnPrimary} disabled={!selected} onClick={() => setStep("confirm")}>
-            {t("continue")} →
+          {/* Details */}
+          <div className="mb-8 space-y-3 text-base">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{tq("result.rowSpecies")}</span>
+              <span className="font-semibold text-warm">{tq(`breeds.${form.breedId}`)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{tq("result.rowArea")}</span>
+              <span className="font-semibold text-warm">{tq(`regions.${form.region}`)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">{tq("result.rowStage")}</span>
+              <span className="font-semibold text-warm">
+                {form.ageYears} {form.ageYears === 1 ? "anno" : "anni"}
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className={`${btnPrimary} w-full`}
+            onClick={activate}
+            disabled={isPending}
+          >
+            {isPending ? t("confirming") : `${t("confirmPay")} →`}
           </button>
         </div>
       </div>

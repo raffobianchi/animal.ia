@@ -60,48 +60,6 @@
       "description": "In pochi passi registri te e il tuo animale. Nessuna burocrazia, solo semplicità."
     }
   },
-  "pricing": {
-    "title": "Scegli il Piano Perfetto",
-    "subtitle": "Piani flessibili per ogni esigenza. Inizia a proteggere il tuo amico domestico oggi.",
-    "monthly": "mese",
-    "basic": {
-      "name": "Base",
-      "price": "9.99",
-      "description": "Protezione essenziale per il tuo animale",
-      "features": [
-        "Copertura infortuni",
-        "Archivio documenti",
-        "Cartella clinica base",
-        "Assistente AI"
-      ]
-    },
-    "standard": {
-      "name": "Standard",
-      "price": "19.99",
-      "description": "La scelta più popolare per gli amanti degli amici domestici",
-      "popular": "Più Popolare",
-      "features": [
-        "Tutto del piano Base",
-        "Copertura malattie",
-        "Sinistri illimitati",
-        "Supporto prioritario",
-        "Promemoria vaccini"
-      ]
-    },
-    "premium": {
-      "name": "Premium",
-      "price": "34.99",
-      "description": "Protezione completa senza pensieri",
-      "features": [
-        "Tutto del piano Standard",
-        "Copertura dentale",
-        "Visite specialistiche",
-        "Terapie riabilitative",
-        "Assistenza telefonica 24/7"
-      ]
-    },
-    "cta": "Scegli Piano"
-  },
   "footer": {
     "tagline": "Assicurazione amico domestico di nuova generazione, semplice come deve essere.",
     "product": "Prodotto",
@@ -114,58 +72,11 @@
     "gdpr": "GDPR"
   },
   "onboarding": {
-    "step1": {
-      "title": "Crea il tuo account",
-      "subtitle": "Inizia il tuo percorso con animal.ia",
-      "name": "Nome completo",
-      "email": "Email",
-      "password": "Password",
-      "confirmPassword": "Conferma password",
-      "next": "Continua"
-    },
-    "step2": {
-      "title": "Aggiungi il tuo amico domestico",
-      "subtitle": "Raccontaci del tuo animale domestico",
-      "petName": "Nome dell'amico domestico",
-      "species": "Specie",
-      "speciesOptions": {
-        "dog": "Cane",
-        "cat": "Gatto",
-        "rabbit": "Coniglio",
-        "bird": "Uccello",
-        "other": "Altro"
-      },
-      "breed": "Razza",
-      "age": "Età (anni)",
-      "weight": "Peso (kg)",
-      "next": "Continua",
-      "back": "Indietro"
-    },
-    "step3": {
-      "title": "Salute dell'amico domestico",
-      "subtitle": "Qualche domanda sulla salute del tuo animale",
-      "vaccinated": "L'amico domestico è vaccinato?",
-      "sterilized": "L'amico domestico è sterilizzato?",
-      "chronicConditions": "Ha condizioni croniche?",
-      "allergies": "Allergie note",
-      "allergiesPlaceholder": "Descrivi eventuali allergie...",
-      "yes": "Sì",
-      "no": "No",
-      "next": "Continua",
-      "back": "Indietro"
-    },
-    "step4": {
-      "title": "Scegli il tuo piano",
-      "subtitle": "Seleziona la copertura ideale per il tuo amico domestico",
-      "finish": "Completa Registrazione",
-      "back": "Indietro"
-    },
     "complete": {
       "title": "Benvenuto in animal.ia!",
       "subtitle": "Il tuo account è stato creato con successo. Sei pronto a proteggere il tuo amico domestico.",
       "cta": "Vai alla Dashboard"
     },
-    "progress": "Passo {step} di {total}",
     "review": {
       "title": "Ci siamo quasi",
       "subtitle": "Conferma i dati e attiva la polizza personalizzata.",
@@ -233,20 +144,29 @@
       "monthlyPremium": "Premio Mensile",
       "startDate": "Data Inizio",
       "endDate": "Scadenza",
-      "covered": "Cosa copre:"
+      "covered": "Cosa copre:",
+      "noPolicy": "Nessuna polizza attiva.",
+      "planNames": {
+        "basic": "Base",
+        "standard": "Standard",
+        "premium": "Premium",
+        "personalized": "Personalizzato"
+      }
     },
     "newPolicy": {
-      "title": "Scegli un Piano",
-      "subtitle": "Seleziona la copertura ideale per il tuo amico domestico",
-      "continue": "Continua",
-      "confirmTitle": "Conferma Acquisto",
-      "summary": "Riepilogo Ordine",
-      "annualTotal": "Totale Annuo",
-      "confirmPay": "Conferma e Paga",
+      "title": "Attiva una Polizza",
+      "subtitle": "Rivedi il tuo preventivo personalizzato e attiva la copertura.",
+      "yourQuote": "Il tuo preventivo",
+      "monthly": "al mese",
+      "annual": "all'anno",
+      "confirmPay": "Conferma e Attiva",
+      "confirming": "Attivazione in corso…",
       "doneTitle": "Polizza Attivata!",
-      "doneSubtitle": "Il tuo piano {plan} è ora attivo.",
+      "doneSubtitle": "La tua polizza personalizzata è ora attiva.",
       "goToPolicies": "Vai alle Polizze",
-      "popular": "Più Popolare"
+      "noQuoteTitle": "Calcola prima il preventivo",
+      "noQuoteSubtitle": "Per attivare una polizza devi prima fare il preventivo gratuito in homepage.",
+      "noQuoteCta": "Fai il preventivo"
     },
     "claims": {
       "title": "I tuoi Sinistri",

@@ -32,7 +32,7 @@ export default async function PoliciesPage({ params }: Props) {
             <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
               <div>
                 <h2 className="mb-2 text-3xl font-bold tracking-tight text-warm md:text-4xl">
-                  {t("plan")} {policy.plan}
+                  {t("plan")} {t(`planNames.${policy.plan}`)}
                 </h2>
                 <p className="text-lg text-muted-foreground">
                   {t("for")} {pet.name} · {pet.breed}
@@ -70,7 +70,7 @@ export default async function PoliciesPage({ params }: Props) {
             </div>
           </div>
         ) : (
-          <p className="text-muted-foreground">{t("noPolicy") ?? "No active policy."}</p>
+          <p className="text-muted-foreground">{t("noPolicy")}</p>
         )}
       </div>
     </div>

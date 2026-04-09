@@ -22,9 +22,20 @@ function safeName(name: string): string {
 }
 
 export async function POST(req: Request) {
-  const pet = await getPrimaryPet();
+  let pet;
+  try {
+    pet = await getPrimaryPet();
+  } catch {
+    return NextResponse.json(
+      { error: "Please complete onboarding before uploading files." },
+      { status: 403 },
+    );
+  }
   if (!pet) {
-    return NextResponse.json({ error: "No pet found" }, { status: 400 });
+    return NextResponse.json(
+      { error: "No pet registered yet. Complete onboarding first." },
+      { status: 400 },
+    );
   }
 
   const formData = await req.formData();
