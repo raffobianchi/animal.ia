@@ -7,8 +7,10 @@ const globalForPrisma = globalThis as unknown as {
   dbInitialized?: boolean;
 };
 
-const DB_URL = process.env.DATABASE_URL ?? "file:./dev.db";
-const DB_PATH = DB_URL.replace("file:", "");
+// Vercel's filesystem is read-only except /tmp
+const isVercel = !!process.env.VERCEL;
+const DB_PATH = isVercel ? "/tmp/dev.db" : (process.env.DATABASE_URL ?? "file:./dev.db").replace("file:", "");
+const DB_URL = `file:${DB_PATH}`;
 
 /** Ensure SQLite tables exist (idempotent). Runs raw SQL on cold start. */
 function ensureSchema() {
