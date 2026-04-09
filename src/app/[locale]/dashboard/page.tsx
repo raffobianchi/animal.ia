@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getDashboardData } from "~/lib/queries";
@@ -5,6 +6,12 @@ import { claimStatusBadge } from "~/lib/claim-status";
 import { dashContainer, dashPage } from "~/lib/ui";
 
 type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata.dashboard" });
+  return { title: t("title"), description: t("description") };
+}
 
 export default async function DashboardPage({ params }: Props) {
   const { locale } = await params;

@@ -187,6 +187,45 @@
   .skip-link:focus { top: 1rem; }
 }
 
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  /* Hide everything except the quote area */
+  body > * {
+    display: none !important;
+  }
+
+  .quote-print-area,
+  .quote-print-area * {
+    display: revert !important;
+    visibility: visible !important;
+  }
+
+  /* Re-show the print area by walking up the DOM */
+  .quote-print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 2rem;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

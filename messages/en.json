@@ -1,7 +1,47 @@
 {
   "metadata": {
     "title": "animal.ia — Pet Insurance & Health",
-    "description": "Manage your pet's insurance, medical records, and documents all in one place."
+    "description": "Manage your pet's insurance, medical records, and documents all in one place.",
+    "blog": {
+      "title": "Blog",
+      "description": "Tips, guides, and news about your pet's health and insurance."
+    },
+    "shop": {
+      "title": "Shop",
+      "description": "Selected products for your pet's health and wellbeing."
+    },
+    "vet": {
+      "title": "Find a Vet",
+      "description": "Find the nearest vet for your pet."
+    },
+    "login": {
+      "title": "Log In",
+      "description": "Sign in to your animal.ia account to manage policies, claims, and documents."
+    },
+    "onboarding": {
+      "title": "Sign Up",
+      "description": "Register your pet and activate your personalized policy."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Manage your pet's policies, claims, medical records, and documents."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "animal.ia privacy policy — how we handle your personal data."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "Terms and conditions for using the animal.ia platform."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "Information about cookie usage on animal.ia."
+    },
+    "gdpr": {
+      "title": "GDPR",
+      "description": "Your rights regarding personal data protection under the GDPR."
+    }
   },
   "common": {
     "back": "Back",
@@ -334,7 +374,9 @@
       "rowBreedRisk": "Breed risk",
       "rowHealth": "Health profile",
       "rowAnnual": "Annual premium",
-      "disclaimer": "Indicative quote based on actuarial model v4. Final price may vary at policy issue."
+      "disclaimer": "Indicative quote based on actuarial model v4. Final price may vary at policy issue.",
+      "downloadPdf": "Download PDF",
+      "printFooter": "animal.ia — Quote generated on {date}"
     },
     "stage": {
       "juvenile": "Juvenile",

@@ -16,7 +16,7 @@ import {
   type Species,
   type VetVisits,
 } from "~/data/pricing";
-import { btnGhost, btnPrimary, inputBig } from "~/lib/ui";
+import { btnAccent, btnGhost, btnPrimary, inputBig } from "~/lib/ui";
 import { cn } from "~/lib/utils";
 
 const TOTAL_STEPS = 3;
@@ -408,8 +408,14 @@ function ResultCard({
     { label: t("result.rowAnnual"), value: `€${quote.finalAnnual.toFixed(2)}` },
   ];
 
+  const today = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border/60 bg-card p-6 shadow-2xl md:p-12">
+    <div className="quote-print-area mx-auto w-full max-w-2xl rounded-3xl border border-border/60 bg-card p-6 shadow-2xl md:p-12">
       <div className="mb-8 text-center">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           {t("result.title")}
@@ -439,16 +445,28 @@ function ResultCard({
         </dl>
       </div>
 
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+      <div className="no-print mb-6 flex flex-col gap-3 sm:flex-row">
         <button type="button" className={cn(btnGhost, "flex-1")} onClick={onEdit}>
           ← {t("recalc")}
+        </button>
+        <button
+          type="button"
+          className={cn(btnAccent, "flex-1")}
+          onClick={() => window.print()}
+        >
+          {t("result.downloadPdf")}
         </button>
         <button type="button" className={cn(btnPrimary, "flex-1")} onClick={onActivate}>
           {t("activate")} →
         </button>
       </div>
 
-      <p className="text-center text-xs text-muted-foreground">{t("result.disclaimer")}</p>
+      <p className="no-print text-center text-xs text-muted-foreground">{t("result.disclaimer")}</p>
+
+      {/* Print-only footer */}
+      <div className="print-only mt-8 hidden border-t border-border pt-4 text-center text-sm text-muted-foreground">
+        {t("result.printFooter", { date: today })}
+      </div>
     </div>
   );
 }

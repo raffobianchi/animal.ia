@@ -1,7 +1,47 @@
 {
   "metadata": {
     "title": "animal.ia — Assicurazione e Salute per il tuo amico a quattro zampe",
-    "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo amico a quattro zampe in un unico posto."
+    "description": "Gestisci l'assicurazione, la cartella clinica e i documenti del tuo amico a quattro zampe in un unico posto.",
+    "blog": {
+      "title": "Blog",
+      "description": "Consigli, guide e novità sulla salute e l'assicurazione del tuo amico a quattro zampe."
+    },
+    "shop": {
+      "title": "Shop",
+      "description": "Prodotti selezionati per la salute e il benessere del tuo amico a quattro zampe."
+    },
+    "vet": {
+      "title": "Trova Veterinario",
+      "description": "Trova il veterinario più vicino a te per il tuo amico a quattro zampe."
+    },
+    "login": {
+      "title": "Accedi",
+      "description": "Accedi al tuo account animal.ia per gestire polizze, sinistri e documenti."
+    },
+    "onboarding": {
+      "title": "Registrazione",
+      "description": "Registra il tuo amico a quattro zampe e attiva la polizza personalizzata."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Gestisci polizze, sinistri, cartella clinica e documenti del tuo amico a quattro zampe."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Informativa sulla privacy di animal.ia — come trattiamo i tuoi dati personali."
+    },
+    "terms": {
+      "title": "Termini di Servizio",
+      "description": "Termini e condizioni d'uso della piattaforma animal.ia."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "Informativa sull'uso dei cookie su animal.ia."
+    },
+    "gdpr": {
+      "title": "GDPR",
+      "description": "I tuoi diritti sulla protezione dei dati personali secondo il GDPR."
+    }
   },
   "common": {
     "back": "Indietro",
@@ -334,7 +374,9 @@
       "rowBreedRisk": "Rischio razza",
       "rowHealth": "Profilo salute",
       "rowAnnual": "Premio annuo",
-      "disclaimer": "Preventivo indicativo basato sul modello attuariale v4. Il prezzo finale può variare al momento dell'emissione."
+      "disclaimer": "Preventivo indicativo basato sul modello attuariale v4. Il prezzo finale può variare al momento dell'emissione.",
+      "downloadPdf": "Scarica PDF",
+      "printFooter": "animal.ia — Preventivo generato il {date}"
     },
     "stage": {
       "juvenile": "Cucciolo",
