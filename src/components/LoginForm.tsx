@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -12,9 +12,7 @@ import { mockLogin } from "~/lib/actions";
 export function LoginForm() {
   const t = useTranslations("login");
   const params = useParams();
-  const searchParams = useSearchParams();
   const locale = params.locale as string;
-  const returnTo = searchParams.get("returnTo");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -24,6 +22,7 @@ export function LoginForm() {
     e.preventDefault();
     setError(false);
     startTransition(async () => {
+      const returnTo = new URLSearchParams(window.location.search).get("returnTo");
       const result = await mockLogin(email, password, returnTo ?? undefined);
       if (result.ok && result.redirectTo) {
         window.location.href = `/${locale}${result.redirectTo}`;
