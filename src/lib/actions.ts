@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { db } from "~/lib/db";
 import { getCurrentUserId, MOCK_USER_EMAIL } from "~/lib/auth";
 import { getPrimaryPet } from "~/lib/queries";
@@ -10,12 +11,12 @@ import { getBreed, type QuoteBreakdown } from "~/data/pricing";
 
 const MOCK_CREDENTIALS = { email: "demo@animal.ia", password: "demo1234" };
 
-export async function mockLogin(email: string, password: string, locale: string) {
+export async function mockLogin(email: string, password: string) {
   if (
     email.toLowerCase() !== MOCK_CREDENTIALS.email ||
     password !== MOCK_CREDENTIALS.password
   ) {
-    return { ok: false as const };
+    return { ok: false as const, redirectTo: null };
   }
   // Ensure the mock user exists in DB
   await db.user.upsert({
@@ -23,8 +24,7 @@ export async function mockLogin(email: string, password: string, locale: string)
     update: {},
     create: { email: MOCK_CREDENTIALS.email, name: "Demo User" },
   });
-  const { redirect } = await import("next/navigation");
-  redirect(`/${locale}/dashboard`);
+  return { ok: true as const, redirectTo: "/dashboard" };
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────

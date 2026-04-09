@@ -25,9 +25,10 @@ export default function LoginPage() {
     e.preventDefault();
     setError(false);
     startTransition(async () => {
-      const result = await mockLogin(email, password, locale);
-      // If we get here, credentials were invalid (redirect would have thrown)
-      if (result && !result.ok) {
+      const result = await mockLogin(email, password);
+      if (result.ok && result.redirectTo) {
+        window.location.href = `/${locale}${result.redirectTo}`;
+      } else {
         setError(true);
       }
     });
