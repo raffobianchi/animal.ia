@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { Header } from "~/components/Header";
-import { Footer } from "~/components/Footer";
-import { ComingSoon } from "~/components/ComingSoon";
+import { getCurrentUserId } from "~/lib/auth";
+import { getAllVets } from "~/lib/queries";
+import { VetSearchClient } from "~/components/VetSearchClient";
 
 export async function generateMetadata({
   params,
@@ -14,14 +15,21 @@ export async function generateMetadata({
   return { title: t("title"), description: t("description") };
 }
 
-export default function VetPage() {
-  return (
-    <>
-      <Header />
-      <main id="main" className="flex-1">
-        <ComingSoon section="vet" />
-      </main>
-      <Footer />
-    </>
-  );
+export default async function VetPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  // Auth guard
+  try {
+    await getCurrentUserId();
+  } catch {
+    redirect(`/${locale}/login?returnTo=/vet`);
+  }
+
+  const vets = await getAllVets();
+
+  return <VetSearchClient initialVets={vets} />;
 }

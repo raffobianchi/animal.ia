@@ -3,14 +3,19 @@
 import { revalidatePath } from "next/cache";
 import { db } from "~/lib/db";
 import { getCurrentUserId, MOCK_USER_EMAIL } from "~/lib/auth";
-import { getPrimaryPet } from "~/lib/queries";
+import { getPrimaryPet, getVetsNearby } from "~/lib/queries";
 import { getBreed, type QuoteBreakdown } from "~/data/pricing";
+import { geocodeAddress } from "~/lib/geocoding";
 
 // ── Login (mock) ──────────────────────────────────────────────────────────
 
 const MOCK_CREDENTIALS = { email: "demo@animal.ia", password: "demo1234" };
 
-export async function mockLogin(email: string, password: string) {
+export async function mockLogin(
+  email: string,
+  password: string,
+  returnTo?: string,
+) {
   if (
     email.toLowerCase() !== MOCK_CREDENTIALS.email ||
     password !== MOCK_CREDENTIALS.password
@@ -23,7 +28,7 @@ export async function mockLogin(email: string, password: string) {
     update: {},
     create: { email: MOCK_CREDENTIALS.email, name: "Demo User" },
   });
-  return { ok: true as const, redirectTo: "/dashboard" };
+  return { ok: true as const, redirectTo: returnTo ?? "/dashboard" };
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -185,4 +190,20 @@ export async function createClaim(input: {
   });
   revalidatePath("/[locale]/dashboard/claims", "page");
   return claim.id;
+}
+
+// ── Vet Search ────────────────────────────────────────────────────────
+
+export async function searchVets(input: {
+  lat: number;
+  lng: number;
+  radiusKm?: number;
+}) {
+  await getCurrentUserId(); // auth gate
+  return getVetsNearby(input.lat, input.lng, input.radiusKm ?? 25);
+}
+
+export async function geocodeSearch(query: string) {
+  await getCurrentUserId(); // auth gate
+  return geocodeAddress(query);
 }

@@ -1,6 +1,11 @@
 import "server-only";
 import { db } from "~/lib/db";
 import { getCurrentUserId } from "~/lib/auth";
+import {
+  haversineDistance,
+  parseVetSpecialties,
+  type VetWithDistance,
+} from "~/lib/geo";
 
 export type ClaimStatus =
   | "submitted"
@@ -58,6 +63,28 @@ export async function getPolicies(petId: string) {
     where: { petId },
     orderBy: { startDate: "desc" },
   });
+}
+
+// ── Veterinarians ─────────────────────────────────────────────────────
+
+export async function getAllVets(): Promise<VetWithDistance[]> {
+  const vets = await db.veterinarian.findMany();
+  return vets.map(parseVetSpecialties);
+}
+
+export async function getVetsNearby(
+  lat: number,
+  lng: number,
+  radiusKm = 25,
+): Promise<VetWithDistance[]> {
+  const vets = await db.veterinarian.findMany();
+  return vets
+    .map((vet) => ({
+      ...parseVetSpecialties(vet),
+      distance: haversineDistance(lat, lng, vet.lat, vet.lng),
+    }))
+    .filter((v) => v.distance <= radiusKm)
+    .sort((a, b) => a.distance - b.distance);
 }
 
 /** Convenience: returns everything the dashboard overview needs in one call. */

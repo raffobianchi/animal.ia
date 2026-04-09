@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Header } from "~/components/Header";
@@ -25,7 +26,9 @@ export default function LoginPage() {
           <div className="absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-sunset/15 blur-3xl" />
         </div>
 
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
       </main>
       <Footer />
     </>

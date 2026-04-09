@@ -113,3 +113,23 @@ model PetDocument {
 
   @@index([petId])
 }
+
+model Veterinarian {
+  id          String   @id @default(cuid())
+  name        String
+  address     String
+  city        String
+  region      String
+  postalCode  String
+  phone       String
+  email       String?
+  website     String?
+  lat         Float
+  lng         Float
+  specialties String   @default("[]") // JSON array
+  emergency   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([city])
+  @@index([region])
+}

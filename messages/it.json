@@ -160,7 +160,8 @@
       "policies": "Polizze",
       "claims": "Sinistri",
       "records": "Cartella",
-      "documents": "Documenti"
+      "documents": "Documenti",
+      "vet": "Trova Veterinario"
     },
     "overview": {
       "greeting": "Ciao! 👋",
@@ -459,6 +460,30 @@
       "russian_blue": "Blu di Russia",
       "savannah": "Savannah",
       "birman": "Sacro di Birmania"
+    }
+  },
+  "vet": {
+    "title": "Trova Veterinario",
+    "subtitle": "Cerca e trova veterinari vicino a te",
+    "searchPlaceholder": "Cerca per città, indirizzo o CAP...",
+    "useMyLocation": "Usa la mia posizione",
+    "searchRadius": "Raggio di ricerca",
+    "noResults": "Nessun risultato",
+    "noResultsDesc": "Prova ad ampliare il raggio di ricerca o cerca in un'altra zona.",
+    "emergency": "Emergenza 24/7",
+    "website": "Sito web",
+    "geolocationNotSupported": "La geolocalizzazione non è supportata dal tuo browser.",
+    "geolocationError": "Impossibile ottenere la tua posizione.",
+    "loadingMap": "Caricamento mappa...",
+    "specialties": {
+      "dogs": "Cani",
+      "cats": "Gatti",
+      "exotic": "Esotici",
+      "birds": "Uccelli",
+      "surgery": "Chirurgia",
+      "dentistry": "Odontoiatria",
+      "dermatology": "Dermatologia",
+      "cardiology": "Cardiologia"
     }
   },
   "comingSoon": {

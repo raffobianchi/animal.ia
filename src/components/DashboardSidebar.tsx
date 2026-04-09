@@ -59,6 +59,15 @@ export function DashboardSidebar() {
               </Link>
             );
           })}
+
+          {/* Vet finder CTA */}
+          <Link
+            href={`/${locale}/vet`}
+            className="mt-4 flex items-center gap-4 rounded-2xl bg-giraffe/10 px-4 py-3.5 text-base font-semibold text-giraffe-dark transition-colors hover:bg-giraffe/20"
+          >
+            <span className="text-xl" aria-hidden="true">🏥</span>
+            {t("vet")}
+          </Link>
         </nav>
 
         {/* User section */}

@@ -226,6 +226,32 @@
   }
 }
 
+/* Leaflet vet markers */
+.vet-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--giraffe);
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vet-marker.selected {
+  transform: scale(1.3);
+  border-color: var(--sunset);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+  z-index: 1000 !important;
+}
+
+.vet-marker.emergency {
+  border-color: var(--sunset);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

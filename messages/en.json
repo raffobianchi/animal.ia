@@ -160,7 +160,8 @@
       "policies": "Policies",
       "claims": "Claims",
       "records": "Records",
-      "documents": "Documents"
+      "documents": "Documents",
+      "vet": "Find a Vet"
     },
     "overview": {
       "greeting": "Hello! 👋",
@@ -459,6 +460,30 @@
       "russian_blue": "Russian Blue",
       "savannah": "Savannah",
       "birman": "Birman"
+    }
+  },
+  "vet": {
+    "title": "Find a Vet",
+    "subtitle": "Search and find veterinarians near you",
+    "searchPlaceholder": "Search by city, address or ZIP code...",
+    "useMyLocation": "Use my location",
+    "searchRadius": "Search radius",
+    "noResults": "No results",
+    "noResultsDesc": "Try expanding the search radius or search in a different area.",
+    "emergency": "Emergency 24/7",
+    "website": "Website",
+    "geolocationNotSupported": "Geolocation is not supported by your browser.",
+    "geolocationError": "Unable to get your location.",
+    "loadingMap": "Loading map...",
+    "specialties": {
+      "dogs": "Dogs",
+      "cats": "Cats",
+      "exotic": "Exotic",
+      "birds": "Birds",
+      "surgery": "Surgery",
+      "dentistry": "Dentistry",
+      "dermatology": "Dermatology",
+      "cardiology": "Cardiology"
     }
   },
   "comingSoon": {
